@@ -1,0 +1,30 @@
+data:
+  # name of the dataset
+  name: cylinder_flow_test
+  # directory for storing the dataset
+  dirt: ./dataset/cylinder_flow/raw
+  # the node types that apply a mask
+  node_type:
+    - NORMAL
+    - OUTFLOW
+
+ckpt:
+  # name of checkpoint
+  name: cylinder_flow
+  # directory for storing checkpoint
+  dirt: ./checkpoint/cylinder_flow/infer
+
+output:
+  # name of the output file
+  name: cylinder_flow
+  # directory for storing the output file
+  dirt: ./dataset/cylinder_flow/output
+  # output image resolution.
+  dpi: 100
+
+log:
+  # directory for saving log
+  dirt: ./log/cylinder_flow
+
+# computing device
+device: cuda

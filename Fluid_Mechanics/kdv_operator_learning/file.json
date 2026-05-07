@@ -1,0 +1,123 @@
+﻿{
+  "name": "孤立波形高速代理模型：KdV参数扫描神经算子",
+  "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning",
+  "description": "孤立波形高速代理模型：KdV参数扫描神经算子：用于组织数据、模型、源码与结果输出。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/src",
+      "description": "源码目录，包含数据处理、模型定义、训练与推理逻辑。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data_utils.py",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/src/data_utils.py",
+          "description": "数据加载、仿真生成与数据校验模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "models.py",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/src/models.py",
+          "description": "KdV PINN 网络模型定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/src/runner.py",
+          "description": "训练、快速推理与结果导出模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "utils.py",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/src/utils.py",
+          "description": "通用工具函数模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "plot_utils.py",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/src/plot_utils.py",
+          "description": "绘图与可视化工具模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/data",
+      "description": "数据目录，存放真实或仿真输入数据。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "real_data.npz",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/data/real_data.npz",
+          "description": "real 模式示例输入数据文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/model",
+      "description": "模型参数目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "kdv_pinn_model.pt",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/model/kdv_pinn_model.pt",
+          "description": "KdV PINN 模型参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/results",
+      "description": "结果输出目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "quick_result.png",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/results/quick_result.png",
+          "description": "quick 模式结果图。",
+          "is_code_file": false
+        },
+        {
+          "name": "pred_results.txt",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/results/pred_results.txt",
+          "description": "预测结果文本文件。",
+          "is_code_file": false
+        },
+        {
+          "name": "loss_curve.png",
+          "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/results/loss_curve.png",
+          "description": "训练损失曲线图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/main.py",
+      "description": "项目主入口，支持 --mode 与 --data 参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Fluid_Mechanics/kdv_operator_learning/file.json",
+      "description": "项目结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}

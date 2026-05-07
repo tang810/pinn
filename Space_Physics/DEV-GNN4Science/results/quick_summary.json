@@ -1,0 +1,7 @@
+{
+  "mode": "quick",
+  "task": "cylinder_flow",
+  "data": "simul",
+  "data_path": "data\\simul_gnn_graph.npz",
+  "result_image": "results\\quick_result.png"
+}

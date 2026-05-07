@@ -1,0 +1,149 @@
+{
+  "name": "burgers_1d_solver",
+  "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver",
+  "description": "一维 Burgers 方程基函数预计算与在线求解案例。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src",
+      "description": "源码目录，包含配置、模型、训练、测试和运行流程模块。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/__init__.py",
+          "description": "源码包初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/config.py",
+          "description": "参数配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_utils.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/data_utils.py",
+          "description": "数据构造模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "models.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/models.py",
+          "description": "模型定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "precomp.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/precomp.py",
+          "description": "基函数预计算模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "optimizer.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/optimizer.py",
+          "description": "在线优化模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/train.py",
+          "description": "训练模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "test.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/test.py",
+          "description": "测试模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/src/runner.py",
+          "description": "主流程执行模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/data",
+      "description": "输入数据目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "real_nu.npy",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/data/real_nu.npy",
+          "description": "real 模式参数候选数据。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/model",
+      "description": "模型参数目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "latest_pinn.pt",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/model/latest_pinn.pt",
+          "description": "PINN 最新模型参数。",
+          "is_code_file": false
+        },
+        {
+          "name": "gpt_neurons.pt",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/model/gpt_neurons.pt",
+          "description": "GPT-PINN 基函数参数。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/results",
+      "description": "结果目录，包含数值结果和图像结果。",
+      "submodules": [
+        {
+          "name": "figures",
+          "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/results/figures",
+          "description": "结果图像子目录。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        }
+      ],
+      "files": [],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/main.py",
+      "description": "主入口程序。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/file.json",
+      "description": "结构描述文件。",
+      "is_code_file": false
+    },
+    {
+      "name": "LICENSE",
+      "path": "PINN4Science/Fluid_Mechanics/burgers_1d_solver/LICENSE",
+      "description": "许可证文件。",
+      "is_code_file": false
+    }
+  ]
+}

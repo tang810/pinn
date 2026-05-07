@@ -1,0 +1,51 @@
+data:
+  # name of the dataset
+  name: cylinder_flow_test
+  # directory for storing the dataset
+  dirt: ./dataset/cylinder_flow/raw
+  # standard deviation of noise 
+  noise_std: 0.02
+  # noise paramter gamma
+  noise_gamma: 1.0
+  # the node types that apply a mask
+  mask_node_type:
+    - NORMAL
+    - OUTFLOW
+  # the node types that apply a noise mask
+  mask_noise_node_type:
+    - NORMAL
+  # batch size
+  batch_size: 10
+
+model:
+  # dimension of node input features
+  node_input_dim: 11
+  # dimension of edge input features
+  edge_input_dim: 3
+  # dimension of output
+  output_dim: 2
+  # number of hidden block
+  block_num: 10
+
+train:
+  # learinng rate
+  lr: 0.0001
+  # number of epochs
+  epoch_num: 20000
+  # decay step
+  step_size: 100
+  # decay rate
+  gamma: 0.98
+
+ckpt:
+  # name of checkpoint
+  name: cylinder_flow
+  # directory for storing checkpoint
+  dirt: ./checkpoint/cylinder_flow/train
+
+log:
+  # directory for saving log
+  dirt: ./log/cylinder_flow
+
+# computing device
+device: cuda

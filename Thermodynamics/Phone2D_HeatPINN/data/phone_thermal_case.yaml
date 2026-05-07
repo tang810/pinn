@@ -1,0 +1,43 @@
+problem_name: "Smartphone 2D Thermal PINN"
+
+geometry:
+  Lx: 0.07
+  Ly: 0.15
+  t_max: 1800.0
+
+material:
+  rho: 2500.0
+  cp: 900.0
+  k: 5.0
+
+environment:
+  T_inf: 298.0
+  h_env: 5.0
+
+soc:
+  x_center: 0.035
+  y_center: 0.075
+  width: 0.01
+  height: 0.01
+  q0: 3000000.0
+  tau_q: 100.0
+  use_slow_source: true
+
+nondim:
+  theta_scale: 10.0
+
+sampling:
+  N_r: 15000
+  N_ic: 6000
+  N_ic2: 6000
+  N_bc_edge: 2000
+  use_extra_t0_samples: false
+
+training:
+  n_iters: 30000
+  print_every: 1000
+  lr: 0.001
+  w_pde: 1.0
+  w_ic: 20.0
+  w_ic2: 10.0
+  w_bc: 1.0

@@ -1,0 +1,121 @@
+{
+  "name": "DEV-DiT4Science",
+  "path": "PINN4Science/DEV-DiT4Science",
+  "description": "AeroDiT 案例工程，已按统一规范整理并提供标准运行入口。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/DEV-DiT4Science/src",
+      "description": "标准源码目录，包含参数配置、数据处理与训练推理流程。",
+      "submodules": [
+        {
+          "name": "legacy",
+          "path": "PINN4Science/DEV-DiT4Science/src/legacy",
+          "description": "原始仓库代码归档目录（保留以便追溯与复用）。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        }
+      ],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/DEV-DiT4Science/src/__init__.py",
+          "description": "源码包初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/DEV-DiT4Science/src/config.py",
+          "description": "命令行参数配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_utils.py",
+          "path": "PINN4Science/DEV-DiT4Science/src/data_utils.py",
+          "description": "数据准备与加载模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/DEV-DiT4Science/src/runner.py",
+          "description": "训练与快速推理流程模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/DEV-DiT4Science/data",
+      "description": "数据目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "simul_airfoil_flow.npz",
+          "path": "PINN4Science/DEV-DiT4Science/data/simul_airfoil_flow.npz",
+          "description": "默认模拟数据文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/DEV-DiT4Science/model",
+      "description": "模型参数目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "dev_dit4science_surrogate.pt",
+          "path": "PINN4Science/DEV-DiT4Science/model/dev_dit4science_surrogate.pt",
+          "description": "快速验证用代理模型参数。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/DEV-DiT4Science/results",
+      "description": "结果输出目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "quick_metrics.json",
+          "path": "PINN4Science/DEV-DiT4Science/results/quick_metrics.json",
+          "description": "quick 模式指标结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "quick_predictions.npz",
+          "path": "PINN4Science/DEV-DiT4Science/results/quick_predictions.npz",
+          "description": "quick 模式预测结果。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/DEV-DiT4Science/main.py",
+      "description": "主入口程序，支持 quick/train 与 simul/real。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/DEV-DiT4Science/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/DEV-DiT4Science/file.json",
+      "description": "结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}
+

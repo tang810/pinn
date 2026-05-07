@@ -1,0 +1,134 @@
+{
+  "name": "HybridMagMomEstimator",
+  "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator",
+  "description": "混合磁矩估计案例根目录，用于组织数据、源码、模型与结果。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src",
+      "description": "源码目录，包含配置、数据加载、模型、物理约束、训练与评估。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src/__init__.py",
+          "description": "源码包初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src/config.py",
+          "description": "命令行参数与默认路径配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_loader.py",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src/data_loader.py",
+          "description": "数据加载模块，支持 simul 与 real 数据源。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src/model.py",
+          "description": "磁矩估计网络结构定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "physics.py",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src/physics.py",
+          "description": "磁场物理约束与损失计算模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src/train.py",
+          "description": "train 模式执行模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "evaluate.py",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src/evaluate.py",
+          "description": "quick 模式执行与误差评估模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "utils.py",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/src/utils.py",
+          "description": "通用工具模块（设备、绘图、指标保存）。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/data",
+      "description": "数据目录，存放真实输入与历史推理数据。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "Large_ship_model,L=152.96m,W=17.28m,rz0=10m,ry0=0m,theta=0rad,V=3ms,SNR=0dB.mat",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/data/Large_ship_model,L=152.96m,W=17.28m,rz0=10m,ry0=0m,theta=0rad,V=3ms,SNR=0dB.mat",
+          "description": "真实磁场输入数据（MAT 文件）。",
+          "is_code_file": false
+        },
+        {
+          "name": "magnetic_moments_history.npy",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/data/magnetic_moments_history.npy",
+          "description": "历史磁矩序列数据（用于 quick 模式基线评估）。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/model",
+      "description": "模型目录，存放 train 模式生成的模型参数。",
+      "submodules": [],
+      "files": [],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/results",
+      "description": "结果目录，存放 quick/train 产出的图像与指标。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "img.png",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/results/img.png",
+          "description": "磁矩预测与参考值对比图。",
+          "is_code_file": false
+        },
+        {
+          "name": "metrics.txt",
+          "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/results/metrics.txt",
+          "description": "误差指标输出文本。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/main.py",
+      "description": "项目主入口，支持 --mode 与 --data 参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Electromagnetism/HybridMagMomEstimator/file.json",
+      "description": "项目结构化描述文件。",
+      "is_code_file": false
+    }
+  ]
+}

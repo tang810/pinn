@@ -1,0 +1,141 @@
+{
+  "name": "HeatTrans",
+  "path": "PINN4Science/Thermodynamics/HeatTrans",
+  "description": "热传导参数反演 PINN 项目：在该项目中，作为根目录，用于组织数据、模型、源码与结果输出。",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/Thermodynamics/HeatTrans/data",
+      "description": "数据目录：在该项目中，作为数据准备环节，用于存放温度时空数据文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data_7246.txt",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/data/data_7246.txt",
+          "description": "热传导反演训练与评估数据文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Thermodynamics/HeatTrans/model",
+      "description": "模型目录：在该项目中，作为模型存储环节，用于存放反演参数输出文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "heattrans_surface_bc_sensor_5_time_80.npz",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/model/heattrans_surface_bc_sensor_5_time_80.npz",
+          "description": "反演参数输出文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/Thermodynamics/HeatTrans/src",
+      "description": "源码目录：在该项目中，作为源码存储环节，用于存放配置、数据处理、PINN 模型与训练流程模块。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/src/__init__.py",
+          "description": "源码初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/src/config.py",
+          "description": "训练与 quick 模式参数配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_utils.py",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/src/data_utils.py",
+          "description": "传感器选点、边界/初值采样与数据加载模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/src/model.py",
+          "description": "PINN 网络与物理损失定义模块（TensorFlow）。",
+          "is_code_file": true
+        },
+        {
+          "name": "plotting.py",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/src/plotting.py",
+          "description": "结果绘图与矩阵汇总输出模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/src/runner.py",
+          "description": "实验执行与结果汇总模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "result",
+      "path": "PINN4Science/Thermodynamics/HeatTrans/result",
+      "description": "结果目录：在该项目中，作为输出环节，用于存放图像、文本摘要与汇总文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "quick_summary.npy",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/result/quick_summary.npy",
+          "description": "quick 模式汇总输出文件。",
+          "is_code_file": false
+        },
+        {
+          "name": "results_summary_surface_bc_sensor_5_time_80.txt",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/result/results_summary_surface_bc_sensor_5_time_80.txt",
+          "description": "单案例训练结果摘要。",
+          "is_code_file": false
+        },
+        {
+          "name": "fig1_3d_surfaces_surface_bc_sensor_5_time_80.png",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/result/fig1_3d_surfaces_surface_bc_sensor_5_time_80.png",
+          "description": "三维温度场对比图。",
+          "is_code_file": false
+        },
+        {
+          "name": "fig2_parity_surface_bc_sensor_5_time_80.png",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/result/fig2_parity_surface_bc_sensor_5_time_80.png",
+          "description": "预测与真值一致性图。",
+          "is_code_file": false
+        },
+        {
+          "name": "fig3_error_hist_surface_bc_sensor_5_time_80.png",
+          "path": "PINN4Science/Thermodynamics/HeatTrans/result/fig3_error_hist_surface_bc_sensor_5_time_80.png",
+          "description": "误差分布直方图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Thermodynamics/HeatTrans/main.py",
+      "description": "项目主程序入口（支持 train/quick）。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Thermodynamics/HeatTrans/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Thermodynamics/HeatTrans/file.json",
+      "description": "项目文件结构说明文件。",
+      "is_code_file": false
+    }
+  ]
+}

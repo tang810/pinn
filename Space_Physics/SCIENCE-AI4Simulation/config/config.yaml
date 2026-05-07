@@ -1,0 +1,6 @@
+base_url_1: "http://www.science42.vip:40200/v1"
+BACKEND_URL: "http://36.103.203.113:1000"
+SOURCE_CODE_PATH: "/data/AI4PDE_CN/src/"
+api_key: "ximu-llm-api-key"
+minio_addr: "http://36.103.203.113:2300"
+https_vip_addr: "https://www.science42.tech"

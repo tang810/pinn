@@ -1,0 +1,61 @@
+{
+  "name": "PINNrever",
+  "path": "PINN4Science/Electromagnetism/PINNrever",
+  "description": "电磁参数反演 PINN 项目根目录，用于组织数据、源码、模型与结果。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Electromagnetism/PINNrever/src",
+      "description": "源码目录，包含配置、数据处理、模型、损失、训练与快速推理模块。",
+      "submodules": [],
+      "files": [
+        {"name": "__init__.py", "path": "PINN4Science/Electromagnetism/PINNrever/src/__init__.py", "description": "源码包初始化文件。", "is_code_file": true},
+        {"name": "config.py", "path": "PINN4Science/Electromagnetism/PINNrever/src/config.py", "description": "命令行参数与运行配置模块。", "is_code_file": true},
+        {"name": "data_utils.py", "path": "PINN4Science/Electromagnetism/PINNrever/src/data_utils.py", "description": "数据点生成与边界/真值辅助函数模块。", "is_code_file": true},
+        {"name": "models.py", "path": "PINN4Science/Electromagnetism/PINNrever/src/models.py", "description": "PINN 主网络与系数网络定义模块。", "is_code_file": true},
+        {"name": "losses.py", "path": "PINN4Science/Electromagnetism/PINNrever/src/losses.py", "description": "损失函数定义模块。", "is_code_file": true},
+        {"name": "trainer.py", "path": "PINN4Science/Electromagnetism/PINNrever/src/trainer.py", "description": "训练流程与 quick 预热模块。", "is_code_file": true},
+        {"name": "inference.py", "path": "PINN4Science/Electromagnetism/PINNrever/src/inference.py", "description": "quick 推理与指标保存模块。", "is_code_file": true},
+        {"name": "plotting.py", "path": "PINN4Science/Electromagnetism/PINNrever/src/plotting.py", "description": "可视化绘图模块。", "is_code_file": true}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Electromagnetism/PINNrever/data",
+      "description": "数据目录，存放真实数据输入样本。",
+      "submodules": [],
+      "files": [
+        {"name": "real_points.npy", "path": "PINN4Science/Electromagnetism/PINNrever/data/real_points.npy", "description": "真实模式输入点数据（N x 2）。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Electromagnetism/PINNrever/model",
+      "description": "模型目录，存放训练得到的参数文件。",
+      "submodules": [],
+      "files": [
+        {"name": "recover_model.pt", "path": "PINN4Science/Electromagnetism/PINNrever/model/recover_model.pt", "description": "recover 任务主网络参数。", "is_code_file": false},
+        {"name": "recover_coef.pt", "path": "PINN4Science/Electromagnetism/PINNrever/model/recover_coef.pt", "description": "recover 任务系数网络参数。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Electromagnetism/PINNrever/results",
+      "description": "结果目录，存放 quick/train 的图像与指标输出。",
+      "submodules": [],
+      "files": [
+        {"name": "quick_recover.png", "path": "PINN4Science/Electromagnetism/PINNrever/results/quick_recover.png", "description": "quick recover 模式输出图。", "is_code_file": false},
+        {"name": "quick_recover_metrics.txt", "path": "PINN4Science/Electromagnetism/PINNrever/results/quick_recover_metrics.txt", "description": "quick recover 指标输出。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {"name": "main.py", "path": "PINN4Science/Electromagnetism/PINNrever/main.py", "description": "项目主程序入口，支持 --mode 与 --data 参数。", "is_code_file": true},
+    {"name": "README.md", "path": "PINN4Science/Electromagnetism/PINNrever/README.md", "description": "项目说明文档。", "is_code_file": false},
+    {"name": "file.json", "path": "PINN4Science/Electromagnetism/PINNrever/file.json", "description": "项目结构化描述文件。", "is_code_file": false}
+  ]
+}

@@ -1,0 +1,4 @@
+history_path: C:\Users\se42\Desktop\案例\PINN4Science\Electromagnetism\HybridMagMomEstimator\data/magnetic_moments_history.npy
+relative_error_mx: 0.009469502200577419
+relative_error_my: 0.0586270089742958
+relative_error_mz: 0.0028140993231244

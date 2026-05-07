@@ -1,0 +1,8 @@
+# requirements.txt
+# 核心依赖
+numpy>=1.23,<2.0
+# 建议使用 PyTorch 2.x；如需特定平台的安装方式，请按 https://pytorch.org/ 给出的命令安装
+torch>=1.13
+
+# 仅在 synthetic 模式绘图时需要
+matplotlib>=3.5

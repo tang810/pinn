@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:\\Users\\www\\Desktop\\XPINN_Code\\XPINN_Code\\XPINN_Src\\models\\xpinn_trained_model.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\www\\Desktop\\XPINN_Code\\XPINN_Code\\XPINN_Src\\models\\xpinn_trained_model.ckpt"

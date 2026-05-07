@@ -1,0 +1,64 @@
+{
+  "name": "NavierCauchy",
+  "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy",
+  "description": "Navier-Cauchy 方程 PINN 项目根目录，用于组织数据、源码、模型与结果。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/src",
+      "description": "源码目录，包含网络、物理方程、损失计算、数据工具与可视化模块。",
+      "submodules": [],
+      "files": [
+        {"name": "__init__.py", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/src/__init__.py", "description": "源码初始化文件。", "is_code_file": true},
+        {"name": "network.py", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/src/network.py", "description": "PINN 网络结构定义模块。", "is_code_file": true},
+        {"name": "physics.py", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/src/physics.py", "description": "Navier-Cauchy 物理约束与边界条件模块。", "is_code_file": true},
+        {"name": "loss.py", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/src/loss.py", "description": "损失函数计算模块。", "is_code_file": true},
+        {"name": "utils.py", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/src/utils.py", "description": "数据采样、保存与加载工具模块。", "is_code_file": true},
+        {"name": "visualize.py", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/src/visualize.py", "description": "损失曲线可视化模块。", "is_code_file": true}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/data",
+      "description": "数据目录，存放 PDE 与边界条件采样数据。",
+      "submodules": [],
+      "files": [
+        {"name": "x_pde.npy", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/data/x_pde.npy", "description": "PDE 采样点。", "is_code_file": false},
+        {"name": "x_dir.npy", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/data/x_dir.npy", "description": "Dirichlet 边界采样点。", "is_code_file": false},
+        {"name": "u_dir.npy", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/data/u_dir.npy", "description": "Dirichlet 边界目标值。", "is_code_file": false},
+        {"name": "x_neu.npy", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/data/x_neu.npy", "description": "Neumann 边界采样点。", "is_code_file": false},
+        {"name": "n_neu.npy", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/data/n_neu.npy", "description": "Neumann 边界法向量。", "is_code_file": false},
+        {"name": "t_neu.npy", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/data/t_neu.npy", "description": "Neumann 边界目标牵引。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/model",
+      "description": "模型目录，存放训练后的模型参数。",
+      "submodules": [],
+      "files": [
+        {"name": "pinn_final.pt", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/model/pinn_final.pt", "description": "最终训练模型参数。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/results",
+      "description": "结果目录，存放训练与快速模式输出图像。",
+      "submodules": [],
+      "files": [
+        {"name": "quick_loss.png", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/results/quick_loss.png", "description": "quick 模式损失图。", "is_code_file": false},
+        {"name": "loss_curve_final.png", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/results/loss_curve_final.png", "description": "训练最终损失曲线图。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {"name": "main.py", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/main.py", "description": "项目主入口，支持 --mode 与 --data 参数。", "is_code_file": true},
+    {"name": "NavierCauchy_main.py", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/NavierCauchy_main.py", "description": "历史兼容入口脚本。", "is_code_file": true},
+    {"name": "README.md", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/README.md", "description": "项目说明文档。", "is_code_file": false},
+    {"name": "file.json", "path": "PINN4Science/Math_Physics_Formulations/NavierCauchy/file.json", "description": "项目结构化描述文件。", "is_code_file": false}
+  ]
+}

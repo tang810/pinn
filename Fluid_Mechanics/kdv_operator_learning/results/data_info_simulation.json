@@ -1,0 +1,5 @@
+{
+  "source": "simulation",
+  "num_samples": 80,
+  "num_points": 256
+}

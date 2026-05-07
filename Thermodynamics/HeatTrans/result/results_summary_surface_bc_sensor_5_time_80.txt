@@ -1,0 +1,32 @@
+
+=======================================================
+          FINAL RESULTS SUMMARY - SURFACE + BC         
+=======================================================
+Data file                  : data/data_7246.txt
+Original total rows        : 319867
+Sensor count               : 5
+Time steps per sensor      : 80
+Observation points total   : 400
+Collocation points N_f     : 3000
+BC points per face         : 600
+IC points                  : 1000
+-------------------------------------------------------
+Sensor coordinates:
+  Sensor 01: x=1.00000000, y=0.49373755, z=0.49619392
+  Sensor 02: x=0.00000000, y=0.49484828, z=0.49375889
+  Sensor 03: x=0.91339743, y=0.44999999, z=0.00000000
+  Sensor 04: x=0.91339743, y=0.55000001, z=1.00000000
+  Sensor 05: x=1.00000000, y=0.52883351, z=0.41111881
+-------------------------------------------------------
+Selected time range        : 0.0000 to 1.0000
+-------------------------------------------------------
+[Noiseless Data]
+  Identified Alpha_x       : 4.41458523e-01 (Error: 55.8541%)
+  Identified Alpha_perp    : 9.43630159e-01 (Error: 5.6370%)
+  Temperature Error (L2)   : 1.51998e-01
+-------------------------------------------------------
+[1% Noisy Data]
+  Identified Alpha_x       : 4.38003451e-01 (Error: 56.1997%)
+  Identified Alpha_perp    : 9.44181383e-01 (Error: 5.5819%)
+  Temperature Error (L2)   : 1.53126e-01
+=======================================================

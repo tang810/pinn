@@ -1,0 +1,58 @@
+{
+  "name": "二维弹性力学基函数预计算与在线求解",
+  "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d",
+  "description": "二维弹性力学基函数预计算与在线求解项目根目录，用于组织数据、模型、源码与结果。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/src",
+      "description": "源码目录，包含数据生成、模型定义、训练推理与可视化模块。",
+      "submodules": [],
+      "files": [
+        {"name": "__init__.py", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/src/__init__.py", "description": "源码初始化文件。", "is_code_file": true},
+        {"name": "data_utils.py", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/src/data_utils.py", "description": "模拟/真实数据加载与转换模块。", "is_code_file": true},
+        {"name": "model.py", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/src/model.py", "description": "二维弹性 PINN 网络结构定义模块。", "is_code_file": true},
+        {"name": "runner.py", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/src/runner.py", "description": "train/quick 执行流程模块。", "is_code_file": true},
+        {"name": "plotting.py", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/src/plotting.py", "description": "结果绘图与误差指标模块。", "is_code_file": true},
+        {"name": "legacy_main.py", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/src/legacy_main.py", "description": "历史原始实现脚本备份。", "is_code_file": true}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/data",
+      "description": "数据目录，存放 real 模式输入数据。",
+      "submodules": [],
+      "files": [
+        {"name": "real_data.npz", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/data/real_data.npz", "description": "real 模式示例数据文件。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/model",
+      "description": "模型目录，存放训练得到的模型参数。",
+      "submodules": [],
+      "files": [
+        {"name": "elastic_basis_model.pt", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/model/elastic_basis_model.pt", "description": "训练后的模型参数文件。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/results",
+      "description": "结果目录，存放图像、指标与历史结果。",
+      "submodules": [],
+      "files": [
+        {"name": "quick_result.png", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/results/quick_result.png", "description": "quick 模式预测对比图。", "is_code_file": false},
+        {"name": "quick_metrics.txt", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/results/quick_metrics.txt", "description": "quick 模式误差指标。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {"name": "main.py", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/main.py", "description": "项目主入口，支持 --mode 与 --data 参数。", "is_code_file": true},
+    {"name": "README.md", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/README.md", "description": "项目说明文档。", "is_code_file": false},
+    {"name": "file.json", "path": "PINN4Science/Solid_Mechanics/elasticity_basis_precompute_online_solver_2d/file.json", "description": "项目结构化描述文件。", "is_code_file": false}
+  ]
+}

@@ -1,0 +1,26 @@
+#PBS -N run_dit_test
+#PBS -l select=1:ncpus=4:mem=24gb:ngpus=1:gpu_type=RTX6000
+#PBS -lwalltime=01:00:00
+
+
+pwd
+
+ls -al
+
+module load anaconda3/personal
+source activate DiT
+
+cp -r $HOME/projects/DiT4Science/data $TMPDIR
+cp -r $HOME/projects/DiT4Science/weights $TMPDIR
+
+ls -al
+
+cd $PBS_O_WORKDIR
+
+torchrun --nnodes=1 --nproc_per_node=1 scripts/train_dit_para_vae_full_latent.py \
+    --data-path=data/train/ \
+    --predchannel=-1 \
+    --vae-ckpt-res=$TMPDIR/weights/res_all_epoch=109-step=120669.ckpt \
+    --vae-ckpt-cond=$TMPDIR/weights/cond_all_epoch=152-step=167840.ckpt \
+
+cp -r $TMPDIR/results $HOME/projects/DiT4Science/

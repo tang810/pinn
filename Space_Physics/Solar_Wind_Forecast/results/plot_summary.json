@@ -1,0 +1,5 @@
+{
+  "violation_rate_g_gt_0_raw": 0.19408502772643252,
+  "mean_relu_g_raw": 0.07027194488748255,
+  "r2_macro_normalized": 0.22260639071464539
+}

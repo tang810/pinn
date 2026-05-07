@@ -1,0 +1,60 @@
+﻿{
+  "name": "内孤立波KdV参数反演与分层识别",
+  "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem",
+  "description": "内孤立波KdV参数反演与分层识别，包含数据、模型、源码与结果输出。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src",
+      "description": "源码目录，包含数据处理、模型、方程约束与训练推理流程。",
+      "submodules": [],
+      "files": [
+        {"name": "__init__.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src/__init__.py", "description": "源码初始化文件。", "is_code_file": true},
+        {"name": "config.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src/config.py", "description": "参数配置模块。", "is_code_file": true},
+        {"name": "runner.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src/runner.py", "description": "训练与快速推理流程模块。", "is_code_file": true},
+        {"name": "data.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src/data.py", "description": "测试数据与解析解相关模块。", "is_code_file": true},
+        {"name": "data_utils.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src/data_utils.py", "description": "数据加载与校验模块。", "is_code_file": true},
+        {"name": "net.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src/net.py", "description": "神经网络结构定义模块。", "is_code_file": true},
+        {"name": "pinn_solver.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src/pinn_solver.py", "description": "PDE 约束与边界初值条件模块。", "is_code_file": true},
+        {"name": "legacy_main.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/src/legacy_main.py", "description": "历史入口脚本备份。", "is_code_file": true}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/data",
+      "description": "输入数据目录。",
+      "submodules": [],
+      "files": [
+        {"name": "heat_eq_data.npz", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/data/heat_eq_data.npz", "description": "KdV 示例数据。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/model",
+      "description": "模型参数目录。",
+      "submodules": [],
+      "files": [
+        {"name": "trained_model.pth", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/model/trained_model.pth", "description": "训练后的模型参数文件。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/results",
+      "description": "结果输出目录。",
+      "submodules": [],
+      "files": [
+        {"name": "quick_inference_curve.png", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/results/quick_inference_curve.png", "description": "quick 模式推理曲线图。", "is_code_file": false},
+        {"name": "loss_curve.png", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/results/loss_curve.png", "description": "训练损失曲线图。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {"name": "main.py", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/main.py", "description": "主入口，支持 quick/train 与 simul/real。", "is_code_file": true},
+    {"name": "README.md", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/README.md", "description": "项目说明文档。", "is_code_file": false},
+    {"name": "file.json", "path": "PINN4Science/Fluid_Mechanics/KDV_Inverse_problem/file.json", "description": "项目结构描述文件。", "is_code_file": false}
+  ]
+}

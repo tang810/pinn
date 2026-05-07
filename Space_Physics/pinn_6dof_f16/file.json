@@ -1,0 +1,177 @@
+{
+  "name": "pinn_6dof_f16",
+  "path": "PINN4Science/Space_Physics/pinn_6dof_f16",
+  "description": "F16 六自由度气动辨识 PINN 项目：在该项目中，作为根目录，用于组织此案例的全部数据、模型、源码与可视化结果。",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/Space_Physics/pinn_6dof_f16/data",
+      "description": "F16 六自由度飞行数据：在该项目中，作为数据准备环节，用于存放飞行数据与训练数据集。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "flight_dataset.npz",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/data/flight_dataset.npz",
+          "description": "F16 六自由度飞行数据集：用于PINN模型训练与气动参数辨识。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Space_Physics/pinn_6dof_f16/model",
+      "description": "F16 六自由度模型参数：在该项目中，作为模型存储环节，用于存放训练好的模型参数。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "best_model.pt",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/model/best_model.pt",
+          "description": "F16 六自由度 PINN 最优模型参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src",
+      "description": "F16 六自由度源码：在该项目中，作为源码存储环节，用于存放训练、验证与推理相关源码。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/__init__.py",
+          "description": "源码初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "aero_true.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/aero_true.py",
+          "description": "F16 真实气动模型计算模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/config.py",
+          "description": "F16 六自由度模型配置文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "controls.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/controls.py",
+          "description": "飞行控制输入处理模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_utils.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/data_utils.py",
+          "description": "数据加载与预处理模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "dynamics.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/dynamics.py",
+          "description": "F16 六自由度动力学方程模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "eval.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/eval.py",
+          "description": "模型评估模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "io_utils.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/io_utils.py",
+          "description": "输入输出工具模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "losses.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/losses.py",
+          "description": "PINN 损失函数定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/model.py",
+          "description": "PINN 神经网络模型结构定义。",
+          "is_code_file": true
+        },
+        {
+          "name": "plotting.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/plotting.py",
+          "description": "结果可视化模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/src/train.py",
+          "description": "模型训练流程模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Space_Physics/pinn_6dof_f16/results",
+      "description": "F16 六自由度可视化结果：在该项目中，作为可视化环节，用于存放训练与辨识结果。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "coeff_compare.png",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/results/coeff_compare.png",
+          "description": "气动系数对比可视化结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "coeff_pred.npy",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/results/coeff_pred.npy",
+          "description": "预测气动系数数组结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "coeff_true.npy",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/results/coeff_true.npy",
+          "description": "真实气动系数数组结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "loss_curve.png",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/results/loss_curve.png",
+          "description": "训练损失曲线可视化。",
+          "is_code_file": false
+        },
+        {
+          "name": "loss_hist.npy",
+          "path": "PINN4Science/Space_Physics/pinn_6dof_f16/results/loss_hist.npy",
+          "description": "训练损失历史数据。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "pinn_6dof_f16_main.py",
+      "path": "PINN4Science/Space_Physics/pinn_6dof_f16/pinn_6dof_f16_main.py",
+      "description": "F16 六自由度 PINN 主程序入口。",
+      "is_code_file": true
+    },
+    {
+      "name": "equation_card_6dof_aero_identification.md",
+      "path": "PINN4Science/Space_Physics/pinn_6dof_f16/equation_card_6dof_aero_identification.md",
+      "description": "F16 六自由度气动辨识公式说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "README (4).md",
+      "path": "PINN4Science/Space_Physics/pinn_6dof_f16/README (4).md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    }
+  ]
+}

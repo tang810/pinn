@@ -1,0 +1,7 @@
+# requirements.txt
+# This file is used to specify the dependencies for the project.
+torch>=1.12.0
+numpy>=1.21.0
+matplotlib>=3.5.0
+tqdm>=4.50.0
+scipy>=1.7.0

@@ -1,0 +1,46 @@
+data:
+  # name of the dataset
+  name: flag_simple_train
+  # directory for storing the dataset
+  dirt: ./dataset/flag_simple/raw
+  # standard deviation of noise 
+  noise_std: 0.0003
+  # noise paramter gamma
+  noise_gamma: 0.1
+  # the node types that apply a mask
+  mask_node_type:
+    - NORMAL
+  # the node types that apply a noise mask
+  mask_noise_node_type:
+    - NORMAL
+  # batch size
+  batch_size: 1
+
+model:
+  # number of hidden block
+  block_num: 10
+  # dimension of node input features
+  node_input_dim: 12
+  # dimension of edge input features
+  edge_input_dim: 7
+  # dimension of edge input features
+  output_dim: 3
+
+train:
+  # learinng rate
+  lr: 0.0001
+  # number of epochs
+  epoch_num: 1
+
+ckpt:
+  # name of checkpoint
+  name: flag_simple
+  # directory for storing checkpoint
+  dirt: ./checkpoint/flag_simple/train
+
+log:
+  # directory for saving log
+  dirt: ./log/cylinder_flow
+
+# computing device
+device: cuda

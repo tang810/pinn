@@ -1,0 +1,19 @@
+accelerate==0.29.2
+einops==0.7.0
+ema-pytorch==0.4.5
+matplotlib==3.7.5
+networkx==3.1
+numpy==1.24.4
+pandas==2.0.3
+# pytorch-triton-rocm==2.1.0
+scikit-fmm==2023.4.2
+torch
+torchaudio
+torchvision
+tqdm==4.66.2
+wandb==0.16.6
+pytorch-lightning==1.9.4
+timm==1.0.3
+diffusers==0.29.0
+# git+https://github.com/CompVis/taming-transformers.git
+gdown

@@ -1,0 +1,121 @@
+data:
+  # name of dataset
+  name: pdbbind
+  # directory for storing dataset
+  dirt: ./dataset/pdbbind/processed/PDBBind_processed/
+  # directory storing index for spliting dataset
+  split_dirt: ./dataset/pdbbind/processed/splits/timesplit_no_lig_overlap_train
+  # directory for storing cached dataset
+  cache_dirt: ./dataset/pdbbind/processed/cache
+  # path for storing LM embeddings for the receptor features
+  esm_embd_path: ./dataset/pdbbind/processed/esm2_3billion_embeddings.pt
+
+  # whether or not use pin memory
+  pin_memory: False
+  # the number of training and validation complexes is capped
+  complex_limit: 0
+  # number of workers for preprocessing
+  worker_num: 1
+  # whether to use the all atoms model
+  all_atom: False
+  # cutoff on distances for receptor edges
+  rec_radius: 15
+  # maximum number of neighbors for each residue
+  ca_nb_num_max: 24
+  # cutoff on distances for atom connections
+  atom_radius: 5
+  # maximum number of atom neighbours for receptor
+  atom_nb_num_max: 8
+  # whether to remove Hs
+  remove_hs: True
+  # number of conformers to match to each ligand
+  conformer_num: 1
+  # keeps the local structure when specifying an input with 3D coordinates instead of generating them with RDKit
+  keep_local_structure: False
+  # number of samples to generate
+  sample_per_complex: 5
+    
+model:
+  # number of interaction layers
+  conv_layer_num: 1
+  # radius cutoff for geometric graph
+  max_radius: 5.0
+  # whether to normalise the score
+  scale_by_sigma: True
+  # number of hidden features per node of order 0
+  ns: 48
+  # number of hidden features per node of order >0
+  nv: 10
+  # embedding size for the distance
+  dist_embd_dim: 64
+  # embeddings size for the cross distance
+  cro_dist_embd_dim: 64
+  # If set, it removes the batch norm
+  no_batch_norm: False
+  # whether to use only up to first order representations or also second
+  use_second_order_repr: False
+  # maximum cross distance in case not dynamic
+  cro_dist_max: 80
+  # whether to use the dynamic distance cutoff
+  dynamic_cro_max: True
+  # mlp dropout rate
+  dropout_rate: 0.1 
+  # type of diffusion time embedding
+  embd_type: sinusoidal
+  # type of language model embedding
+  lm_embd_type: esm
+  # size of the embedding of the diffusion time
+  sigma_embd_dim: 64
+  # parameter of the diffusion time embedding
+  embd_scale: 10000
+
+diffusion:
+  # weight of translation loss
+  tr_weight: 0.33
+  # weight of rotation loss
+  rot_weight: 0.33
+  # weight of torsional loss
+  tor_weight: 0.33
+  # minimum sigma for rotational component
+  rot_sigma_min: 0.03
+  # maximum sigma for rotational component
+  rot_sigma_max: 1.55
+  # minimum sigma for translational component
+  tr_sigma_min: 0.1
+  # maximum sigma for translational component
+  tr_sigma_max: 19.0
+  # minimum sigma for torsional component
+  tor_sigma_min: 0.0314
+  # maximum sigma for torsional component
+  tor_sigma_max: 3.14
+  # if set only rigid matching
+  no_torsion: False
+  # use no randomness in reverse diffusion
+  no_random: False
+  # use no noise in the final step of the reverse diffusion
+  no_final_step_noise: False
+  # use ODE formulation for inference
+  use_ode: False
+
+train:
+  # batch size in training
+  batch_size: 16
+  # learning rate
+  lr: 0.001
+  # number of training epoch
+  epoch_num: 100
+  # number of warmup step
+  warmup_step: 0
+  # whether use exponential moving average
+  use_ema: True
+
+log:
+  # directory for saving log
+  dirt: ./log/pdbbind
+
+# computing device
+device: cuda
+# whether or not use parallel training
+no_parallel: False
+# CUDA optimization parameter for faster training
+cudnn_benchmark: True

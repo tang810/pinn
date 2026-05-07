@@ -1,0 +1,130 @@
+{
+  "name": "InverseResistance",
+  "path": "PINN4Science/Electromagnetism/InverseResistance",
+  "description": "地质电阻率反演案例，采用 PINN 完成 2D/3D 反演与快速推理。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Electromagnetism/InverseResistance/src",
+      "description": "源码目录，包含网络、物理约束、损失函数与训练流程。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/src/__init__.py",
+          "description": "源码初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "PINN.py",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/src/PINN.py",
+          "description": "MLP 网络结构定义。",
+          "is_code_file": true
+        },
+        {
+          "name": "physics.py",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/src/physics.py",
+          "description": "物理方程与正演玩具模型定义。",
+          "is_code_file": true
+        },
+        {
+          "name": "loss.py",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/src/loss.py",
+          "description": "PDE 损失与数据损失定义。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/src/train.py",
+          "description": "训练、快速推理与结果可视化模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Electromagnetism/InverseResistance/data",
+      "description": "输入数据目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "abmn_2d_obs.npz",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/data/abmn_2d_obs.npz",
+          "description": "2D 观测数据。",
+          "is_code_file": false
+        },
+        {
+          "name": "abmn_3d_obs.npz",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/data/abmn_3d_obs.npz",
+          "description": "3D 观测数据。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Electromagnetism/InverseResistance/model",
+      "description": "模型参数输出目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "rho_2d.pth",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/model/rho_2d.pth",
+          "description": "2D 反演电阻率模型参数。",
+          "is_code_file": false
+        },
+        {
+          "name": "rho_3d.pth",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/model/rho_3d.pth",
+          "description": "3D 反演电阻率模型参数。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Electromagnetism/InverseResistance/results",
+      "description": "结果输出目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "rho_2d_quick.png",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/results/rho_2d_quick.png",
+          "description": "2D quick 模式结果图。",
+          "is_code_file": false
+        },
+        {
+          "name": "rho_3d_quick.png",
+          "path": "PINN4Science/Electromagnetism/InverseResistance/results/rho_3d_quick.png",
+          "description": "3D quick 模式结果图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Electromagnetism/InverseResistance/main.py",
+      "description": "主程序入口，支持 quick/train 与 simul/real。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Electromagnetism/InverseResistance/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Electromagnetism/InverseResistance/file.json",
+      "description": "项目结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}
+

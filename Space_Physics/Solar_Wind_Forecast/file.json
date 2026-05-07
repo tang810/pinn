@@ -1,0 +1,154 @@
+{
+  "name": "基于PINN的太阳风多变量时间序列预测",
+  "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast",
+  "description": "基于PINN的太阳风多变量时间序列预测 作为根目录，用于组织此案例的全部数据、模型、源码与可视化结果。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src",
+      "description": "源码目录，包含常量、数据处理、模型、训练与后处理模块。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src/__init__.py",
+          "description": "源码初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "constants.py",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src/constants.py",
+          "description": "特征与常量定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_utils.py",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src/data_utils.py",
+          "description": "数据生成、归一化与划分模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "datasets.py",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src/datasets.py",
+          "description": "窗口数据集模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src/model.py",
+          "description": "GRU 预测模型定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "trainer.py",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src/trainer.py",
+          "description": "训练与评估模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "postprocess.py",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src/postprocess.py",
+          "description": "结果保存与可视化模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/src/runner.py",
+          "description": "训练与快速评估流程调度模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/data",
+      "description": "输入数据目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "synthetic_hourly_raw.csv",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/data/synthetic_hourly_raw.csv",
+          "description": "合成小时级原始数据。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/model",
+      "description": "模型参数目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "solar_wind_prediction_best.pt",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/model/solar_wind_prediction_best.pt",
+          "description": "最佳模型参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/results",
+      "description": "评估指标、预测结果和图像输出目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "test_metrics.json",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/results/test_metrics.json",
+          "description": "测试指标文件。",
+          "is_code_file": false
+        },
+        {
+          "name": "test_predictions.npz",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/results/test_predictions.npz",
+          "description": "测试预测输出文件。",
+          "is_code_file": false
+        },
+        {
+          "name": "train_loss.png",
+          "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/results/train_loss.png",
+          "description": "训练损失曲线图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/main.py",
+      "description": "标准主入口脚本。",
+      "is_code_file": true
+    },
+    {
+      "name": "solar_wind_prediction_main.py",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/solar_wind_prediction_main.py",
+      "description": "兼容旧入口脚本。",
+      "is_code_file": true
+    },
+    {
+      "name": "solar_wind_equation_card.md",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/solar_wind_equation_card.md",
+      "description": "方程说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Space_Physics/Solar_Wind_Forecast/file.json",
+      "description": "结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}
+

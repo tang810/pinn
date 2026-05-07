@@ -1,0 +1,105 @@
+﻿{
+  "name": "CylinderFlowPINN：二维圆柱绕流瞬态流场（PINN）",
+  "path": "PINN4Science/Fluid_Mechanics/cylinder_flow",
+  "description": "二维圆柱绕流 PINN 案例工程，支持 quick/train 两种模式，包含数据、模型与结果标准化目录。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src",
+      "description": "源码目录，包含配置、数据处理、网络、求解器、运行器与历史脚本。",
+      "submodules": [
+        {
+          "name": "geometry",
+          "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry",
+          "description": "几何采样模块。",
+          "submodules": [],
+          "files": [
+            {"name": "__init__.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/__init__.py", "description": "几何模块初始化文件。", "is_code_file": true},
+            {"name": "constants.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/constants.py", "description": "几何常量定义。", "is_code_file": true},
+            {"name": "curve.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/curve.py", "description": "曲线几何定义。", "is_code_file": true},
+            {"name": "geometry.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/geometry.py", "description": "几何基类与操作。", "is_code_file": true},
+            {"name": "helper.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/helper.py", "description": "几何辅助函数。", "is_code_file": true},
+            {"name": "numpy_printer.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/numpy_printer.py", "description": "几何表达式打印工具。", "is_code_file": true},
+            {"name": "parameterization.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/parameterization.py", "description": "几何参数化工具。", "is_code_file": true},
+            {"name": "primitives_1d.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/primitives_1d.py", "description": "一维几何原语。", "is_code_file": true},
+            {"name": "primitives_2d.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/geometry/primitives_2d.py", "description": "二维几何原语。", "is_code_file": true}
+          ],
+          "is_code_file": false
+        },
+        {
+          "name": "legacy",
+          "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy",
+          "description": "历史脚本备份目录。",
+          "submodules": [
+            {
+              "name": "new_cylinder_flow",
+              "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy/new_cylinder_flow",
+              "description": "旧版子工程代码。",
+              "submodules": [],
+              "files": [
+                {"name": "data.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy/new_cylinder_flow/data.py", "description": "旧版数据模块。", "is_code_file": true},
+                {"name": "equation.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy/new_cylinder_flow/equation.py", "description": "旧版方程模块。", "is_code_file": true},
+                {"name": "net.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy/new_cylinder_flow/net.py", "description": "旧版网络模块。", "is_code_file": true},
+                {"name": "test.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy/new_cylinder_flow/test.py", "description": "旧版测试脚本。", "is_code_file": true},
+                {"name": "train.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy/new_cylinder_flow/train.py", "description": "旧版训练脚本。", "is_code_file": true}
+              ],
+              "is_code_file": false
+            }
+          ],
+          "files": [
+            {"name": "test_legacy.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy/test_legacy.py", "description": "原始测试脚本备份。", "is_code_file": true},
+            {"name": "train_legacy.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/legacy/train_legacy.py", "description": "原始训练脚本备份。", "is_code_file": true}
+          ],
+          "is_code_file": false
+        }
+      ],
+      "files": [
+        {"name": "__init__.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/__init__.py", "description": "源码初始化文件。", "is_code_file": true},
+        {"name": "config.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/config.py", "description": "参数配置模块。", "is_code_file": true},
+        {"name": "sim_data.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/sim_data.py", "description": "仿真数据生成模块。", "is_code_file": true},
+        {"name": "data_utils.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/data_utils.py", "description": "数据加载与采样模块。", "is_code_file": true},
+        {"name": "net.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/net.py", "description": "网络结构定义模块。", "is_code_file": true},
+        {"name": "pinn_solver.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/pinn_solver.py", "description": "PINN 求解器模块。", "is_code_file": true},
+        {"name": "runner.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/src/runner.py", "description": "train/quick 模式执行模块。", "is_code_file": true}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/data",
+      "description": "输入数据目录，存放仿真或真实流场数据。",
+      "submodules": [],
+      "files": [
+        {"name": "simul_cylinder_re100.mat", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/data/simul_cylinder_re100.mat", "description": "仿真生成的 Re=100 数据文件（首次 quick 自动生成）。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/model",
+      "description": "模型参数目录。",
+      "submodules": [],
+      "files": [
+        {"name": "cylinder_flow_quick.pth", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/model/cylinder_flow_quick.pth", "description": "quick 模式主网络参数。", "is_code_file": false},
+        {"name": "cylinder_flow_quick_evm.pth", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/model/cylinder_flow_quick_evm.pth", "description": "quick 模式辅助网络参数。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/results",
+      "description": "结果目录，存放 quick/train 输出结果。",
+      "submodules": [],
+      "files": [
+        {"name": "quick_prediction.npz", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/results/quick_prediction.npz", "description": "quick 模式预测结果。", "is_code_file": false},
+        {"name": "quick_summary.json", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/results/quick_summary.json", "description": "quick 模式运行摘要。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {"name": "main.py", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/main.py", "description": "主入口脚本，支持 quick/train 模式。", "is_code_file": true},
+    {"name": "README.md", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/README.md", "description": "案例说明文档。", "is_code_file": false},
+    {"name": "file.json", "path": "PINN4Science/Fluid_Mechanics/cylinder_flow/file.json", "description": "工程结构描述文件。", "is_code_file": false}
+  ]
+}

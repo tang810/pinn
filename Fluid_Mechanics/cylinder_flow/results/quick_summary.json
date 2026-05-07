@@ -1,0 +1,8 @@
+{
+  "mode": "quick",
+  "data": "simul",
+  "data_path": "data\\simul_cylinder_re100.mat",
+  "main_checkpoint": "model\\cylinder_flow_quick.pth",
+  "aux_checkpoint": "model\\cylinder_flow_quick_evm.pth",
+  "result_file": "results\\quick_prediction.npz"
+}

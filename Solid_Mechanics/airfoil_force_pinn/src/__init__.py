@@ -1,0 +1,2 @@
+"""Airfoil displacement PINN modules."""
+

@@ -1,0 +1,6 @@
+llm:
+  api_type: "open_llm"  # or azure / ollama / open_llm etc. Check LLMType for more options
+  model: "SE_V0.0"  # or gpt-3.5-turbo-1106 / gpt-4-1106-preview
+  base_url: "http://127.0.0.1:12222/v1"  # or forward url / other llm url
+  #api_key: ""
+  # temperature: 0.7

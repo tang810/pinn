@@ -1,0 +1,151 @@
+{
+  "name": "cavity_flow_PIKAN",
+  "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN",
+  "description": "方腔流 PIKAN 项目根目录，用于组织数据、模型、源码与结果。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/src",
+      "description": "源码目录，包含数据加载、网络结构、求解器与工具模块。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data_loader.py",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/src/data_loader.py",
+          "description": "训练与评估数据加载模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/src/model.py",
+          "description": "PIKAN 网络结构定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "pinn_solver.py",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/src/pinn_solver.py",
+          "description": "标准 PIKAN 求解器模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "pinn_solver_ev.py",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/src/pinn_solver_ev.py",
+          "description": "增强粘度 PIKAN 求解器模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "utils.py",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/src/utils.py",
+          "description": "采样与辅助工具模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/data",
+      "description": "数据目录，存放方腔流评估数据。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "cavity_Re2000_256.mat",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/data/cavity_Re2000_256.mat",
+          "description": "方腔流参考数据文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/model",
+      "description": "模型目录，存放训练输出与预训练参数。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "ev_net_checkpoint_epoch_100000.pth",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/model/ev_net_checkpoint_epoch_100000.pth",
+          "description": "增强粘度网络参数文件。",
+          "is_code_file": false
+        },
+        {
+          "name": "KAN_Re2k02_epoch_500000_ev_net.pth",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/model/KAN_Re2k02_epoch_500000_ev_net.pth",
+          "description": "标准网络参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/results",
+      "description": "结果目录，存放可视化输出与中间场数据。",
+      "submodules": [
+        {
+          "name": "result_uvdata",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/results/result_uvdata",
+          "description": "阶段性场数据输出目录。",
+          "submodules": [],
+          "files": [
+            {
+              "name": "cavity_result_loop_0_epoch100000.mat",
+              "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/results/result_uvdata/cavity_result_loop_0_epoch100000.mat",
+              "description": "阶段性预测场数据示例。",
+              "is_code_file": false
+            }
+          ],
+          "is_code_file": false
+        }
+      ],
+      "files": [
+        {
+          "name": "result_plot.png",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/results/result_plot.png",
+          "description": "预测结果可视化图。",
+          "is_code_file": false
+        },
+        {
+          "name": "L2_PIKAN.png",
+          "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/results/L2_PIKAN.png",
+          "description": "误差统计图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/main.py",
+      "description": "项目主程序入口，支持 --mode 与 --data 参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "README_EN.md",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/README_EN.md",
+      "description": "英文说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "requirements.txt",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/requirements.txt",
+      "description": "依赖列表。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Fluid_Mechanics/cavity_flow_PIKAN/file.json",
+      "description": "项目结构化描述文件。",
+      "is_code_file": false
+    }
+  ]
+}

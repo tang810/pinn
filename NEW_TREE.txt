@@ -1,0 +1,1054 @@
+.
+├── Electromagnetism                                                                 # 【电磁学案例集】涵盖Maxwell/Helmholtz建模、电磁反演与逆散射等
+│   ├── HybridMagMomEstimator                                                        # 【混合磁矩反演器】联合椭球体+磁偶极子模型进行磁场参数高精度反演
+│   │   ├── data                                                                      # 原始数据目录
+│   │   │   ├── Large_ship_model,L=152.96m,W=17.28m,rz0=10m,ry0=0m,theta=0rad,V=3ms,SNR=0dB.mat   # 舰船电磁建模输入数据
+│   │   │   └── magnetic_moments_history.npy                                          # 磁矩历史记录（numpy格式）
+│   │   ├── npyload.py                                                                # npy文件读取脚本
+│   │   ├── README.md                                                                 # 项目说明文档
+│   │   ├── scripts                                                                   # 脚本模块
+│   │   │   ├── __pycache__                                                           # Python缓存目录
+│   │   │   │   └── load_data.cpython-312.pyc                                         # load_data.py 的编译缓存
+│   │   │   └── load_data.py                                                          # 数据加载函数
+│   │   ├── test.py                                                                   # 模型预测/测试脚本
+│   │   └── viz                                                                       # 可视化目录
+│   │       └── img.png                                                               # 可视化图像（磁矩重建结果）
+│   ├── PINNrever                                                                     # 【电磁参数反演】通过PINN反演电阻率分布
+│   │   ├── Gradient_Descent.py                                                       # 反演：梯度下降优化
+│   │   ├── pinnrevertrue.py                                                          # PINN 主网络实现
+│   │   ├── README.MD                                                                 # 项目说明文档
+│   │   └── viz                                                                       # 可视化结果目录
+│   │       ├── gradient_descent_0.png                                                # 第0步优化图
+│   │       ├── gradient_descent_1.png                                                # 第1步优化图
+│   │       └── pinns_predict.png                                                     # PINN预测图像
+│   ├── 船舶磁场建模                                                                 # 【船舶磁场建模】：构建正向磁场计算模型，仿真大型船体磁响应
+│   │   ├── __pycache__                                                              # Python 编译缓存目录
+│   │   │   ├── MagneticCalculate.cpython-312.pyc                                    # 编译缓存：磁场计算模块
+│   │   │   ├── net.cpython-312.pyc                                                  # 编译缓存：神经网络结构
+│   │   │   └── ReadData.cpython-312.pyc                                             # 编译缓存：数据读取模块
+│   │   ├── data                                                                     # 输入数据目录
+│   │   │   └── Large_ship_model,L=152.96m,W=17.28m,rz0=10m,ry0=0m,theta=0rad,V=3ms,SNR=0dB.mat  # 舰船磁场数据
+│   │   ├── forward_tensorboard_event_file                                           # TensorBoard 日志输出目录
+│   │   │   ├── events.out.tfevents.1747805930.MyhdeMacBook-Pro.local.5562.0         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747805955.MyhdeMacBook-Pro.local.5737.0         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747805955.MyhdeMacBook-Pro.local.5737.1         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747806200.MyhdeMacBook-Pro.local.5880.0         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747806200.MyhdeMacBook-Pro.local.5880.1         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747806210.MyhdeMacBook-Pro.local.5968.0         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747806210.MyhdeMacBook-Pro.local.5968.1         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747807921.MyhdeMacBook-Pro.local.6452.0         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747807921.MyhdeMacBook-Pro.local.6452.1         # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747821073.MyhdeMacBook-Pro.local.10508.0        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747821268.MyhdeMacBook-Pro.local.10752.0        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747821268.MyhdeMacBook-Pro.local.10752.1        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747822051.MyhdeMacBook-Pro.local.11116.0        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747822051.MyhdeMacBook-Pro.local.11116.1        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747822073.MyhdeMacBook-Pro.local.11277.0        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747822299.MyhdeMacBook-Pro.local.11430.0        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747822565.MyhdeMacBook-Pro.local.11595.0        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747822782.MyhdeMacBook-Pro.local.11774.0        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747822928.MyhdeMacBook-Pro.local.11922.0        # 训练过程日志文件
+│   │   │   ├── events.out.tfevents.1747878157.MyhdeMacBook-Pro.local.17917.0        # 训练过程日志文件
+│   │   │   └── events.out.tfevents.1747878185.MyhdeMacBook-Pro.local.18090.0        # 训练过程日志文件
+│   │   ├── MagneticCalculate.py                                                     # 电磁计算模块主脚本
+│   │   ├── net.py                                                                   # 神经网络结构定义
+│   │   ├── ReadData.py                                                              # 数据读取模块
+│   │   ├── README.md                                                                # 项目说明文档
+│   │   ├── Result                                                                   # 模型训练结果目录
+│   │   │   ├── epoch001.pth                                                         # 第001轮模型权重
+│   │   │   ├── epoch002.pth                                                         # 第002轮模型权重
+│   │   │   ├── epoch003.pth                                                         # 第003轮模型权重
+│   │   │   ├── epoch004.pth                                                         # 第004轮模型权重
+│   │   │   ├── epoch005.pth                                                         # 第005轮模型权重
+│   │   │   ├── epoch006.pth                                                         # 第006轮模型权重
+│   │   │   ├── epoch007.pth                                                         # 第007轮模型权重
+│   │   │   ├── epoch008.pth                                                         # 第008轮模型权重
+│   │   │   ├── epoch009.pth                                                         # 第009轮模型权重
+│   │   │   ├── epoch010.pth                                                         # 第010轮模型权重
+│   │   │   ├── epoch011.pth                                                         # 第011轮模型权重
+│   │   │   ├── epoch012.pth                                                         # 第012轮模型权重
+│   │   │   ├── epoch013.pth                                                         # 第013轮模型权重
+│   │   │   ├── epoch014.pth                                                         # 第014轮模型权重
+│   │   │   ├── epoch015.pth                                                         # 第015轮模型权重
+│   │   │   ├── epoch016.pth                                                         # 第016轮模型权重
+│   │   │   ├── epoch017.pth                                                         # 第017轮模型权重
+│   │   │   ├── epoch018.pth                                                         # 第018轮模型权重
+│   │   │   ├── epoch019.pth                                                         # 第019轮模型权重
+│   │   │   ├── epoch050.pth                                                         # 第050轮模型权重
+│   │   │   ├── epoch100.pth                                                         # 第100轮模型权重
+│   │   │   ├── epoch150.pth                                                         # 第150轮模型权重
+│   │   │   ├── epoch200.pth                                                         # 第200轮模型权重
+│   │   │   ├── epoch250.pth                                                         # 第250轮模型权重
+│   │   │   ├── epoch300.pth                                                         # 第300轮模型权重
+│   │   │   ├── epoch350.pth                                                         # 第350轮模型权重
+│   │   │   ├── epoch400.pth                                                         # 第400轮模型权重
+│   │   │   ├── epoch450.pth                                                         # 第450轮模型权重
+│   │   │   ├── epoch500.pth                                                         # 第500轮模型权重
+│   │   │   ├── epoch550.pth                                                         # 第550轮模型权重
+│   │   │   ├── epoch600.pth                                                         # 第600轮模型权重
+│   │   │   ├── epoch650.pth                                                         # 第650轮模型权重
+│   │   │   ├── epoch700.pth                                                         # 第700轮模型权重
+│   │   │   ├── epoch750.pth                                                         # 第750轮模型权重
+│   │   │   └── epoch800.pth                                                         # 第800轮模型权重
+│   │   └── train.py                                                                 # 训练主脚本
+│   └── 电磁散射模拟推演                                                             # 【电磁散射逆问题】：PINN求解亥姆霍兹方程的电场正反建模
+│       ├── pytorchEIS.py                                                            # 反问题：电场反演（训练介电常数）
+│       ├── pytorchES.py                                                             # 正问题：给定ε解电场分布
+│       ├── README.md                                                                # 项目说明文档
+│       ├── results                                                                   # 模型训练保存目录
+│       │   ├── final_model.pt                                                        # 最终训练模型
+│       │   ├── model_epoch_0.pt                                                      # 第0轮模型
+│       │   ├── model_epoch_1000.pt                                                   # 第1000轮模型
+│       │   ├── model_epoch_2000.pt                                                   # 第2000轮模型
+│       │   ├── model_epoch_3000.pt                                                   # 第3000轮模型
+│       │   ├── model_epoch_4000.pt                                                   # 第4000轮模型
+│       │   ├── model_epoch_5000.pt                                                   # 第5000轮模型
+│       │   ├── model_epoch_6000.pt                                                   # 第6000轮模型
+│       │   ├── model_epoch_7000.pt                                                   # 第7000轮模型
+│       │   ├── model_epoch_8000.pt                                                   # 第8000轮模型
+│       │   └── model_epoch_9000.pt                                                   # 第9000轮模型
+│       └── viz                                                                       # 可视化输出目录
+│           ├── epoch_0_Re_Im.png                                                     # 第0轮复数电场图（实部+虚部）
+│           ├── epoch_1000_Re_Im.png                                                  # 第1000轮复数电场图
+│           ├── epoch_2000_Re_Im.png                                                  # 第2000轮复数电场图
+│           ├── epoch_3000_Re_Im.png                                                  # 第3000轮复数电场图
+│           ├── epoch_4000_Re_Im.png                                                  # 第4000轮复数电场图
+│           ├── epoch_5000_Re_Im.png                                                  # 第5000轮复数电场图
+│           ├── epoch_6000_Re_Im.png                                                  # 第6000轮复数电场图
+│           ├── epoch_7000_Re_Im.png                                                  # 第7000轮复数电场图
+│           ├── epoch_8000_Re_Im.png                                                  # 第8000轮复数电场图
+│           ├── epoch_9000_Re_Im.png                                                  # 第9000轮复数电场图
+│           ├── final_Re_Im.png                                                       # 最终复数电场图
+│           └── pytorchES.png                                                         # 正问题模拟结果图
+├── environment.yml                                                                 # [项目环境配置] 指定Python版本及依赖库列表，用于conda环境复现
+├── Fluid_Mechanics                                                                 # [流体力学案例集] 包含典型流体模拟场景：方腔流、对流、圆柱绕流等
+│   ├── cavity_flow                                                                 # [方腔流动模拟] Re数为2000的低速闭腔涡旋问题，验证PINN对Navier-Stokes建模能力
+│   │   ├── boundry_condition.png                                                   # 模型边界条件示意图（如滑移/非滑移边界）
+│   │   ├── ev_NSKANet                                                              # [增强粘性网络-Ev] 引入粘性系数拟合模块以增强对Re=2000流动建模
+│   │   │   ├── cavity_data.py                                                      # 数据处理模块（读取mat格式流场数据）
+│   │   │   ├── data                                                                
+│   │   │   │   └── cavity_Re2000_256.mat                                           # Re=2000流场数据，256×256空间网格
+│   │   │   ├── net.py                                                              # 神经网络结构定义（Ev-PINN）
+│   │   │   ├── pinn_solver.py                                                      # PINN求解器实现
+│   │   │   ├── result_plot_ev.png                                                  # 模型输出结果图（速度矢量或涡度）
+│   │   │   ├── result_uvdata                                                       # 流场预测结果目录（不同轮次）
+│   │   │   │   ├── cavity_result_loop_0_epoch100000.mat                            # 第10万轮预测结果
+│   │   │   │   ├── cavity_result_loop_0_epoch200000.mat                            # 第20万轮预测结果
+│   │   │   │   ├── cavity_result_loop_0_epoch300000.mat                            # 第30万轮预测结果
+│   │   │   │   ├── cavity_result_loop_0_epoch400000.mat                            # 第40万轮预测结果
+│   │   │   │   └── cavity_result_loop_0_epoch500000.mat                            # 第50万轮预测结果
+│   │   │   ├── results                                                             
+│   │   │   │   ├── KAN_Re2k_evm01_epoch_500000_ev_net_1.pth                        # KAN变种Ev网络参数（分支1）
+│   │   │   │   └── KAN_Re2k_evm01_epoch_500000_ev_net.pth                          # 主网络参数
+│   │   │   ├── test.py                                                             # 测试脚本
+│   │   │   ├── tools.py                                                            # 通用工具（绘图、网格生成等）
+│   │   │   └── train.py                                                            # 训练入口脚本
+│   │   ├── L2_PIKAN.png                                                            # PIKAN方法L2误差曲线图
+│   │   ├── NSKANet                                                                 # [普通粘性网络] 标准PINN方法，用于对比Ev结构效果
+│   │   │   ├── cavity_data.py                                                      # 数据加载模块
+│   │   │   ├── data
+│   │   │   │   └── cavity_Re2000_256.mat                                           # 同样的输入数据
+│   │   │   ├── net.py                                                              # 网络结构定义
+│   │   │   ├── pinn_solver.py                                                      # PDE求解逻辑实现
+│   │   │   ├── result_plot.png                                                     # 模型输出图像
+│   │   │   ├── results
+│   │   │   │   ├── KAN_Re2k02_epoch_100000_ev_net.pth                              # 10万轮权重
+│   │   │   │   ├── KAN_Re2k02_epoch_200000_ev_net.pth                              # 20万轮权重
+│   │   │   │   ├── KAN_Re2k02_epoch_300000_ev_net.pth                              # 30万轮权重
+│   │   │   │   ├── KAN_Re2k02_epoch_400000_ev_net.pth                              # 40万轮权重
+│   │   │   │   └── KAN_Re2k02_epoch_500000_ev_net.pth                              # 50万轮权重
+│   │   │   ├── test.py                                                             # 网络测试脚本
+│   │   │   ├── tools.py                                                            # 工具集合
+│   │   │   └── train.py                                                            # 网络训练脚本
+│   │   ├── PIKAN.png                                                               # 可视化图像：PIKAN方法结果
+│   │   ├── README.md                                                               # 案例说明文档：含背景、方程设置、模型对比等
+│   │   ├── requirements.txt                                                        # Python环境依赖配置文件
+│   │   ├── result_plot_ev.png                                                      # 冗余/备用Ev模型结果图（重复保留）
+│   │   └── result_plot.png                                                         # NSKANet结果图像
+│   ├── cavity_flow_Re5K_gpus                                                       # [高雷诺数方腔流动-GPU版] 使用GPU训练PINN模型以拟合Re=5000湍流结构
+│   │   ├── __pycache__                                                             # Python缓存目录（自动生成）
+│   │   │   ├── cavity_data.cpython-310.pyc                                         # 数据读取模块的Python 3.10缓存
+│   │   │   ├── cavity_data.cpython-38.pyc                                          # 数据读取模块的Python 3.8缓存
+│   │   │   ├── net.cpython-310.pyc                                                 # 神经网络定义缓存
+│   │   │   ├── net.cpython-38.pyc                                                  # 神经网络定义缓存
+│   │   │   ├── pinn_solver.cpython-310.pyc                                         # 求解器缓存（Python 3.10）
+│   │   │   ├── pinn_solver.cpython-38.pyc                                          # 求解器缓存（Python 3.8）
+│   │   │   ├── tools.cpython-310.pyc                                               # 工具模块缓存
+│   │   │   ├── tools.cpython-38.pyc                                                # 工具模块缓存
+│   │   │   └── train.cpython-310.pyc                                               # 训练主逻辑缓存
+│   │   ├── cavity_data.py                                                          # 数据读取与预处理脚本
+│   │   ├── cavity_result_loop_1.mat                                                # 模型第1轮训练预测流场数据
+│   │   ├── checkpoint                                                               # 模型检查点目录（保存中间权重）
+│   │   │   ├── net_params_0.05_0.pth                                               # 学习率0.05下训练得到的网络权重
+│   │   │   └── net_params_0.05_0.pth_evm                                           # 上述模型的evm变种版本权重（可能为Ev-PINN）
+│   │   ├── data                                                                     # 输入流场数据目录
+│   │   │   ├── cavity_Re3000_256_Uniform.mat                                       # Re=3000，256点均匀网格数据（训练/对比用）
+│   │   │   └── cavity_Re5000_256_Uniform.mat                                       # Re=5000，256点均匀网格数据（主训练集）
+│   │   ├── net.py                                                                  # 神经网络结构定义（可包含EVM特征）
+│   │   ├── new_cavity_flow_Re5K_gpus                                               # 新模块化目录结构（网络、方程、工具分离）
+│   │   │   ├── data.py                                                             # 数据预处理模块
+│   │   │   ├── equation.py                                                         # PDE方程定义模块（含Navier-Stokes方程）
+│   │   │   ├── net.py                                                              # 模块化神经网络结构定义
+│   │   │   ├── test.py                                                             # 测试脚本
+│   │   │   ├── tools.py                                                            # 工具脚本（如网格生成、误差计算等）
+│   │   │   └── train.py                                                            # 训练脚本（用于GPU并行训练）
+│   │   ├── pinn_solver.py                                                          # PDE求解器主程序
+│   │   ├── test.py                                                                 # 原始版本测试脚本
+│   │   ├── tools.py                                                                # 原始版本工具函数
+│   │   └── train.py                                                                # 原始版本训练脚本
+│   ├── convection                                                                  # [自然对流模拟] 模拟热对流与雷诺-普朗特数变化下腔体流动的响应，包含多个PINN结构
+│   │   ├── hard_convection                                                         # [强制对流-HC] 研究自然对流条件下的PINN建模，按方法细分
+│   │   │   ├── 01ev_HCFNets                                                        # [结构1：ev-HCFNets] 加入ev机制的PINN网络变种
+│   │   │   │   ├── cavity_data.py                                                  # 热对流流场数据加载模块
+│   │   │   │   ├── data
+│   │   │   │   │   ├── cavity_Re2000Pr0.71_256.mat                                 # Re=2000, Pr=0.71 流场
+│   │   │   │   │   ├── cavity_Re2000Pr3.0_256.mat                                  # Re=2000, Pr=3.0 流场
+│   │   │   │   │   └── cavity_Re2000Pr7.1_256.mat                                  # Re=2000, Pr=7.1 流场
+│   │   │   │   ├── img_1.png                                                       # 可视化图1
+│   │   │   │   ├── img_2.png                                                       # 可视化图2
+│   │   │   │   ├── img.png                                                         # 总览图或网络结构图
+│   │   │   │   ├── net.py                                                          # 网络结构定义（支持ev机制）
+│   │   │   │   ├── pinn_ev.png                                                     # ev模型结果可视图
+│   │   │   │   ├── pinn_solver.py                                                  # ev-PINN求解器逻辑
+│   │   │   │   ├── readme.md                                                       # 子模块说明（通常说明数据来源、模型设置）
+│   │   │   │   ├── results                                                         # 模型输出目录（按Pr数划分）
+│   │   │   │   │   ├── Re2KPr0.71                                                  # Pr=0.71结果
+│   │   │   │   │   ├── Re2KPr3.0                                                   # Pr=3.0结果
+│   │   │   │   │   └── Re2KPr7.1                                                   # Pr=7.1结果
+│   │   │   │   ├── test.py                                                         # 测试流程
+│   │   │   │   ├── tools.py                                                        # 可视化与后处理工具
+│   │   │   │   └── train.py                                                        # 模型训练主脚本
+│   │   │   ├── 01HCFNets                                                           # [结构2：基础HCFNet] 标准PINN结构，对比ev-HCFNets效果
+│   │   │   │   ├── __pycache__                                                     # Python缓存
+│   │   │   │   │   ├── cavity_data.cpython-38.pyc                                  # 数据模块缓存
+│   │   │   │   │   ├── net.cpython-38.pyc                                          # 网络模块缓存
+│   │   │   │   │   ├── pinn_solver.cpython-38.pyc                                  # 求解器缓存
+│   │   │   │   │   └── tools.cpython-38.pyc                                        # 工具模块缓存
+│   │   │   │   ├── cavity_data.py                                                  # 数据加载脚本
+│   │   │   │   ├── data
+│   │   │   │   │   ├── cavity_Re2000_Pr0.71_256.mat                                # Re=2000, Pr=0.71，数据版本1
+│   │   │   │   │   └── cavity_Re2000Pr0.71_256.mat                                 # 同上，数据版本2
+│   │   │   │   ├── net.py                                                          # 网络结构
+│   │   │   │   ├── pinn_solver.py                                                  # PINN求解逻辑
+│   │   │   │   ├── pinn.png                                                        # 结果图像
+│   │   │   │   ├── result_data                                                     # 预测输出数据
+│   │   │   │   │   ├── cavity_result_loop_0_epoch300000.mat                        # 30万轮训练结果
+│   │   │   │   │   ├── cavity_result_loop_0_epoch600000.mat                        # 60万轮训练结果
+│   │   │   │   │   └── cavity_result_loop_0_epoch900000.mat                        # 90万轮训练结果
+│   │   │   │   ├── results                                                         # 存储不同Pr下预测模型权重
+│   │   │   │   │   └── Re2KPr0.71                                                  # Pr=0.71 模型结果
+│   │   │   │   ├── test.py                                                         # 测试脚本
+│   │   │   │   ├── tools.py                                                        # 可视化、后处理等通用方法
+│   │   │   │   └── train.py                                                        # 模型训练脚本
+│   │   │   ├── 02ev_HCKANets                                                       # [结构3：ev-HC-KAN] 融合KAN结构的ev对流模拟网络
+│   │   │   │   ├── cavity_data.py                                                  # 数据预处理
+│   │   │   │   ├── data
+│   │   │   │   │   └── cavity_Re2000Pr0.71_256.mat                                 # 主训练样本，Re=2000, Pr=0.71
+│   │   │   │   ├── net.py                                                          # 网络结构定义（KAN变体）
+│   │   │   │   ├── pinn_solver.py                                                  # PINN求解逻辑
+│   │   │   │   ├── result_plot_evkan.png                                           # ev-KAN结果图像
+│   │   │   │   ├── result_uvtdata                                                  # U-V-T 数据预测输出
+│   │   │   │   │   ├── cavity_result_loop_0_epoch200000.mat                        # 第20万轮结果
+│   │   │   │   │   ├── cavity_result_loop_0_epoch400000.mat                        # 第40万轮结果
+│   │   │   │   │   ├── cavity_result_loop_0_epoch600000.mat                        # 第60万轮结果
+│   │   │   │   │   └── cavity_result_loop_0_epoch800000.mat                        # 第80万轮结果
+│   │   │   │   ├── results
+│   │   │   │   │   ├── Re2KPr0.71_ev_80W_epoch_800000_ev_net_1.pth                 # 模型1：80宽度网络，第80万轮
+│   │   │   │   │   ├── Re2KPr0.71_ev_80W_epoch_800000_ev_net_2.pth                 # 模型2
+│   │   │   │   │   └── Re2KPr0.71_ev_80W_epoch_800000_ev_net.pth                   # 综合主模型
+│   │   │   │   ├── test.py                                                         # 测试模块
+│   │   │   │   ├── tools.py                                                        # 工具集
+│   │   │   │   └── train.py                                                        # 模型训练脚本
+│   │   │   ├── 02HCKANets                                                          # [结构4：HC-KAN] 强制对流任务下的非ev版 KAN 模型结构
+│   │   │   │   ├── cavity_data.py                                                  # 数据预处理脚本
+│   │   │   │   ├── data
+│   │   │   │   │   └── cavity_Re2000Pr0.71_256.mat                                 # 主训练数据样本，Re=2000, Pr=0.71
+│   │   │   │   ├── net.py                                                          # KAN结构的网络定义脚本
+│   │   │   │   ├── pinn_solver.py                                                  # PINN求解逻辑定义
+│   │   │   │   ├── result_plot_kan.png                                             # 模型结果可视化图
+│   │   │   │   ├── results
+│   │   │   │   │   ├── Re2KPr0.71_ev_80W_epoch_200000_ev_net.pth                   # 第20万轮网络模型
+│   │   │   │   │   ├── Re2KPr0.71_ev_80W_epoch_400000_ev_net.pth                   # 第40万轮网络模型
+│   │   │   │   │   ├── Re2KPr0.71_ev_80W_epoch_600000_ev_net.pth                   # 第60万轮网络模型
+│   │   │   │   │   └── Re2KPr0.71_ev_80W_epoch_800000_ev_net.pth                   # 第80万轮网络模型
+│   │   │   │   ├── test.py                                                         # 测试流程脚本
+│   │   │   │   ├── tools.py                                                        # 可视化与误差计算等工具脚本
+│   │   │   │   └── train.py                                                        # 模型训练主程序
+│   │   │   ├── README.md                                                           # 本子模块整体说明文档，概述所有结构、参数与实验设置
+│   │   │   ├── requirements.txt                                                    # Python依赖项说明文件（如torch、numpy等版本）
+│   │   │   └── viz                                                                  # 可视化结果汇总目录（图例命名与论文/文档对齐）
+│   │   │       ├── dingyi.png                                                      # 网络结构或符号定义图
+│   │   │       ├── img_10.png                                                      # 训练可视化图
+│   │   │       ├── img_12.png                                                      # 训练可视化图
+│   │   │       ├── img_13.png                                                      # 训练可视化图
+│   │   │       ├── img_14.png                                                      # 训练可视化图
+│   │   │       ├── img_16.png                                                      # 训练可视化图
+│   │   │       ├── img_3.png                                                      # 训练可视化图
+│   │   │       ├── img_4.png                                                      # 训练可视化图
+│   │   │       ├── img_5.png                                                      # 训练可视化图
+│   │   │       ├── img_6.png                                                      # 训练可视化图
+│   │   │       ├── img.png                                                         # 总体结构或方案展示图
+│   │   │       ├── PIKAN_l2.png                                                    # PIKAN模型的L2误差曲线图
+│   │   │       ├── PIKAN.png                                                       # PIKAN整体结果图
+│   │   │       ├── pinn_ev.png                                                     # ev-PINN模型可视图
+│   │   │       ├── PINN_L2.png                                                     # PINN L2误差对比图
+│   │   │       ├── pinn.png                                                        # 普通PINN结构图
+│   │   │       ├── pinns_strucature.png                                            # 多种PINN结构对比示意图
+│   │   │       ├── result_plot_evkan.png                                           # ev-KAN 结果展示图
+│   │   │       └── result_plot_kan.png                                             # KAN 模型结果展示图
+│   │   └── mixed_convection                                                        # [混合对流-MC] 同时考虑自然对流与强制对流的混合影响
+│   │       ├── 01ev_MCFNets                                                        # [结构1：ev-MCFNets] 混合对流下含ev机制的PINN模型
+│   │       │   ├── __pycache__                                                     # Python缓存文件夹
+│   │       │   │   ├── cavity_data.cpython-38.pyc                                  # 数据模块缓存
+│   │       │   │   ├── net.cpython-38.pyc                                          # 网络定义缓存
+│   │       │   │   ├── pinn_solver.cpython-38.pyc                                  # 求解器缓存
+│   │       │   │   └── tools.cpython-38.pyc                                        # 工具函数缓存
+│   │       │   ├── cavity_data.py                                                  # 混合对流下的流场数据读取
+│   │       │   ├── data
+│   │       │   │   ├── cavity_Re2000Pr0.71Ri0.1_256.mat                            # Re=2000, Pr=0.71, Ri=0.1 数据样本
+│   │       │   │   ├── cavity_Re2000Pr3.0Ri0.1_256.mat                             # Pr=3.0 样本
+│   │       │   │   └── cavity_Re2000Pr7.1Ri0.01_256.mat                            # Pr=7.1, Ri=0.01 样本
+│   │       │   ├── net.py                                                          # 网络结构定义
+│   │       │   ├── pinn_solver.py                                                  # PINN求解逻辑（包含ev结构）
+│   │       │   ├── PINNS_EV.png                                                    # ev-PINN结果图
+│   │       │   ├── result_uvtdata                                                  # 网络预测U/V/T结果输出
+│   │       │   │   └── cavity_result_loop_0_epoch300000.mat                        # 第30万轮迭代结果
+│   │       │   ├── results                                                         # 网络训练输出权重
+│   │       │   │   ├── Re2000Pr0.71Ri0.1                                           # Pr=0.71结果
+│   │       │   │   ├── Re2000Pr3.0Ri0.1                                            # Pr=3.0结果
+│   │       │   │   └── Re2000Pr7.1Ri0.01                                           # Pr=7.1结果
+│   │       │   ├── test.py                                                         # 测试脚本
+│   │       │   ├── tools.py                                                        # 数据后处理与可视化
+│   │       │   └── train.py                                                        # 模型训练主程序
+│   │       ├── 01MCFNets                                                           # [结构2：标准MCFNets] 无ev机制的混合对流模型
+│   │       │   ├── cavity_data.py                                                  # 数据预处理脚本
+│   │       │   ├── data
+│   │       │   │   ├── cavity_Re2000_256.mat                                       # Re=2000 的参考样本
+│   │       │   │   └── cavity_Re2000Pr0.71Ri0.1_256.mat                            # 混合对流参数样本
+│   │       │   ├── net.py                                                          # 网络结构定义（标准PINN）
+│   │       │   ├── pinn_solver.py                                                  # PINN训练求解脚本
+│   │       │   ├── PINNS.png                                                       # 模型输出图（U/V/T）
+│   │       │   ├── results
+│   │       │   │   └── Re2000Pr0.71Ri0.1                                           # 对应训练权重输出路径
+│   │       │   ├── test.py                                                         # 模型测试脚本
+│   │       │   ├── tools.py                                                        # 可视化与误差计算函数
+│   │       │   └── train.py                                                        # 主训练入口脚本
+│   │       ├── 02ev_MCKANets                                                       # [结构3：ev-MCKANets] 混合对流下使用KAN结构并引入ev机制
+│   │       │   ├── __pycache__                                                     # Python缓存
+│   │       │   │   ├── cavity_data.cpython-310.pyc                                 # 数据模块缓存
+│   │       │   │   ├── net.cpython-310.pyc                                         # 网络定义缓存
+│   │       │   │   ├── pinn_solver.cpython-310.pyc                                 # 求解器缓存
+│   │       │   │   └── tools.cpython-310.pyc                                       # 工具缓存
+│   │       │   ├── cavity_data.py                                                  # 数据预处理脚本
+│   │       │   ├── data
+│   │       │   │   └── cavity_Re2000Pr0.71Ri0.1_256.mat                            # 主数据样本
+│   │       │   ├── net.py                                                          # 使用KAN结构的网络定义
+│   │       │   ├── pinn_solver.py                                                  # PINN求解器（KAN + ev）
+│   │       │   ├── result_plot_kan_ev.png                                          # 可视化结果图（ev-KAN）
+│   │       │   ├── results                                                         # 模型训练权重存储
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_200000_ev_net_1.pth            # 第20万轮 - 网络1
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_200000_ev_net_2.pth            # 网络2
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_200000_ev_net.pth              # 综合模型
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_400000_ev_net_1.pth            # 第40万轮
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_400000_ev_net_2.pth
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_400000_ev_net.pth
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_600000_ev_net_1.pth
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_600000_ev_net_2.pth
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_600000_ev_net.pth
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_800000_ev_net_1.pth
+│   │       │   │   ├── Re2KPr0.71Ri0.1_ev_80W_epoch_800000_ev_net_2.pth
+│   │       │   │   └── Re2KPr0.71Ri0.1_ev_80W_epoch_800000_ev_net.pth              # 第80万轮模型
+│   │       │   ├── test.py                                                         # 测试脚本
+│   │       │   ├── tools.py                                                        # 工具集
+│   │       │   └── train.py                                                        # 模型训练流程
+│   │       ├── 02MCKANets                                                          # [结构4：MCKANets] 标准 KAN 网络（不含ev）用于混合对流建模
+│   │       │   ├── cavity_data.py                                                  # 读取并构造混合对流场数据
+│   │       │   ├── data
+│   │       │   │   └── cavity_Re2000Pr0.71Ri0.1_256.mat                            # 典型混合对流场数据样本
+│   │       │   ├── net.py                                                          # 定义 MCKAN 网络结构
+│   │       │   ├── pinn_solver.py                                                  # PINN求解器脚本（KAN结构）
+│   │       │   ├── result_plot_kan.png                                             # 模型训练输出的对比图
+│   │       │   ├── results                                                         # 网络权重输出目录
+│   │       │   │   ├── Re2KPr0.71Ri0.1_80W_epoch_200000_net.pth                    # 第20万轮模型权重
+│   │       │   │   ├── Re2KPr0.71Ri0.1_80W_epoch_400000_net.pth
+│   │       │   │   ├── Re2KPr0.71Ri0.1_80W_epoch_600000_net.pth
+│   │       │   │   └── Re2KPr0.71Ri0.1_80W_epoch_800000_net.pth
+│   │       │   ├── test.py                                                         # 结果测试逻辑
+│   │       │   ├── tools.py                                                        # 工具脚本
+│   │       │   └── train.py                                                        # 主训练脚本
+│   │       ├── README.md                                                           # 整个 mixed_convection 子模块说明文档（任务背景 + 网络结构 + 实验对比）
+│   │       ├── requirements.txt                                                    # 本子模块所需依赖环境说明
+│   │       └── viz                                                                  # 模型可视化输出图目录
+│   │           ├── img_1.png                                                       # 对流流场图
+│   │           ├── img_2.png
+│   │           ├── img_3.png
+│   │           ├── img_4.png
+│   │           ├── img_5.png
+│   │           ├── img.png                                                         # 通用结构图
+│   │           ├── KAN_L2.png                                                      # KAN结构误差图
+│   │           ├── PIKAN.png                                                       # PIKAN结构对比图
+│   │           ├── PINN_L2.png                                                     # PINN误差图
+│   │           ├── PINNS_EV.png                                                    # ev机制结果图
+│   │           ├── pinns_strucature.png                                            # 各类PINN结构示意
+│   │           ├── PINNS.png                                                       # 标准PINN结果图
+│   │           ├── result_plot_kan_ev.png                                          # ev-KAN结果图
+│   │           └── result_plot_kan.png                                             # 标准KAN结果图
+│   ├── cylinder_flow                                                               # [案例] 圆柱绕流问题（经典非定常流动模拟任务）
+│   │   ├── __pycache__                                                             # Python缓存目录
+│   │   │   ├── cylinder_re100_data.cpython-310.pyc                                 # 数据读取模块缓存（py3.10）
+│   │   │   ├── cylinder_re100_data.cpython-312.pyc                                 # 数据读取模块缓存（py3.12）
+│   │   │   ├── net.cpython-310.pyc                                                 # 网络结构定义缓存
+│   │   │   ├── net.cpython-312.pyc
+│   │   │   ├── pinn_solver.cpython-310.pyc                                         # PINN求解模块缓存
+│   │   │   └── pinn_solver.cpython-312.pyc
+│   │   ├── cylinder_re100_data.py                                                  # Re=100 情况下的流场数据读取脚本
+│   │   ├── geometry                                                                # 流体域几何模块
+│   │   │   ├── __init__.py                                                         # Python包初始化脚本
+│   │   │   ├── __pycache__                                                         # 几何模块缓存
+│   │   │   │   ├── __init__.cpython-310.pyc
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── constants.cpython-310.pyc                                       # 几何常量缓存
+│   │   │   │   ├── constants.cpython-312.pyc
+│   │   │   │   ├── curve.cpython-310.pyc                                           # 曲线工具缓存
+│   │   │   │   ├── curve.cpython-312.pyc
+│   │   │   │   ├── geometry.cpython-310.pyc
+│   │   │   │   ├── geometry.cpython-312.pyc
+│   │   │   │   ├── helper.cpython-310.pyc                                          # 辅助函数缓存
+│   │   │   │   ├── helper.cpython-312.pyc
+│   │   │   │   ├── numpy_printer.cpython-310.pyc                                   # 数组格式化工具
+│   │   │   │   ├── numpy_printer.cpython-312.pyc
+│   │   │   │   ├── parameterization.cpython-310.pyc                                # 参数化工具缓存
+│   │   │   │   ├── parameterization.cpython-312.pyc
+│   │   │   │   ├── primitives_2d.cpython-310.pyc                                   # 基本几何体定义（2D）
+│   │   │   │   └── primitives_2d.cpython-312.pyc
+│   │   │   ├── constants.py                                                        # 常量定义模块
+│   │   │   ├── curve.py                                                            # 曲线辅助模块
+│   │   │   ├── geometry.py                                                         # 几何主体定义
+│   │   │   ├── helper.py                                                           # 辅助工具函数
+│   │   │   ├── numpy_printer.py                                                    # 打印与格式化模块
+│   │   │   ├── parameterization.py                                                 # 参数控制模块
+│   │   │   ├── primitives_1d.py                                                    # 一维几何元素
+│   │   │   └── primitives_2d.py                                                    # 二维几何元素定义
+│   │   ├── net.py                                                                  # 网络模型定义（圆柱流动预测）
+│   │   ├── new_cylinder_flow                                                       # 新结构实现版本（可选或增强方案）
+│   │   │   ├── data.py                                                             # 数据读取模块
+│   │   │   ├── equation.py                                                         # 控制方程模块
+│   │   │   ├── net.py                                                              # 网络定义
+│   │   │   ├── test.py                                                             # 模型测试
+│   │   │   └── train.py                                                            # 模型训练主程序
+│   │   ├── pinn_solver.py                                                          # PINN主求解器实现
+│   │   ├── test.py                                                                 # 单独评估脚本
+│   │   └── train.py                                                                # 主训练脚本
+│   ├── KdV_Korteweg-de-Vries                                                       # [案例] KdV（Korteweg–de Vries）方程建模与算子学习任务
+│   │   ├── Inverse_problem                                                         # [子任务] KdV方程的参数反演问题
+│   │   │   ├── __pycache__                                                         # Python缓存文件夹
+│   │   │   │   ├── data.cpython-312.pyc                                            # 数据读取缓存
+│   │   │   │   ├── net.cpython-312.pyc                                             # 网络结构缓存
+│   │   │   │   └── pinn_solver.cpython-312.pyc                                     # 求解器缓存
+│   │   │   ├── data.py                                                             # 数据构造脚本
+│   │   │   ├── heat_eq_data.npz                                                    # 热传导方程形式下的数据集（可能为变种任务）
+│   │   │   ├── loss.dat                                                            # 损失值记录数据（文本格式）
+│   │   │   ├── net.py                                                              # 神经网络模型定义
+│   │   │   ├── pinn_solver.py                                                      # PINN主求解器实现（针对KdV逆问题）
+│   │   │   ├── Readme.md                                                           # 本子模块说明文档（逆问题定义 + 结构解释）
+│   │   │   ├── test.dat                                                            # 测试集（输入或输出值）
+│   │   │   ├── test2.txt                                                           # 附加测试文本
+│   │   │   ├── train.dat                                                           # 训练数据文本文件
+│   │   │   └── train.py                                                            # 模型训练主程序
+│   │   ├── README.md                                                               # 顶层 Readme 说明，介绍整个KdV任务背景与多子模块内容
+│   │   ├── viz                                                                     # 结果可视化目录（图像展示）
+│   │   │   ├── 表1.png                                                             # 可视化表格图
+│   │   │   ├── 图7.png                                                             # 实验图像（编号）
+│   │   │   ├── 图八.png                                                            # 中文命名图示（图八）
+│   │   │   ├── 图二.png
+│   │   │   ├── 图九.png
+│   │   │   ├── 图六.png
+│   │   │   ├── 图三.png
+│   │   │   └── 图四.png
+│   │   └── 算子学习                                                                 # [子任务] 针对KdV进行PINNsformer结构下的算子学习任务
+│   │       ├── fig                                                                 # 可视化图输出
+│   │       │   ├── sol_num_h1=10.png                                               # num=10 样本预测图
+│   │       │   ├── sol_num_h1=100.png                                              # num=100 样本预测图
+│   │       │   ├── sol_num_h1=1000_com.pdf                                         # num=1000 多方法比较图（PDF）
+│   │       │   ├── sol_num_h1=1000_com.png                                         # 同上，图像版
+│   │       │   ├── sol_num_h1=1000_noboundary.png                                  # 无边界条件的预测图
+│   │       │   └── sol_num_h1=1000.png                                             # num=1000 基准图
+│   │       ├── model_parameters                                                    # 模型参数存储目录
+│   │       │   ├── PINNsformer_num_h1=10                                           # 不同训练样本量下的模型（10个样本）
+│   │       │   │   ├── final_model_11018.pth
+│   │       │   │   ├── model_1000.pth
+│   │       │   │   ├── model_10000.pth
+│   │       │   │   ├── model_11000.pth
+│   │       │   │   ├── model_2000.pth
+│   │       │   │   ├── model_3000.pth
+│   │       │   │   ├── model_4000.pth
+│   │       │   │   ├── model_5000.pth
+│   │       │   │   ├── model_6000.pth
+│   │       │   │   ├── model_7000.pth
+│   │       │   │   ├── model_8000.pth
+│   │       │   │   └── model_9000.pth
+│   │       │   ├── PINNsformer_num_h1=100                                          # 使用100个训练样本
+│   │       │   │   ├── final_model_2001.pth
+│   │       │   │   ├── model_1000.pth
+│   │       │   │   └── model_2000.pth
+│   │       │   └── PINNsformer_num_h1=1000                                         # 使用1000个训练样本
+│   │       │       ├── final_model_10001.pth
+│   │       │       ├── final_model_263.pth
+│   │       │       ├── model_1000.pth
+│   │       │       ├── model_10000.pth
+│   │       │       ├── model_1500.pth
+│   │       │       ├── model_194_noboundary.pth
+│   │       │       ├── model_2000.pth
+│   │       │       ├── model_2500.pth
+│   │       │       ├── model_3000.pth
+│   │       │       ├── model_3500.pth
+│   │       │       ├── model_4000.pth
+│   │       │       ├── model_4500.pth
+│   │       │       ├── model_500.pth
+│   │       │       ├── model_5000.pth
+│   │       │       ├── model_5500.pth
+│   │       │       ├── model_6000.pth
+│   │       │       ├── model_6500.pth
+│   │       │       ├── model_7000.pth
+│   │       │       ├── model_7500.pth
+│   │       │       ├── model_8000.pth
+│   │       │       ├── model_8500.pth
+│   │       │       ├── model_9000.pth
+│   │       │       └── model_9500.pth
+│   │       ├── predict.py                                                          # 推理脚本（模型测试用）
+│   │       ├── readme.md                                                           # 本子模块文档说明
+│   │       ├── test.py                                                             # 测试执行脚本
+│   │       ├── testplt.py                                                          # 可视化对比脚本
+│   │       └── train.py                                                            # 主训练脚本
+│   ├── rans_backstep                                                               # [案例] RANS（雷诺平均N-S）模型的后向阶梯流动模拟与参数学习
+│   │   ├── __pycache__                                                             # Python缓存目录
+│   │   │   ├── net.cpython-310.pyc                                                 # 神经网络模型缓存
+│   │   │   ├── pinn_solver_2D.cpython-310.pyc                                      # 2D求解器缓存
+│   │   │   ├── rans_data.cpython-310.pyc                                           # RANS数据处理脚本缓存
+│   │   │   └── tools.cpython-310.pyc                                               # 工具模块缓存
+│   │   ├── data                                                                    # 原始数据集：流场/边界条件信息
+│   │   │   ├── Re1e5_backStep_BC_P_L8.mat                                          # Re=1e5 条件下的边界压力条件（长度L=8）
+│   │   │   ├── Re1e5_backStep_BC_P.mat                                             # 通用边界压力条件
+│   │   │   ├── Re1e5_backStep_BC_UV_L8.mat                                         # L=8时的边界速度数据
+│   │   │   ├── Re1e5_backStep_BC_UV.mat                                            # 通用边界速度数据
+│   │   │   ├── Re1e5_backStep_L8.mat                                               # 主体流动域数据（L=8）
+│   │   │   └── Re1e5_backStep.mat                                                  # 主体流动域通用数据
+│   │   ├── out                                                                     # 输出文件目录（空或待生成）
+│   │   ├── README.md                                                               # 本案例说明文档：任务背景 + 使用说明 + 网络结构
+│   │   ├── result_uvpdata                                                          # 模型预测结果（中间.mat结果文件）
+│   │   │   ├── f1_result_epoch100000.mat                                           # 迭代10万次的预测结果
+│   │   │   └── f1_result_epoch200000.mat                                           # 迭代20万次的预测结果
+│   │   ├── results                                                                 # 模型参数与训练结果
+│   │   │   └── Re100000                                                            # 针对Re=1e5训练的模型
+│   │   │       └── 4x120_Nf40k_lamB10_alpha0.05                                    # 特定超参配置下的训练目录
+│   │   │           ├── model_loop0.pth                                             # 初始模型参数
+│   │   │           ├── model_loop0.pth_evm                                         # 带EVM模型参数
+│   │   │           ├── model_loop10000.pth                                         # 1万次迭代模型
+│   │   │           ├── model_loop10000.pth_evm
+│   │   │           ├── model_loop20000.pth
+│   │   │           ├── model_loop20000.pth_evm
+│   │   │           ├── model_loop30000.pth
+│   │   │           ├── model_loop30000.pth_evm
+│   │   │           ├── model_loop40000.pth
+│   │   │           ├── model_loop40000.pth_evm
+│   │   │           ├── model_loop50000.pth
+│   │   │           ├── model_loop50000.pth_evm
+│   │   │           ├── model_loop60000.pth
+│   │   │           ├── model_loop60000.pth_evm
+│   │   │           ├── model_loop70000.pth
+│   │   │           ├── model_loop70000.pth_evm
+│   │   │           ├── model_loop80000.pth
+│   │   │           ├── model_loop80000.pth_evm
+│   │   │           ├── model_loop90000.pth
+│   │   │           └── model_loop90000.pth_evm
+│   │   ├── scripts                                                                 # 求解脚本集合
+│   │   │   ├── net.py                                                              # 网络定义（主模型）
+│   │   │   ├── pinn_solver_2D.py                                                   # 2D PINN求解器实现（完整物理模型）
+│   │   │   ├── pinn_solver.py                                                      # 1D或简化模型求解器
+│   │   │   ├── rans_data.py                                                        # RANS专用数据处理模块
+│   │   │   ├── tools.py                                                            # 通用工具函数
+│   │   │   └── visualize_results.py                                                # 可视化输出脚本
+│   │   ├── test_tensorboard_event_file                                             # TensorBoard记录目录
+│   │   │   ├── boundary_loss_bc_loss_io                                            # 边界损失项1记录
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.5
+│   │   │   ├── boundary_loss_bc_loss_p                                             # 边界损失项2记录
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.6
+│   │   │   ├── boundary_loss_bc_loss_wall                                          # 壁面边界损失项
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.7
+│   │   │   ├── equation_loss_eq1_loss                                              # PDE残差项1
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.1
+│   │   │   ├── equation_loss_eq2_loss
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.2
+│   │   │   ├── equation_loss_eq3_loss
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.3
+│   │   │   ├── equation_loss_eq4_loss
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.4
+│   │   │   ├── error_l2_l2_u                                                       # u方向L2误差记录
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.8
+│   │   │   ├── error_l2_l2_v                                                       # v方向L2误差记录
+│   │   │   │   └── events.out.tfevents.1727492093.se42-X11DAi-N.111202.9
+│   │   │   ├── events.out.tfevents.*                                               # 其他损失/精度追踪记录文件
+│   │   ├── train.py                                                                # 主训练脚本
+│   │   └── viz                                                                     # 可视化图像输出
+│   │       ├── uv_contour.png                                                      # 流场uv等值线图
+│   │       ├── UV_error2.png                                                       # 误差分析图
+│   │       └── UV_loss2.png                                                        # 损失趋势图
+│   ├── README.md                                                                    # 当前 Fluid_Mechanics 模块的总览介绍文件，包含案例列表、方法概述与引用说明，是智能体理解该模块核心语义的第一入口
+│   ├── 一维Burgers方程基函数预计算与在线求解                                          # [案例] 针对Burgers方程的基函数离线预计算 + 在线解算框架（兼容GPT与PINN）
+│   │   ├── b_data                                                                  # 数据与测试集相关目录
+│   │   │   ├── B_data.py                                                           # 数据处理与载入脚本
+│   │   │   ├── b_test.dat                                                          # 测试数据
+│   │   │   ├── generation_time.dat                                                 # 基函数生成耗时数据
+│   │   │   ├── gpt_test_losses.dat                                                 # GPT模型在测试集上的loss记录
+│   │   │   ├── gpt_test_soln.dat                                                   # GPT模型预测解
+│   │   │   ├── gpt_test_time.dat                                                   # GPT在线测试耗时
+│   │   │   ├── max_losses.dat                                                      # 最大loss记录
+│   │   │   ├── neurons.dat                                                         # 网络神经元结构信息
+│   │   │   ├── params.npy                                                          # 参数配置文件（NumPy格式）
+│   │   │   ├── pinn_test_losses.dat                                                # PINN模型loss记录
+│   │   │   ├── pinn_test_soln.dat                                                  # PINN模型预测结果
+│   │   │   ├── pinn_test_time.dat                                                  # PINN测试耗时
+│   │   │   ├── total_time.dat                                                      # 整体运行时间数据
+│   │   │   ├── xt_resid.dat                                                        # PDE残差数据
+│   │   │   └── xt_test.dat                                                         # 测试数据空间网格
+│   │   ├── B_main.py                                                               # 框架主入口脚本
+│   │   ├── data                                                                    # 数据目录（含Burgers数据脚本）
+│   │   │   └── B_data.py                                                           # 与上方 b_data 目录结构重复（或为冗余/旧版副本）
+│   │   ├── LICENSE                                                                 # 项目协议说明
+│   │   ├── main_page.png                                                           # 主页面可视化图像（通常用于README中展示）
+│   │   ├── model                                                                   # 模型结构定义与预计算模块
+│   │   │   ├── B_models.py                                                         # 网络模型架构定义
+│   │   │   └── B_precomp.py                                                        # 预计算模块：用于生成基函数库
+│   │   ├── README.md.md                                                            # 案例说明文档（实际应重命名为 README.md）
+│   │   ├── scripts                                                                 # 模型运行核心脚本目录
+│   │   │   ├── B_optimizer.py                                                      # 优化器配置模块
+│   │   │   ├── B_plotting.py                                                       # 可视化绘图模块
+│   │   │   ├── B_test.py                                                           # 测试模块
+│   │   │   └── B_train.py                                                          # 训练模块
+│   │   └── viz                                                                     # 可视化图像输出目录
+│   │       ├── error_plot_nu_0.4481.png                                            # 特定粘性系数下的误差分布图
+│   │       ├── gpt_pinn_plot_nu_0.4481.png                                         # GPT与PINN模型对比图
+│   │       ├── max_losses.png                                                      # 最大误差趋势图
+│   │       ├── pinn_plot_nu_0.4481.png                                             # PINN模型输出图
+│   │       └── time_comparison.png                                                 # 不同方法时间对比图
+├── Geology                                                             # 🌍 地质学模块，包含多个地形建模、异常元素分析与智能地学可视化相关子项目
+│   ├── geochatbot                                                     # 🤖 地质智能体项目：基于 LLM 的交互式地质异常元素识别与地图可视化工具集
+│   │   ├── app.py                                                     # 主入口：地图分析与交互逻辑入口脚本
+│   │   ├── app1.py                                                    # 备份版本的交互界面脚本
+│   │   ├── data                                                       # 原始地图与结果数据
+│   │   │   ├── Analytical_value_55K03.csv                             # Cu-K 点的浓度检测数据
+│   │   │   ├── map_1718910988.624604.html                             # 多次交互生成的地质地图页面
+│   │   │   ├── map_1718911001.5413659.html
+│   │   │   ├── map_1718911050.70735.html
+│   │   │   ├── map_1718911061.913903.html
+│   │   │   ├── map_screenshot_1718910997.3246865.png                  # 对应地图的静态截图
+│   │   │   ├── map_screenshot_1718911008.3638725.png
+│   │   │   ├── map_screenshot_1718911068.5257556.png
+│   │   │   └── Rules and Regulation(new).pdf                          # 地质数据规范说明文件
+│   │   ├── geochatbot-main                                            # geochatbot 主工程文件夹（与根目录结构重复，可能为原始来源）
+│   │   │   ├── Analytical_value_55K03.csv                             # 同上，数据副本
+│   │   │   ├── app.py                                                 # 同名主入口脚本
+│   │   │   ├── app1.py                                                # 同名备份界面脚本
+│   │   │   ├── cu_Kriging_map.jpg                                     # 克里金插值生成的Cu元素空间分布图
+│   │   │   ├── data
+│   │   │   │   └── Rules and Regulation(new).pdf                      # 数据规范（重复）
+│   │   │   ├── LICENSE                                                # 开源协议文件
+│   │   │   ├── main.py                                                # 主控程序，可能集成LLM与前端入口
+│   │   │   ├── map_1718910988.624604.html                             # 交互地图副本
+│   │   │   ├── map_1718911001.5413659.html
+│   │   │   ├── map_1718911050.70735.html
+│   │   │   ├── map_1718911061.913903.html
+│   │   │   ├── map_screenshot_1718910997.3246865.png
+│   │   │   ├── map_screenshot_1718911008.3638725.png
+│   │   │   ├── map_screenshot_1718911068.5257556.png
+│   │   │   └── README.md                                              # 子模块说明文档，介绍应用方法与示意
+│   │   ├── geochatbot地质元素异常图生成.docx                           # 📄 项目设计文档：描述如何生成异常元素地图，可能用于论文或展示材料
+│   │   ├── LICENSE                                                    # 项目协议说明
+│   │   ├── ll_env                                                     # 🌐 虚拟环境文件夹（可能用于 geoLLM 或可视化部署）
+│   │   │   ├── Lib
+│   │   │   │   └── site-packages                                      # 安装的包列表（pip 与依赖）
+│   │   │   │       ├── pip                                            # pip工具包
+│   │   │   │       └── pip-24.2.dist-info                             # pip 版本信息
+│   │   │   ├── pyvenv.cfg                                             # 虚拟环境配置文件（用于解释器指向）
+│   │   │   └── Scripts                                                # Windows下的可执行脚本
+│   │   │       ├── activate / deactivate                              # 虚拟环境启用/退出脚本
+│   │   │       ├── pip.exe / pip3.exe / pip3.12.exe                   # pip 命令对应版本
+│   │   │       ├── python.exe / pythonw.exe                           # 虚拟环境 Python 解释器
+│   │   ├── main.py                                                    # geochatbot 主入口脚本（整合 app.py 与可视化服务）
+│   │   ├── myenv                                                      # 📦 第二个虚拟环境文件夹（功能与 ll_env 重复）
+│   │   │   ├── Lib
+│   │   │   │   └── site-packages                                      # 安装的库，包含 distlib、filelock 等构建依赖
+│   │   │   │       ├── distlib / virtualenv                           # 虚拟环境创建工具
+│   │   │   │       └── *.dist-info                                     # 库版本信息元数据
+│   │   │   ├── pyvenv.cfg                                             # 同上，环境配置
+│   │   │   └── Scripts                                                # 执行命令路径
+│   │   │       ├── activate / deactivate                              # 虚拟环境脚本
+│   │   │       ├── pip.exe / pip3.exe / python.exe                    # 核心命令接口
+│   │   │       └── virtualenv.exe                                     # 创建新环境工具
+│   │   ├── README.md                                                  # 🌍 geochatbot 主模块文档：包含功能概述、LLM调用、地质图可视化说明等
+│   │   ├── requirements.txt                                           # 📋 Python依赖列表（用于部署或Colab复现）
+│   │   └── viz                                                        # 📊 可视化结果输出文件夹
+│   │       ├── 12321.png                                              # 多图对比结果图
+│   │       ├── cu_Kriging_map.jpg                                     # 克里金插值后 Cu 浓度地图（图像形式）
+│   │       ├── CU.jpg                                                 # CU 元素空间分布图
+│   │       ├── IDW.png                                                # IDW插值生成图
+│   │       ├── jiao.png                                               # 地质交界异常图
+│   │       ├── JU.png                                                 # JU 点位空间热力图
+│   │       ├── K.png                                                  # K 元素插值热图
+│   │       └── 文字文稿1.pdf                                          # 项目或演示使用的图文材料（可能用于答辩或报告）
+│   └── 地质研究中的地形可视化_xjl_change_仿真                             # 🏔️ 子模块：基于地质高程数据进行地形可视化模拟（XJL实验版本）
+│       ├── data                                                       # 📂 数据文件夹：包含高程地形输入数据
+│       │   ├── example_data_Galapagos_100m.mat                        # 加拉帕戈斯群岛 100m 分辨率 DEM 地形数据
+│       │   └── example_data_Morteratsch_25m.mat                       # 莫特拉奇冰川 25m 分辨率 DEM 地形数据
+│       ├── README.md                                                  # 📄 模块说明文档：简要介绍地形可视化工具使用方式与结果样例
+│       ├── Topozeko.py                                                # 🧠 主程序：实现地形数据解析、模拟与绘图
+│       ├── Tpozeko.docx                                               # 📄 可疑为 `Topozeko` 脚本的使用说明文档或开发记录
+│       └── viz                                                        # 📊 可视化图像输出目录
+│           ├── 2d.jpg                                                 # 地形二维视图图像（可能为灰度图或等高线图）
+│           ├── 4d.jpg                                                 # 特殊视角或多通道增强可视化图
+│           ├── back.png                                               # 背景示意图或默认渲染图层
+│           ├── to.jpg                                                 # 地形前景或顶部可视图
+│           └── topozeko_plot.png                                      # Topozeko 工具生成的主图（可为三维视角或热图）
+├── LICENSE                                                           # 📜 项目开源协议（可能为 MIT 或 Apache 2.0）
+├── Math_Physics_Formulations                                        # 📚 数理物理方程集合模块：涵盖多类 PDE 经典形式及其 PINN 实现
+│   ├── 2D_波动方程                                                     # 🌊 子模块：二维波动方程的 PINN 建模与可视化
+│   │   ├── main_page.png                                             # 📌 案例封面图：展示二维波动结果/结构图
+│   │   ├── PINN_Wave.ipynb                                           # 📓 Jupyter Notebook：完整的PINN求解流程（含物理损失函数）
+│   │   ├── README.md                                                 # 📄 案例介绍文档：包含波动方程、边界条件与神经网络结构说明
+│   │   └── viz                                                       # 📊 可视化输出图像文件夹
+│   │       ├── 1.jpg                                                 # 训练过程波场图样（或初始条件可视化）
+│   │       ├── 2.png                                                 # 中间步骤结果或误差分布图
+│   │       └── 3.gif                                                 # 训练动态可视化（例如波动传播动画）
+│   ├── HelmholtzPDE.py                                               # 📌 亥姆霍兹方程：频域稳态 PDE，用于电磁/声学等建模
+│   ├── kdv.py                                                        # 🌀 Korteweg-de Vries 方程脚本（非线性浅水波/孤立波建模）
+│   ├── Maxwell.py                                                    # ⚡ 麦克斯韦方程组求解脚本：电磁场联合动力学建模
+│   ├── navier_cauchy.py                                              # 🧱 纳维-柯西方程：描述弹性连续体应力场（固体力学背景）
+│   ├── navier_stokes.py                                              # 💨 纳维-斯托克斯方程：不可压缩流体动力学建模（含PINN解）
+│   ├── possion.py                                                    # 🧲 泊松方程脚本（常见静态电势或扩散模型）
+│   ├── README.md                                                     # 📘 总模块说明文档：概述所有PDE方程及其数值求解方法（PINN形式）
+│   ├── Vlasov_Equation                                               # 🌌 Vlasov 方程：等离子体动力学中的分布函数演化建模
+│   │   ├── data
+│   │   │   ├── E.npy                                                 # 电场数据张量（时间演化或空间分布）
+│   │   │   └── f.npy                                                 # 分布函数数据（如粒子速度分布）
+│   │   ├── main.py                                                   # 主脚本：PINN 网络结构与训练调用
+│   │   ├── README.md                                                 # 案例说明文档：描述 Vlasov 方程背景与物理建模方式
+│   │   ├── Result                                                    # 🧠 训练结果输出文件夹
+│   │   │   ├── PINN_0.pth ～ PINN_200000.pth                         # 不同轮次保存的模型权重
+│   │   │   ├── PINN_final.pth                                        # 最终拟合模型
+│   │   │   └── train_loss.txt                                        # 训练损失记录（用于绘图或分析）
+│   │   └── viz                                                       # 📈 可视化输出
+│   │       ├── two_stream_instability.jpg                           # 双流不稳定性图示
+│   │       └── velocity_distribution.png                             # 粒子速度分布拟合图
+│   └── wave_equation.py                                              # 🌊 波动方程通用脚本：提供简洁的 PINN 模型推理与求解入口
+├── NEW_TREE.txt                                      # 项目生成的完整文件结构树，记录整个案例库的目录层级
+├── README.md                                         # 项目主页的总述文档，提供案例库的背景、分类与使用说明
+├── Solid_Mechanics                                   # 固体力学模块：包含多个基于PINN的结构力学建模与仿真案例
+│   ├── 3D_ElasticForce_Deformation                   # 三维弹性结构受力与变形建模案例
+│   │   ├── 3D_ElasticForce_deformation_purePINNs.ipynb  # 使用纯PINN建模三维弹性受力与变形的主程序（Jupyter笔记本）
+│   │   ├── data                                      # 存储结构仿真相关的输入数据
+│   │   │   ├── Coord.mat                             # 包含结构体网格坐标信息的.mat格式数据
+│   │   │   └── FEA.mat                               # 有限元分析结果数据，用于与PINN结果对比
+│   │   ├── LICENSE                                   # 案例许可协议，说明使用和传播限制
+│   │   ├── model                                     # 存放已训练好的PINN模型参数
+│   │   │   └── pinn_elasticity_model.pt              # 训练好的PINN网络模型权重（PyTorch格式）
+│   │   ├── README.md                                 # 当前案例的介绍文档，含物理背景、方法、结果展示等
+│   │   ├── requirements.txt                          # 指定运行该案例所需的Python库与版本
+│   │   ├── run.py                                    # 可执行主程序脚本，加载数据与模型，进行推理或训练
+│   │   ├── scripts                                   # 脚本模块，封装训练、建模、可视化等功能
+│   │   │   ├── __pycache__                           # Python 编译缓存文件夹
+│   │   │   │   ├── config.cpython-312.pyc            # 预处理配置脚本的编译缓存
+│   │   │   │   ├── MultiFNN.cpython-312.pyc          # 多层前馈神经网络类的编译缓存
+│   │   │   │   ├── networks.cpython-312.pyc          # 神经网络结构定义的缓存
+│   │   │   │   ├── train.cpython-312.pyc             # 训练逻辑脚本的缓存
+│   │   │   │   ├── utils.cpython-312.pyc             # 工具函数脚本缓存
+│   │   │   │   └── visualization.cpython-312.pyc     # 可视化函数缓存
+│   │   │   ├── config.py                             # 配置文件，设置路径、网络参数等
+│   │   │   ├── MultiFNN.py                           # 定义多层前馈神经网络类（基础结构）
+│   │   │   ├── networks.py                           # 网络结构定义文件，支持PINN结构初始化
+│   │   │   ├── train.py                              # 训练流程主脚本，含损失函数与优化逻辑
+│   │   │   ├── utils.py                              # 通用工具函数（如归一化、日志等）
+│   │   │   └── visualization.py                      # 包含预测值、应力场等可视化的绘图工具
+│   │   └── viz                                       # 可视化结果输出目录
+│   │       ├── loss_curve.png                        # 训练过程中损失函数随epoch变化的曲线图
+│   │       ├── predict_displacement.png              # PINN预测的结构位移分布图
+│   │       ├── predict_stress.png                    # PINN预测的应力分布图
+│   │       ├── stress.jpg                            # 应力云图的图像输出
+│   │       └── U_displacement.jpg                    # 位移场可视化图
+│   ├── 3D_ElasticForce_Deformation_卫星结构          # 三维弹性受力建模的卫星结构变形案例（独立于主例程）
+│   │   ├── 3D_ElasticForce_deformation_purePINNs.ipynb  # 卫星结构对应的PINN建模Jupyter代码（与主结构类似）
+│   │   ├── model                                     # 存放该案例的已训练模型参数
+│   │   │   └── winged_block_model_A4.pt              # 训练好的网络模型，适用于特定卫星结构（翼型块）
+│   │   ├── README.md                                 # 案例说明文件，介绍模型结构、数据背景及运行方式
+│   │   ├── requirements.txt                          # 指定运行本案例所需的依赖包（如PyTorch等）
+│   │   └── viz                                       # 可视化输出目录（预测应力/位移等结果图像）
+│   │       ├── loss_curve.png                        # 训练过程中的损失下降曲线
+│   │       ├── predict_displacement.jpeg             # 预测的位移图（JPEG格式）
+│   │       ├── predict_stress.jpeg                   # 预测的应力图（JPEG格式）
+│   │       ├── stress.jpeg                           # 总体应力场可视图像
+│   │       └── U_displacement.jpeg                   # 位移云图显示结果
+│   ├── README.md                                     # Solid_Mechanics 主模块的总说明文档，概述各子案例
+│   ├── 二维弹性力学基函数预计算与在线求解                # 使用预计算技术提升求解效率的二维弹性力学案例
+│   │   ├── main.py                                   # 主运行脚本，用于加载模型与执行在线求解
+│   │   ├── README.md                                 # 案例说明文档，包含理论背景与使用说明
+│   │   └── viz                                       # 可视化结果目录
+│   │       ├── 1a.png                                # 示例结果图1（PNG格式）
+│   │       ├── 1b.jpg                                # 示例结果图2（JPG格式）
+│   │       ├── 1c.jpeg                               # 示例结果图3（JPEG格式）
+│   │       ├── 1d.jpg                                # 示例结果图4（JPG格式）
+│   │       └── 1e.jpg                                # 示例结果图5（JPG格式）
+│   ├── 翼型结构力约束的物理信息神经网络求解              # 基于PINN建模的翼型结构，加入力边界约束
+│   │   ├── main_page.png                             # 主页面可视化图，用于文档/主页展示
+│   │   ├── README.md                                 # 案例说明，含物理背景、建模过程、图示结果等
+│   │   ├── run.py                                    # 模型运行主脚本，执行训练与测试流程
+│   │   └── viz                                       # 结果可视化图像文件夹
+│   │       ├── 1.png                                 # 可视化图1（如应力或位移分布）
+│   │       ├── 2.png                                 # 可视化图2
+│   │       └── 3.png                                 # 可视化图3
+│   └── 翼型结构位移约束的物理信息神经网络求解             # 针对翼型结构添加位移边界条件的PINN建模案例
+│       ├── data                                      # 数据文件夹（包含原始.mat数据与预处理脚本）
+│       │   ├── data.mat                              # 原始实验或仿真数据（MATLAB格式）
+│       │   └── SM_data.py                            # 数据预处理脚本（用于读取/处理data.mat）
+│       ├── model                                     # 模型文件夹，包含网络结构与求解器
+│       │   ├── net.py                                # 神经网络结构定义
+│       │   └── pinn_solver.py                        # PINN求解器类（包含训练逻辑与边界约束）
+│       ├── README.md.md                              # 案例说明文档（应为双重扩展名，建议更名）
+│       ├── run.py                                    # 主训练与预测执行脚本
+│       ├── scripts                                   # 辅助脚本目录（测试与训练工具）
+│       │   ├── test.py                               # 测试脚本（用于模型验证）
+│       │   ├── tools.py                              # 工具函数集合（如归一化、可视化等）
+│       │   └── train.py                              # 模型训练入口脚本
+│       └── viz                                       # 可视化结果输出文件夹
+│           ├── 1.jpg                                 # 示例图像1（位移或应力分布）
+│           ├── 2.jpg                                 # 示例图像2
+│           ├── 3.jpg                                 # 示例图像3
+│           ├── 4.jpg                                 # 示例图像4
+│           ├── 5.jpg                                 # 示例图像5
+│           ├── 6.jpg                                 # 示例图像6
+│           └── result.png                            # 汇总图像或最终结果展示图
+├── Thermodynamics                              # 热力学主题主目录
+│   ├── README.md                               # 总体说明文档，介绍本模块包含的所有热传导类案例
+│   └── Satellite                               # 卫星热分析子模块，包含多个不同模型的实现
+│       ├── Pinnsformer                         # 使用 PINNsformer 框架对热流进行建模的案例
+│       │   ├── data                            # 数据文件夹
+│       │   │   ├── data_rbc.txt               # 热流边界条件数据
+│       │   │   └── loss_curve.csv             # 训练过程中记录的损失曲线数据
+│       │   ├── model                           # 模型定义与已训练模型权重
+│       │   │   ├── __pycache__                # Python 字节码缓存
+│       │   │   │   └── pinn.cpython-312.pyc   # `pinn.py` 编译后缓存文件
+│       │   │   ├── 3d_pinnsformer.pt          # 已训练好的3D PINNsformer模型权重
+│       │   │   └── pinn.py                    # PINNsformer 网络结构定义
+│       │   ├── README.md                      # 案例说明文档，介绍建模背景、网络结构与结果
+│       │   ├── scripts                         # 训练与推理用脚本
+│       │   │   ├── __pycache__                # 缓存目录
+│       │   │   │   ├── Pinnsformer.cpython-312.pyc
+│       │   │   │   └── utils.cpython-312.pyc
+│       │   │   ├── Pinnsformer.py             # 主模型调用与训练逻辑脚本
+│       │   │   └── utils.py                   # 工具函数脚本（可视化、数据加载等）
+│       │   ├── train.py                       # 模型训练主入口
+│       │   └── viz                             # 可视化结果输出
+│       │       ├── animation.gif              # 热力传播动画（无误差）
+│       │       ├── error_animation.gif        # 热力误差传播动画
+│       │       └── loss_curve.png             # 训练损失图可视化
+│       ├── Pinnsformer_withsun                 # 加入太阳热源项的 PINNsformer 模型
+│       │   ├── __pycache__                    # 字节码缓存
+│       │   │   ├── Pinnsformer.cpython-312.pyc
+│       │   │   ├── Pinnsformer.cpython-313.pyc
+│       │   │   ├── utils.cpython-312.pyc
+│       │   │   └── utils.cpython-313.pyc
+│       │   ├── data                            # 数据输入
+│       │   │   └── data_7246.txt              # 模拟轨道/太阳照射条件下的温度输入数据
+│       │   ├── Pinnsformer.py                 # 主模型结构定义与训练逻辑
+│       │   ├── readme.md                      # 案例说明文档（注意为小写，建议统一为 README.md）
+│       │   ├── result                          # 模型结果输出文件夹
+│       │   │   ├── animationnosun.gif         # 无太阳模型动画结果
+│       │   │   └── pinnsformer_withsun.pt     # 加入太阳热源后训练好的模型权重
+│       │   ├── train.py                       # 训练脚本
+│       │   ├── utils.py                       # 工具脚本
+│       │   └── viz                             # 可视化结果
+│       │       ├── animationsun.gif           # 太阳照射下的温度动画
+│       │       ├── image.png                  # 预测热分布图像
+│       │       └── PINNsformer_strucature.png # 模型结构图
+│       ├── STSS_without_time                  # 去除时间项的稳态热分析模型
+│       │   ├── data_dirc_big.txt              # 数据版本1
+│       │   ├── data_dirc.txt                  # 数据版本2（可能用于对比）
+│       │   └── STSS_without_time.ipynb        # Jupyter Notebook 实现，无时间维度的热传导模拟
+│       └── STSS_withsun                       # 加入太阳热源项与时间维度的完整热建模案例
+│           ├── data                            # 输入数据与结果图像
+│           │   ├── absolute_error.png         # 预测误差图（绝对误差）
+│           │   ├── data_xyz_ut_3167.txt       # 模拟数据（空间+温度+时间）
+│           │   ├── plot_3d_surface.gif        # 热传导过程3D动画
+│           │   ├── relative_loss.png          # 相对损失曲线
+│           │   └── train_loss_test_error.png  # 训练与测试阶段的损失与误差统计图
+│           ├── model                           # 模型保存目录
+│           │   └── stss_transient_pinns_mod_20250424_081016.pt
+│           ├── README.md                      # 案例详细介绍，说明模型结构与仿真设置
+│           ├── requirements.txt               # Python 依赖库声明
+│           ├── run.py                         # 模型运行主脚本
+│           ├── scripts                         # 支持模块脚本集合
+│           │   ├── __pycache__                # 缓存目录
+│           │   │   ├── config.cpython-312.pyc
+│           │   │   ├── data_utils.cpython-312.pyc
+│           │   │   ├── losses.cpython-312.pyc
+│           │   │   ├── mesh.cpython-312.pyc
+│           │   │   ├── networks.cpython-312.pyc
+│           │   │   ├── pinns.cpython-312.pyc
+│           │   │   ├── trainer.cpython-312.pyc
+│           │   │   └── visualize.cpython-312.pyc
+│           │   ├── config.py                  # 配置参数管理
+│           │   ├── data_utils.py              # 数据加载工具
+│           │   ├── mesh.py                    # 网格构建工具
+│           │   ├── networks.py                # 神经网络结构定义
+│           │   ├── pinns.py                   # PINN 核心逻辑
+│           │   └── visualize.py               # 可视化工具模块
+│           ├── transient_pinn_mod.ipynb       # Jupyter Notebook 实现，含动态热过程建模
+│           └── viz                             # 模型结果可视化输出
+│               ├── bar_error.png              # 条形图：预测误差
+│               ├── boundry_heat.gif           # 边界热流动画
+│               ├── error.png                  # 总误差分布图
+│               ├── image.png                  # 温度预测图像
+│               ├── init.png                   # 初始条件图
+│               ├── losses.png                 # 损失函数变化曲线
+│               ├── no_boundry_heat.gif        # 非边界热动画
+│               ├── pinn_mod.gif               # PINN 预测过程动画
+│               └── stss_structure.png         # 网络结构可视化图
+└── Variant_PINNs                          # PINN 的变体方法模块集合
+    ├── bnn                                # 贝叶斯神经网络方法（Bayesian Neural Networks）
+    │   ├── Dropout                        # 使用 Dropout 技术近似贝叶斯推断的 PINN 方法
+    │   │   ├── Dropout_2D.ipynb           # 针对二维问题的 Dropout-PINN 实验 Notebook
+    │   │   ├── Dropout.ipynb              # 一维问题中的 Dropout-PINN 实验 Notebook
+    │   │   ├── fig                         # 可视化图像输出目录
+    │   │   │   ├── 1D.png                  # Dropout 模型在一维问题上的预测图像
+    │   │   │   └── A-C_2D.png              # Dropout 模型在二维问题中的预测误差可视化
+    │   │   └── readme.md                   # Dropout 方法的说明文档
+    │   ├── HMC                            # 使用哈密顿蒙特卡洛（HMC）方法进行后验采样的 BPINN 实现
+    │   │   ├── BPINN_HMC_2D.ipynb          # HMC 采样器在 2D 问题上的示例 Notebook
+    │   │   ├── hamiltorch                  # HMC 采样相关核心工具包
+    │   │   │   ├── __init__.py             # 包初始化文件
+    │   │   │   ├── __pycache__             # Python 编译缓存目录
+    │   │   │   │   ├── __init__.cpython-312.pyc
+    │   │   │   │   ├── samplers.cpython-312.pyc
+    │   │   │   │   └── util.cpython-312.pyc
+    │   │   │   ├── samplers.py             # HMC 样本采样逻辑实现
+    │   │   │   └── util.py                 # 通用工具函数
+    │   │   ├── LICENSE                     # 开源许可证文件
+    │   │   ├── Poisson-HMC0.ipynb          # 泊松方程下的 HMC-BPINN 实验 Notebook
+    │   │   ├── README.md                   # 模型及采样方法说明文档
+    │   │   └── viz                         # 可视化图像目录
+    │   │       ├── 1D_Possion.png          # 一维泊松方程预测结果图
+    │   │       └── A-C_2D.png              # 二维问题误差可视化图
+    │   ├── readme.md                      # bnn 模块整体说明文档
+    │   └── VI                             # 使用变分推断方法构建的贝叶斯 PINN 案例
+    │       ├── BNN_2D.ipynb                # 二维问题上使用 VI 方法的 BNN 实验 Notebook
+    │       ├── BNN.ipynb                   # 一维问题上的 VI-BNN 实验 Notebook
+    │       ├── fig                         # 可视化图像文件夹
+    │       │   ├── 1D.png                  # 一维预测结果图
+    │       │   └── 2D.png                  # 二维预测结果图
+    │       └── readme.md                   # VI 方法的说明文档
+    ├── multi_pinns                         # 多种改进型 PINN 架构的集合模块
+    │   ├── gPINN                           # 广义 PINN 方法：通过添加物理导数项增强训练稳定性
+    │   │   ├── 1D_Possion.py               # 一维泊松方程的 gPINN 实验脚本
+    │   │   ├── 2D_Possion.py               # 二维泊松方程的 gPINN 实验脚本
+    │   │   ├── fig                         # 实验可视化图像文件夹
+    │   │   │   ├── 1D.png                  # 一维解的可视化结果图
+    │   │   │   └── 2D Possionpng.png       # 二维问题的误差图（命名中包含拼写问题）
+    │   │   └── readme.md                   # gPINN 方法说明与实验结果文档
+    │   ├── mdfig                           # 各种 PINN 结构或论文图示整理目录
+    │   │   ├── PINN.png                    # 标准 PINN 架构图
+    │   │   ├── PPINN.jpg                   # 并行时间 PINN（PPINN）示意图
+    │   │   ├── SPINN.jpg                   # 可分离结构 PINN（SPINN）结构图
+    │   │   ├── VPINN_form.jpg              # 变分 PINN（VPINN）形式图
+    │   │   ├── VPINN_introduce.jpg         # VPINN 结构介绍图
+    │   │   ├── VPINN.jpg                   # VPINN 结构图（完整）
+    │   │   ├── XPINN_loss.jpg              # 区域分解 PINN（XPINN）训练损失图
+    │   │   └── XPINN.jpg                   # XPINN 结构图
+    │   ├── PINN                            # 标准 PINN 实验文件夹（用于基线对比）
+    │   │   ├── 1D_Possion.py               # 一维泊松问题的标准 PINN 实现
+    │   │   ├── 2D_Possion.py               # 二维泊松问题的标准 PINN 实现
+    │   │   ├── fig                         # 可视化图像文件夹
+    │   │   │   ├── 1D.png                  # 一维预测结果图
+    │   │   │   └── 2D Possion.png          # 二维预测结果图
+    │   │   └── readme.md                   # PINN 方法实验说明文档
+    │   ├── PPINN                           # 并行时间 PINN（Parallel-in-Time PINN）实验实现
+    │   │   ├── __pycache__                 # Python 编译缓存文件夹
+    │   │   │   ├── get_data.cpython-312.pyc
+    │   │   │   ├── net.cpython-312.pyc
+    │   │   │   └── plot.cpython-312.pyc
+    │   │   ├── 1.py                        # 主实验入口脚本
+    │   │   ├── fig                         # 可视化图像文件夹
+    │   │   │   └── Figure_1.png            # 预测与真实值对比图
+    │   │   ├── get_data.py                 # 数据读取与处理脚本
+    │   │   ├── net.py                      # 网络结构定义文件
+    │   │   ├── plot.py                     # 绘图与结果展示脚本
+    │   │   └── readme.md                   # PPINN 模型说明文档
+    │   ├── readme.md
+    │   ├── scr                             # 多种 PINN 结构的公共模块集合（配合主控脚本使用）
+    │   │   ├── __init__.py                 # 包初始化文件，用于模块引用
+    │   │   ├── __pycache__                 # Python 编译缓存目录
+    │   │   │   ├── __init__.cpython-312.pyc
+    │   │   │   ├── __init__.cpython-313.pyc
+    │   │   │   ├── data.cpython-312.pyc
+    │   │   │   ├── data.cpython-313.pyc
+    │   │   │   ├── net.cpython-312.pyc
+    │   │   │   ├── net.cpython-313.pyc
+    │   │   │   └── Variational_function.cpython-312.pyc
+    │   │   ├── data.py                     # 数据处理模块
+    │   │   ├── net.py                      # 网络结构定义
+    │   │   ├── readme.md                   # 模块功能说明
+    │   │   └── Variational_function.py     # 变分推断相关函数实现
+    │   ├── SPINN                           # 可分离物理信息神经网络模块（Structure-Preserving）
+    │   │   ├── demo.py                     # SPINN 方法的标准运行脚本
+    │   │   ├── demo(spinn).ipynb           # Jupyter Notebook 实现，适用于交互式分析
+    │   │   ├── KG.png                      # 物理知识图谱结构图（Knowledge Graph）
+    │   │   └── readme.md                   # SPINN 方法说明文档
+    │   ├── vPINN                           # 变分物理信息神经网络模块（Variational PINNs）
+    │   │   ├── 1D_Possion.py               # 一维泊松方程实验脚本（变分形式）
+    │   │   ├── 2D_Possion.py               # 二维泊松方程实验脚本（变分形式）
+    │   │   ├── fig                         # 可视化输出目录
+    │   │   │   ├── 1D_varform_0.png        # 第一组一维变分预测结果
+    │   │   │   ├── 1D_varform_1.png        # 第二组一维变分预测结果
+    │   │   │   ├── 1D_varform_2.png        # 第三组一维变分预测结果
+    │   │   │   ├── 1D.png                  # 一维预测总体图像
+    │   │   │   └── 2D.png                  # 二维预测总体图像
+    │   │   └── readme.md                   # vPINN 方法的原理与实验说明
+    │   └── XPINN                           # 区域分解 PINN（Extended PINNs）模块
+    │       ├── __pycache__                 # 编译缓存目录
+    │       │   ├── 2d_possion_inference.cpython-310.pyc
+    │       │   └── 2d_possion.cpython-310.pyc
+    │       ├── 2d_possion_inference.py     # XPINN 模型用于预测的脚本
+    │       ├── 2d_possion.py               # XPINN 训练脚本
+    │       ├── 2D.png                      # 预测图像输出（二维）
+    │       ├── Data                        # 数据目录
+    │       │   └── XPINN_2D_PoissonEqn.mat # XPINN 使用的二维泊松问题数据文件（Matlab 格式）
+    │       ├── readme.md                   # XPINN 模块说明文档
+    │       └── trained_tensor              # 训练好的模型张量权重目录
+    │           └── model.pt                # 已训练好的 PyTorch 模型
+    ├── pivae                              # 基于变分自编码器的物理信息建模方法（Physics-Informed VAE）
+    │   ├── __pycache__                    # Python 编译生成的缓存目录
+    │   │   ├── model.cpython-312.pyc      # model.py 在 Python 3.12 下的编译版本
+    │   │   └── model.cpython-39.pyc       # model.py 在 Python 3.9 下的编译版本
+    │   ├── data                           # 模型训练使用的数值数据
+    │   │   ├── f.npy                      # 源项数据张量（如 f(x)）
+    │   │   ├── k.npy                      # 系数场或介质参数张量
+    │   │   └── u.npy                      # 解的真实值张量（如 u(x)）
+    │   ├── fig                            # 实验可视化结果图目录
+    │   │   ├── PI-VAE.png                 # PI-VAE 结构框架示意图
+    │   │   ├── pred.png                   # 模型预测与真实值对比图
+    │   │   └── solution.png               # 模型预测的解图像
+    │   ├── get_data.py                    # 数据读取与预处理脚本
+    │   ├── main.py                        # PI-VAE 主训练与运行脚本
+    │   ├── model                          # 训练好的模型存储目录
+    │   │   └── model_lowdim.pkl           # 降维后的 VAE 模型权重文件（Pickle 格式）
+    │   ├── model.py                       # 模型结构定义脚本（编码器+解码器）
+    │   ├── new_pivae                      # 新版本 PI-VAE 模块实现
+    │   │   ├── data.py                    # 数据加载模块
+    │   │   ├── equation.py                # PDE 方程定义模块（约束或损失项）
+    │   │   ├── net.py                     # 网络架构定义（编码器/解码器）
+    │   │   ├── test.py                    # 模型评估与测试脚本
+    │   │   ├── tool.py                    # 工具函数集
+    │   │   └── train.py                   # 模型训练逻辑实现脚本
+    │   ├── plot_fig.ipynb                 # 可视化图生成与分析 Notebook
+    │   └── readme.md                      # PI-VAE 方法原理及使用说明文档
+    └── README.md                          # Variant_PINNs 模块总览说明文档
+
+
+224 directories, 877 files

@@ -1,0 +1,179 @@
+﻿{
+    "name":  "geochatbot",
+    "path":  "PINN4Science/Geology/geochatbot",
+    "description":  "GeoChatBot 地质元素异常图生成项目：在该项目中，作为根目录，用于组织此案例的全部数据、模型、源码与可视化结果。",
+    "submodules":  [
+                       {
+                           "name":  "data",
+                           "path":  "PINN4Science/Geology/geochatbot/data",
+                           "description":  "地质输入数据：在该项目中，作为数据准备环节，用于存放地球化学采样数据与规则文档。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "Analytical_value_55K03.csv",
+                                             "path":  "PINN4Science/Geology/geochatbot/data/Analytical_value_55K03.csv",
+                                             "description":  "地质元素采样数据集（包含经纬度与多元素列）。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "Rules and Regulation(new).pdf",
+                                             "path":  "PINN4Science/Geology/geochatbot/data/Rules and Regulation(new).pdf",
+                                             "description":  "地质规则与制度说明文档。",
+                                             "is_code_file":  false
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "model",
+                           "path":  "PINN4Science/Geology/geochatbot/model",
+                           "description":  "GeoChatBot 运行状态目录：在该项目中，作为模型存储环节，用于存放规范化流程的状态文件。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "geochatbot_state.pt",
+                                             "path":  "PINN4Science/Geology/geochatbot/model/geochatbot_state.pt",
+                                             "description":  "train 模式运行后保存的状态文件。",
+                                             "is_code_file":  false
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "src",
+                           "path":  "PINN4Science/Geology/geochatbot/src",
+                           "description":  "GeoChatBot 源码：在该项目中，作为源码存储环节，用于存放配置、数据读取、插值建图与流程控制代码。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "__init__.py",
+                                             "path":  "PINN4Science/Geology/geochatbot/src/__init__.py",
+                                             "description":  "源码初始化文件。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "config.py",
+                                             "path":  "PINN4Science/Geology/geochatbot/src/config.py",
+                                             "description":  "命令行参数与默认路径配置模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "data_loader.py",
+                                             "path":  "PINN4Science/Geology/geochatbot/src/data_loader.py",
+                                             "description":  "CSV 数据读取与元素字段校验模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "interpolation.py",
+                                             "path":  "PINN4Science/Geology/geochatbot/src/interpolation.py",
+                                             "description":  "IDW/Kriging-like 插值与地图/热力图输出模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "train.py",
+                                             "path":  "PINN4Science/Geology/geochatbot/src/train.py",
+                                             "description":  "train 模式流程模块（生成完整插值结果与状态）。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "evaluate.py",
+                                             "path":  "PINN4Science/Geology/geochatbot/src/evaluate.py",
+                                             "description":  "quick 模式流程模块（快速生成插值图和统计）。",
+                                             "is_code_file":  true
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "result",
+                           "path":  "PINN4Science/Geology/geochatbot/result",
+                           "description":  "GeoChatBot 可视化结果：在该项目中，作为结果输出环节，用于存放地图、截图与统计结果。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "cu_idw_map.png",
+                                             "path":  "PINN4Science/Geology/geochatbot/result/cu_idw_map.png",
+                                             "description":  "train 模式生成的 Cu 元素 IDW 结果图。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "cu_kriging_map.png",
+                                             "path":  "PINN4Science/Geology/geochatbot/result/cu_kriging_map.png",
+                                             "description":  "train 模式生成的 Cu 元素 Kriging-like 结果图。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "cu_quick_idw_map.png",
+                                             "path":  "PINN4Science/Geology/geochatbot/result/cu_quick_idw_map.png",
+                                             "description":  "quick 模式生成的 Cu 元素快速 IDW 结果图。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "cu_summary.json",
+                                             "path":  "PINN4Science/Geology/geochatbot/result/cu_summary.json",
+                                             "description":  "train 模式统计摘要。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "cu_quick_summary.json",
+                                             "path":  "PINN4Science/Geology/geochatbot/result/cu_quick_summary.json",
+                                             "description":  "quick 模式统计摘要。",
+                                             "is_code_file":  false
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       }
+                   ],
+    "files":  [
+                  {
+                      "name":  "main.py",
+                      "path":  "PINN4Science/Geology/geochatbot/main.py",
+                      "description":  "GeoChatBot 主程序入口（支持 train 和 quick 模式）。",
+                      "is_code_file":  true
+                  },
+                  {
+                      "name":  "app.py",
+                      "path":  "PINN4Science/Geology/geochatbot/app.py",
+                      "description":  "GeoChatBot Streamlit 交互应用入口。",
+                      "is_code_file":  true
+                  },
+                  {
+                      "name":  "app1.py",
+                      "path":  "PINN4Science/Geology/geochatbot/app1.py",
+                      "description":  "GeoChatBot 轻量版 Streamlit 交互应用入口。",
+                      "is_code_file":  true
+                  },
+                  {
+                      "name":  "README.md",
+                      "path":  "PINN4Science/Geology/geochatbot/README.md",
+                      "description":  "项目说明文档。",
+                      "is_code_file":  false
+                  },
+                  {
+                      "name":  "requirements.txt",
+                      "path":  "PINN4Science/Geology/geochatbot/requirements.txt",
+                      "description":  "依赖列表。",
+                      "is_code_file":  false
+                  },
+                  {
+                      "name":  "LICENSE",
+                      "path":  "PINN4Science/Geology/geochatbot/LICENSE",
+                      "description":  "许可证文件。",
+                      "is_code_file":  false
+                  },
+                  {
+                      "name":  "geochatbot地质元素异常图生成.docx",
+                      "path":  "PINN4Science/Geology/geochatbot/geochatbot地质元素异常图生成.docx",
+                      "description":  "项目附带说明文档。",
+                      "is_code_file":  false
+                  }
+              ]
+}

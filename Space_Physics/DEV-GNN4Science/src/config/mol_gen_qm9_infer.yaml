@@ -1,0 +1,40 @@
+data:
+  # name of dataset
+  name: qm9
+  # directory for storing dataset
+  dirt: ./dataset/qm9/raw
+
+ckpt:
+  # name of checkpoint
+  name: qm9
+  # directory for storing checkpoint
+  dirt: ./checkpoint/qm9/infer
+  
+sample:
+  # signal to noise ratio
+  signal_noise_ratio: 0.2
+  # number of time steps in each stop of correction
+  time_steps_num_each: 1
+  # scale eps
+  scale_eps: 0.7
+  # whether or not remove noise
+  noise_removal: True
+  # 
+  probability_flow: False
+  # eps
+  eps: 0.0001
+
+inference:
+  # sample size
+  sample_size: 100
+
+output:
+  # directory for saving output
+  dirt: ./dataset/qm9/output
+
+log:
+  # directory for saving log
+  dirt: ./log/qm9
+
+# device
+device: cpu

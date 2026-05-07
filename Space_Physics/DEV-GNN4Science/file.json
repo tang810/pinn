@@ -1,0 +1,99 @@
+﻿{
+  "name": "GNN4S：基于图神经网络的三维心血管血流建模",
+  "path": "PINN4Science/Space_Physics/DEV-GNN4Science",
+  "description": "GNN4S：基于图神经网络的三维心血管血流建模，支持 quick/train 统一入口。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src",
+      "description": "源码目录，包含标准化入口模块与原始工程代码。",
+      "submodules": [
+        {
+          "name": "gnn4s",
+          "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/gnn4s",
+          "description": "原始 gnn4s 主代码包。",
+          "submodules": [],
+          "files": [
+            {"name": "__init__.py", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/gnn4s/__init__.py", "description": "gnn4s 包初始化文件。", "is_code_file": true},
+            {"name": "parser.py", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/gnn4s/parser.py", "description": "原始参数解析模块。", "is_code_file": true}
+          ],
+          "is_code_file": false
+        },
+        {
+          "name": "demo",
+          "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/demo",
+          "description": "原始训练与推理示例脚本目录。",
+          "submodules": [],
+          "files": [
+            {"name": "cylinder_flow_train.py", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/demo/cylinder_flow_train.py", "description": "圆柱流场训练示例脚本。", "is_code_file": true},
+            {"name": "cylinder_flow_infer.py", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/demo/cylinder_flow_infer.py", "description": "圆柱流场推理示例脚本。", "is_code_file": true}
+          ],
+          "is_code_file": false
+        },
+        {
+          "name": "config",
+          "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/config",
+          "description": "原始 yaml 配置目录。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        },
+        {
+          "name": "visualization",
+          "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/visualization",
+          "description": "原始可视化目录。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        }
+      ],
+      "files": [
+        {"name": "__init__.py", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/__init__.py", "description": "源码初始化文件。", "is_code_file": true},
+        {"name": "config.py", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/config.py", "description": "标准化参数配置模块。", "is_code_file": true},
+        {"name": "runner.py", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/runner.py", "description": "标准化 quick/train 调度模块。", "is_code_file": true},
+        {"name": "requirements.txt", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/requirements.txt", "description": "原始依赖文件。", "is_code_file": false},
+        {"name": "install_dependencies.sh", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/install_dependencies.sh", "description": "原始依赖安装脚本。", "is_code_file": true},
+        {"name": "LICENSE", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/LICENSE", "description": "原始许可证文件。", "is_code_file": false},
+        {"name": "gnn4s_developer_guide.pdf", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/src/gnn4s_developer_guide.pdf", "description": "原始开发者指南文档。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Space_Physics/DEV-GNN4Science/data",
+      "description": "数据目录。",
+      "submodules": [],
+      "files": [
+        {"name": "simul_gnn_graph.npz", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/data/simul_gnn_graph.npz", "description": "quick 模式自动生成的仿真图数据。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Space_Physics/DEV-GNN4Science/model",
+      "description": "模型输出目录。",
+      "submodules": [],
+      "files": [
+        {"name": "train_model_surrogate.npz", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/model/train_model_surrogate.npz", "description": "标准化 train 模式输出的轻量模型文件。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Space_Physics/DEV-GNN4Science/results",
+      "description": "结果目录。",
+      "submodules": [],
+      "files": [
+        {"name": "quick_result.png", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/results/quick_result.png", "description": "quick 模式结果图。", "is_code_file": false},
+        {"name": "quick_graph_fields.npz", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/results/quick_graph_fields.npz", "description": "quick 模式输出图结构数据。", "is_code_file": false},
+        {"name": "quick_summary.json", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/results/quick_summary.json", "description": "quick 模式运行摘要。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {"name": "main.py", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/main.py", "description": "标准化主入口，支持 quick/train 与 --data 参数。", "is_code_file": true},
+    {"name": "README.md", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/README.md", "description": "项目说明文档。", "is_code_file": false},
+    {"name": "file.json", "path": "PINN4Science/Space_Physics/DEV-GNN4Science/file.json", "description": "项目结构描述文件。", "is_code_file": false}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "mode": "quick",
+  "data_path": "data\\simul_airfoil_flow.npz",
+  "mse": 0.051345646381378174,
+  "r2": 0.247144255793055,
+  "model_path": "model\\dev_dit4science_surrogate.pt"
+}

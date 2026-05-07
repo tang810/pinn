@@ -1,0 +1,119 @@
+﻿{
+  "name": "HelmholtzPDE: 亥姆霍兹方程",
+  "path": "PINN4Science/Space_Physics/Helmholtz",
+  "description": "HelmholtzPDE: 亥姆霍兹方程：通过物理信息神经网络求解一维 Helmholtz 方程并输出结果图。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Space_Physics/Helmholtz/src",
+      "description": "源码目录，包含模型、数据、损失、运行与可视化模块。",
+      "submodules": [
+        {
+          "name": "legacy",
+          "path": "PINN4Science/Space_Physics/Helmholtz/src/legacy",
+          "description": "原始脚本归档目录。",
+          "submodules": [],
+          "files": [
+            {
+              "name": "Helmholtz.py",
+              "path": "PINN4Science/Space_Physics/Helmholtz/src/legacy/Helmholtz.py",
+              "description": "重构前的原始单文件脚本。",
+              "is_code_file": true
+            }
+          ],
+          "is_code_file": false
+        }
+      ],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Space_Physics/Helmholtz/src/__init__.py",
+          "description": "源码初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Space_Physics/Helmholtz/src/model.py",
+          "description": "Helmholtz PINN 模型定义。",
+          "is_code_file": true
+        },
+        {
+          "name": "data.py",
+          "path": "PINN4Science/Space_Physics/Helmholtz/src/data.py",
+          "description": "训练点与边界点采样模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "losses.py",
+          "path": "PINN4Science/Space_Physics/Helmholtz/src/losses.py",
+          "description": "PDE 与边界损失计算模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Space_Physics/Helmholtz/src/runner.py",
+          "description": "train/quick 运行流程模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "viz.py",
+          "path": "PINN4Science/Space_Physics/Helmholtz/src/viz.py",
+          "description": "结果可视化模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Space_Physics/Helmholtz/data",
+      "description": "数据目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "simul_placeholder.txt",
+          "path": "PINN4Science/Space_Physics/Helmholtz/data/simul_placeholder.txt",
+          "description": "模拟数据占位文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Space_Physics/Helmholtz/model",
+      "description": "模型参数目录。",
+      "submodules": [],
+      "files": [],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Space_Physics/Helmholtz/results",
+      "description": "结果输出目录。",
+      "submodules": [],
+      "files": [],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Space_Physics/Helmholtz/main.py",
+      "description": "主入口脚本，支持 train/quick 与 simul/load 参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Space_Physics/Helmholtz/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Space_Physics/Helmholtz/file.json",
+      "description": "项目结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}

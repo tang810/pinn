@@ -1,0 +1,197 @@
+﻿{
+  "name": "DEV-ACDM4Science",
+  "path": "PINN4Science/Space_Physics/DEV-ACDM4Science",
+  "description": "ACDM 扩散模型科学计算项目标准化工程，支持 quick/train 统一入口。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src",
+      "description": "源码目录，包含标准化入口模块与原始工程代码。",
+      "submodules": [
+        {
+          "name": "ai4flow",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/ai4flow",
+          "description": "原始 ACDM 主包代码。",
+          "submodules": [],
+          "files": [
+            {
+              "name": "__init__.py",
+              "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/ai4flow/__init__.py",
+              "description": "ai4flow 包初始化文件。",
+              "is_code_file": true
+            }
+          ],
+          "is_code_file": false
+        },
+        {
+          "name": "scripts",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/scripts",
+          "description": "原始训练与测试脚本。",
+          "submodules": [],
+          "files": [
+            {
+              "name": "run_acdm.py",
+              "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/scripts/run_acdm.py",
+              "description": "原始 ACDM 圆柱案例训练脚本。",
+              "is_code_file": true
+            },
+            {
+              "name": "run_acdm_foilslice.py",
+              "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/scripts/run_acdm_foilslice.py",
+              "description": "原始 ACDM 机翼切片训练脚本。",
+              "is_code_file": true
+            },
+            {
+              "name": "run_ddpm.py",
+              "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/scripts/run_ddpm.py",
+              "description": "原始 DDPM 训练脚本。",
+              "is_code_file": true
+            }
+          ],
+          "is_code_file": false
+        },
+        {
+          "name": "config",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/config",
+          "description": "原始配置目录。",
+          "submodules": [],
+          "files": [
+            {
+              "name": "acc_cfg.yaml",
+              "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/config/acc_cfg.yaml",
+              "description": "原始 accelerate 配置文件。",
+              "is_code_file": false
+            }
+          ],
+          "is_code_file": false
+        },
+        {
+          "name": "docs",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/docs",
+          "description": "原始文档目录。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        },
+        {
+          "name": "notebook",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/notebook",
+          "description": "原始 notebook 目录。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        }
+      ],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/__init__.py",
+          "description": "源码初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/config.py",
+          "description": "标准化入口参数定义。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/runner.py",
+          "description": "标准化 quick/train 运行流程。",
+          "is_code_file": true
+        },
+        {
+          "name": "requirements.yml",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/requirements.yml",
+          "description": "原始环境依赖文件。",
+          "is_code_file": false
+        },
+        {
+          "name": "LICENSE",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/src/LICENSE",
+          "description": "原始许可证文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/data",
+      "description": "数据目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "simul_acdm.npz",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/data/simul_acdm.npz",
+          "description": "quick 模式自动生成的仿真数据。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/model",
+      "description": "模型输出目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "train_model_surrogate.npz",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/model/train_model_surrogate.npz",
+          "description": "标准化 train 模式输出的轻量模型文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/results",
+      "description": "结果目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "quick_result.png",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/results/quick_result.png",
+          "description": "quick 模式结果图。",
+          "is_code_file": false
+        },
+        {
+          "name": "quick_result_fields.npz",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/results/quick_result_fields.npz",
+          "description": "quick 模式输出场数据。",
+          "is_code_file": false
+        },
+        {
+          "name": "quick_summary.json",
+          "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/results/quick_summary.json",
+          "description": "quick 模式运行摘要。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/main.py",
+      "description": "标准化主入口，支持 quick/train 与 --data 参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Space_Physics/DEV-ACDM4Science/file.json",
+      "description": "项目结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}

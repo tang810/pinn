@@ -1,0 +1,123 @@
+﻿{
+  "name": "基于 PINN 约束的 FNO：10 节点电力系统频率扰动传播",
+  "path": "PINN4Science/PowerSystem/power_system_PINN",
+  "description": "基于 PINN 约束的 FNO：10 节点电力系统频率扰动传播：用于多节点电力系统中频率增量与功率增量的物理约束建模与可视化。",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/PowerSystem/power_system_PINN/data",
+      "description": "数据目录：用于存放模拟或外部加载的数据文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "simul_placeholder.txt",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/data/simul_placeholder.txt",
+          "description": "模拟数据占位文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/PowerSystem/power_system_PINN/model",
+      "description": "模型目录：存放训练得到的模型权重文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "power_system_pinn_model.pt",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/model/power_system_pinn_model.pt",
+          "description": "PINN 模型参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/PowerSystem/power_system_PINN/src",
+      "description": "源码目录：存放数据生成、模型定义、损失函数、训练保存与可视化模块。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/src/__init__.py",
+          "description": "源码包初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "data.py",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/src/data.py",
+          "description": "训练/测试采样数据生成模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "loss.py",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/src/loss.py",
+          "description": "电力系统物理约束损失函数模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "pinn_model.py",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/src/pinn_model.py",
+          "description": "PINN 网络结构定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/src/train.py",
+          "description": "模型保存工具模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "visual.py",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/src/visual.py",
+          "description": "结果可视化与动画导出模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/PowerSystem/power_system_PINN/results",
+      "description": "结果目录：存放频率热图、节点曲线、功率对比图与动画。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "10_bus_uniform_final_frequency.gif",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/results/10_bus_uniform_final_frequency.gif",
+          "description": "历史输出频率动画结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "pinn_space_profile.gif",
+          "path": "PINN4Science/PowerSystem/power_system_PINN/results/pinn_space_profile.gif",
+          "description": "历史输出空间剖面动画结果。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/PowerSystem/power_system_PINN/main.py",
+      "description": "主入口脚本，支持 train/quick 两种模式与 simul/load 数据参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/PowerSystem/power_system_PINN/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/PowerSystem/power_system_PINN/file.json",
+      "description": "项目结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}

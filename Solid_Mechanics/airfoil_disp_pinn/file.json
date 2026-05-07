@@ -1,0 +1,142 @@
+{
+  "name": "3D 线性弹性力学：翼型结构位移约束的物理信息神经网络求解",
+  "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn",
+  "description": "3D 线性弹性力学：翼型结构位移约束的物理信息神经网络求解。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src",
+      "description": "源码目录，包含网络、数据加载、求解器与运行流程。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/__init__.py",
+          "description": "源码初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/config.py",
+          "description": "参数配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/runner.py",
+          "description": "train/quick 模式调度模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "net.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/net.py",
+          "description": "网络结构模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "pinn_solver.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/pinn_solver.py",
+          "description": "PINN 物理求解器模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "SM_data.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/SM_data.py",
+          "description": "数据读取模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train_legacy.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/train_legacy.py",
+          "description": "历史训练脚本（保留）。",
+          "is_code_file": true
+        },
+        {
+          "name": "test_legacy.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/test_legacy.py",
+          "description": "历史测试脚本（保留）。",
+          "is_code_file": true
+        },
+        {
+          "name": "run_legacy.py",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/src/run_legacy.py",
+          "description": "历史入口脚本（保留）。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/data",
+      "description": "数据目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data.mat",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/data/data.mat",
+          "description": "训练与评估数据。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/model",
+      "description": "模型参数目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "airfoil_disp_pinn_best.pt",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/model/airfoil_disp_pinn_best.pt",
+          "description": "模型参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/results",
+      "description": "结果目录，包含可视化图和中间结果。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "result_quick.png",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/results/result_quick.png",
+          "description": "quick 模式结果图。",
+          "is_code_file": false
+        },
+        {
+          "name": "result_train.png",
+          "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/results/result_train.png",
+          "description": "train 模式结果图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/main.py",
+      "description": "主入口脚本。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Solid_Mechanics/airfoil_disp_pinn/file.json",
+      "description": "结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}
+

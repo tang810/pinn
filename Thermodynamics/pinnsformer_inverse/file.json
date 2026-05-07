@@ -1,0 +1,141 @@
+{
+  "name": "pinnsformer_inverse",
+  "path": "PINN4Science/Thermodynamics/pinnsformer_inverse",
+  "description": "PINNsFormer 反问题项目根目录：用于组织该案例的数据、模型、源码与结果。",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/data",
+      "description": "数据目录：用于存放训练与推理所需原始数据。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data_7246.txt",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/data/data_7246.txt",
+          "description": "原始时空样本数据文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/model",
+      "description": "模型目录：用于存放训练得到的模型参数文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "pinnsformer_inverse.pt",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/model/pinnsformer_inverse.pt",
+          "description": "PINNsFormer 反问题模型参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/src",
+      "description": "源码目录：用于存放训练、评估与物理约束相关代码。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/src/config.py",
+          "description": "项目配置定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_loader.py",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/src/data_loader.py",
+          "description": "数据加载与采样模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "evaluate.py",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/src/evaluate.py",
+          "description": "模型评估与误差统计模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/src/model.py",
+          "description": "PINNsFormer 网络结构定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "physics.py",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/src/physics.py",
+          "description": "物理约束与方程计算模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/src/train.py",
+          "description": "训练流程与优化器调度模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "utils.py",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/src/utils.py",
+          "description": "通用工具函数模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/results",
+      "description": "结果目录：用于存放损失曲线、误差分析与预测对比结果。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "animation.gif",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/results/animation.gif",
+          "description": "训练或推理过程动画。",
+          "is_code_file": false
+        },
+        {
+          "name": "error_analysis.txt",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/results/error_analysis.txt",
+          "description": "误差统计文本结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "error_distribution.png",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/results/error_distribution.png",
+          "description": "误差分布图。",
+          "is_code_file": false
+        },
+        {
+          "name": "loss_curve_final.png",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/results/loss_curve_final.png",
+          "description": "最终训练损失曲线图。",
+          "is_code_file": false
+        },
+        {
+          "name": "prediction_vs_truth.png",
+          "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/results/prediction_vs_truth.png",
+          "description": "预测与真值对比图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/main.py",
+      "description": "项目主程序入口。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Thermodynamics/pinnsformer_inverse/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    }
+  ]
+}

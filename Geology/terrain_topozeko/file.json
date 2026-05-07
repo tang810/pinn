@@ -1,0 +1,147 @@
+{
+  "name": "terrain_topozeko",
+  "path": "PINN4Science/Geology/terrain_topozeko",
+  "description": "地质地形可视化仿真案例根目录，包含数据、源码、模型与结果。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Geology/terrain_topozeko/src",
+      "description": "源码目录，包含参数配置、数据加载、训练与快速评估模块。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Geology/terrain_topozeko/src/__init__.py",
+          "description": "源码包初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Geology/terrain_topozeko/src/config.py",
+          "description": "命令行参数与运行默认值配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_loader.py",
+          "path": "PINN4Science/Geology/terrain_topozeko/src/data_loader.py",
+          "description": "地形数据加载与预处理模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "evaluate.py",
+          "path": "PINN4Science/Geology/terrain_topozeko/src/evaluate.py",
+          "description": "quick 模式执行模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "topozeko.py",
+          "path": "PINN4Science/Geology/terrain_topozeko/src/topozeko.py",
+          "description": "TopoZeko 地形可视化核心实现模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Geology/terrain_topozeko/src/train.py",
+          "description": "train 模式执行模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Geology/terrain_topozeko/data",
+      "description": "输入数据目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "example_data_Galapagos_100m.mat",
+          "path": "PINN4Science/Geology/terrain_topozeko/data/example_data_Galapagos_100m.mat",
+          "description": "Galapagos 区域示例地形数据。",
+          "is_code_file": false
+        },
+        {
+          "name": "example_data_Morteratsch_25m.mat",
+          "path": "PINN4Science/Geology/terrain_topozeko/data/example_data_Morteratsch_25m.mat",
+          "description": "Morteratsch 区域示例地形数据。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Geology/terrain_topozeko/model",
+      "description": "模型或状态文件输出目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "topozeko_state.pt",
+          "path": "PINN4Science/Geology/terrain_topozeko/model/topozeko_state.pt",
+          "description": "训练模式生成的状态文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Geology/terrain_topozeko/results",
+      "description": "结果输出目录，存放可视化图像与历史结果。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "topozeko_plot.png",
+          "path": "PINN4Science/Geology/terrain_topozeko/results/topozeko_plot.png",
+          "description": "主地形可视化结果图。",
+          "is_code_file": false
+        },
+        {
+          "name": "2d.jpg",
+          "path": "PINN4Science/Geology/terrain_topozeko/results/2d.jpg",
+          "description": "历史二维可视化结果图。",
+          "is_code_file": false
+        },
+        {
+          "name": "4d.jpg",
+          "path": "PINN4Science/Geology/terrain_topozeko/results/4d.jpg",
+          "description": "历史可视化结果图。",
+          "is_code_file": false
+        },
+        {
+          "name": "back.png",
+          "path": "PINN4Science/Geology/terrain_topozeko/results/back.png",
+          "description": "历史背景图。",
+          "is_code_file": false
+        },
+        {
+          "name": "to.jpg",
+          "path": "PINN4Science/Geology/terrain_topozeko/results/to.jpg",
+          "description": "历史地形图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Geology/terrain_topozeko/main.py",
+      "description": "项目主入口，支持 mode 与 data 参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Geology/terrain_topozeko/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "Tpozeko.docx",
+      "path": "PINN4Science/Geology/terrain_topozeko/Tpozeko.docx",
+      "description": "项目附带文档。",
+      "is_code_file": false
+    }
+  ]
+}

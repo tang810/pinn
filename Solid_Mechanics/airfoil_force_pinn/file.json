@@ -1,0 +1,144 @@
+﻿{
+    "name":  "3D 线性弹性力学：翼型结构力-位移混合约束的物理信息神经网络求解",
+    "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn",
+    "description":  "3D 线性弹性力学：翼型结构力-位移混合约束的物理信息神经网络求解，包含标准化入口、源码模块、数据、模型与结果目录。",
+    "submodules":  [
+                       {
+                           "name":  "src",
+                           "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/src",
+                           "description":  "源码目录，包含参数解析、网络结构、PINN求解器和运行调度逻辑。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "__init__.py",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/src/__init__.py",
+                                             "description":  "源码包初始化文件。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "config.py",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/src/config.py",
+                                             "description":  "命令行参数定义模块，支持 train/quick 与数据来源参数。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "runner.py",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/src/runner.py",
+                                             "description":  "训练与快速推理流程调度模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "net.py",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/src/net.py",
+                                             "description":  "全连接网络结构定义模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "pinn_solver.py",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/src/pinn_solver.py",
+                                             "description":  "PINN物理方程残差、训练与评估实现模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "SM_data.py",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/src/SM_data.py",
+                                             "description":  "数据加载与预处理模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "run_legacy.py",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/src/run_legacy.py",
+                                             "description":  "原始单文件脚本迁移备份，用于保留历史实现。",
+                                             "is_code_file":  true
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "data",
+                           "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/data",
+                           "description":  "输入数据目录。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "data.mat",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/data/data.mat",
+                                             "description":  "翼型结构位移约束样例数据。",
+                                             "is_code_file":  false
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "model",
+                           "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/model",
+                           "description":  "模型参数输出目录，保存训练得到的 .pt 权重文件。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "results",
+                           "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/results",
+                           "description":  "结果输出目录，保存可视化图片与评估结果。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "main_page.png",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/results/main_page.png",
+                                             "description":  "案例主图。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "1.png",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/results/1.png",
+                                             "description":  "结果图1。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "2.png",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/results/2.png",
+                                             "description":  "结果图2。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "3.png",
+                                             "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/results/3.png",
+                                             "description":  "结果图3。",
+                                             "is_code_file":  false
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       }
+                   ],
+    "files":  [
+                  {
+                      "name":  "main.py",
+                      "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/main.py",
+                      "description":  "主入口脚本，支持 quick/train 两种模式。",
+                      "is_code_file":  true
+                  },
+                  {
+                      "name":  "README.md",
+                      "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/README.md",
+                      "description":  "项目说明文档。",
+                      "is_code_file":  false
+                  },
+                  {
+                      "name":  "file.json",
+                      "path":  "PINN4Science/Solid_Mechanics/airfoil_force_pinn/file.json",
+                      "description":  "项目结构描述文件。",
+                      "is_code_file":  false
+                  }
+              ]
+}

@@ -1,0 +1,21 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+*.env
+
+# Local virtual environments and nested dependency installs
+.conda/
+.venv/
+venv/
+env/
+site-packages/
+
+# Nested repositories should be uploaded as source folders, not their git databases
+**/.git/
+
+# Temporary smoke-test outputs
+results_notebook_smoke*/
+results_notebook_final_smoke/
+results_no_plot_smoke/

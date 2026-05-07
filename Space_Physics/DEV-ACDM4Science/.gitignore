@@ -1,0 +1,10 @@
+/checkpoint/diffusion*
+/test
+/train_6k
+/__pycache__/*
+/wandb/*
+/output*
+/data/*
+/results/*
+/runs/*
+/notebook/acdm_foil/runs

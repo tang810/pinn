@@ -1,0 +1,147 @@
+﻿{
+  "name": "人工粘性项对混合对流传热问题的准确性影响",
+  "path": "PINN4Science/Fluid_Mechanics/mixed_convection",
+  "description": "人工粘性项对混合对流传热问题的准确性影响：标准化入口支持 quick/train 两种模式，兼容历史 MCFNets 实现。",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/Fluid_Mechanics/mixed_convection/data",
+      "description": "数据目录（标准化保留），用于放置外部加载数据或占位文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "simul_placeholder.txt",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/data/simul_placeholder.txt",
+          "description": "模拟数据占位文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Fluid_Mechanics/mixed_convection/model",
+      "description": "模型目录，存放标准化训练产生的模型权重。",
+      "submodules": [],
+      "files": [],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Fluid_Mechanics/mixed_convection/results",
+      "description": "结果目录，存放 quick/train 输出图与摘要文件。",
+      "submodules": [],
+      "files": [],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src",
+      "description": "源码目录，包含标准化参数解析、运行器与 legacy 兼容桥接模块。",
+      "submodules": [
+        {
+          "name": "legacy",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/legacy",
+          "description": "历史原始实现归档目录，保留 01/02 与 EV/KAN 版本代码及结果。",
+          "submodules": [
+            {
+              "name": "01MCFNets",
+              "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/legacy/01MCFNets",
+              "description": "历史 MCFNets 实现。",
+              "submodules": [],
+              "files": [],
+              "is_code_file": false
+            },
+            {
+              "name": "01ev_MCFNets",
+              "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/legacy/01ev_MCFNets",
+              "description": "历史 EV-MCFNets 实现。",
+              "submodules": [],
+              "files": [],
+              "is_code_file": false
+            },
+            {
+              "name": "02MCKANets",
+              "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/legacy/02MCKANets",
+              "description": "历史 MCKANets 实现。",
+              "submodules": [],
+              "files": [],
+              "is_code_file": false
+            },
+            {
+              "name": "02ev_MCKANets",
+              "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/legacy/02ev_MCKANets",
+              "description": "历史 EV-MCKANets 实现。",
+              "submodules": [],
+              "files": [],
+              "is_code_file": false
+            },
+            {
+              "name": "viz",
+              "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/legacy/viz",
+              "description": "历史可视化素材目录。",
+              "submodules": [],
+              "files": [],
+              "is_code_file": false
+            }
+          ],
+          "files": [],
+          "is_code_file": false
+        }
+      ],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/__init__.py",
+          "description": "源码初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/config.py",
+          "description": "标准化命令行参数配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "legacy_bridge.py",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/legacy_bridge.py",
+          "description": "legacy 子工程导入与路径桥接模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/runner.py",
+          "description": "train/quick 运行流程模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Fluid_Mechanics/mixed_convection/main.py",
+      "description": "主入口脚本，支持 quick/train 与 simul/load 参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Fluid_Mechanics/mixed_convection/README.md",
+      "description": "案例说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "requirements.txt",
+      "path": "PINN4Science/Fluid_Mechanics/mixed_convection/requirements.txt",
+      "description": "项目依赖文件。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Fluid_Mechanics/mixed_convection/file.json",
+      "description": "项目结构描述文件。",
+      "is_code_file": false
+    }
+  ]
+}

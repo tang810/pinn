@@ -1,0 +1,8 @@
+{
+  "mode": "quick",
+  "variant": "mcf",
+  "data": "simul",
+  "data_path": "C:\\Users\\se42\\Desktop\\案例\\PINN4Science\\Fluid_Mechanics\\mixed_convection\\src\\legacy\\01MCFNets\\data\\cavity_Re2000Pr0.71Ri0.1_256.mat",
+  "checkpoint": "C:\\Users\\se42\\Desktop\\案例\\PINN4Science\\Fluid_Mechanics\\mixed_convection\\src\\legacy\\01MCFNets\\results\\Re2000Pr0.71Ri0.1\\4x120_Nf4k_lamB10\\model_cavity_loop80000.pth",
+  "result_plot": "C:\\Users\\se42\\Desktop\\案例\\PINN4Science\\Fluid_Mechanics\\mixed_convection\\results\\quick_result_plot.png"
+}

@@ -1,0 +1,58 @@
+{
+  "name": "Vlasov_Equation",
+  "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation",
+  "description": "Vlasov 方程 PINN 项目根目录，用于组织数据、模型、源码与结果。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/src",
+      "description": "源码目录，包含模型定义、数据处理、训练推理与结果绘图模块。",
+      "submodules": [],
+      "files": [
+        {"name": "__init__.py", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/src/__init__.py", "description": "源码初始化文件。", "is_code_file": true},
+        {"name": "model.py", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/src/model.py", "description": "PINN 网络与物理残差建模模块。", "is_code_file": true},
+        {"name": "data_utils.py", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/src/data_utils.py", "description": "模拟/真实数据加载与训练样本构造模块。", "is_code_file": true},
+        {"name": "runner.py", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/src/runner.py", "description": "train/quick 流程执行模块。", "is_code_file": true},
+        {"name": "plotting.py", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/src/plotting.py", "description": "结果绘图与指标保存模块。", "is_code_file": true}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/data",
+      "description": "数据目录，存放真实输入数据。",
+      "submodules": [],
+      "files": [
+        {"name": "E.npy", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/data/E.npy", "description": "电场数据。", "is_code_file": false},
+        {"name": "f.npy", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/data/f.npy", "description": "分布函数数据。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/model",
+      "description": "模型目录，存放训练得到的参数文件。",
+      "submodules": [],
+      "files": [
+        {"name": "PINN_final.pth", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/model/PINN_final.pth", "description": "最终模型参数。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/results",
+      "description": "结果目录，存放快速推理图像和指标文件。",
+      "submodules": [],
+      "files": [
+        {"name": "quick_velocity_distribution.png", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/results/quick_velocity_distribution.png", "description": "速度分布对比图。", "is_code_file": false},
+        {"name": "quick_metrics.txt", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/results/quick_metrics.txt", "description": "快速模式误差指标。", "is_code_file": false}
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {"name": "main.py", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/main.py", "description": "主程序入口，支持 --mode 与 --data 参数。", "is_code_file": true},
+    {"name": "README.md", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/README.md", "description": "项目说明文档。", "is_code_file": false},
+    {"name": "file.json", "path": "PINN4Science/Math_Physics_Formulations/Vlasov_Equation/file.json", "description": "项目结构化描述文件。", "is_code_file": false}
+  ]
+}

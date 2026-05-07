@@ -1,0 +1,201 @@
+﻿{
+    "name":  "Multiphysics",
+    "path":  "PINN4Science/Thermodynamics/Multiphysics",
+    "description":  "三维热-弹耦合 PINNsformer 案例，支持 train/quick 两种模式，quick 模式输出温度与应力 GIF。",
+    "submodules":  [
+                       {
+                           "name":  "src",
+                           "path":  "PINN4Science/Thermodynamics/Multiphysics/src",
+                           "description":  "源码目录，包含配置、数据、模型、物理约束、训练与评估模块。",
+                           "submodules":  [
+                                              {
+                                                  "name":  "legacy",
+                                                  "path":  "PINN4Science/Thermodynamics/Multiphysics/src/legacy",
+                                                  "description":  "非规范根目录文件归档目录。",
+                                                  "submodules":  [
+                                                                     {
+                                                                         "name":  "misc",
+                                                                         "path":  "PINN4Science/Thermodynamics/Multiphysics/src/legacy/misc",
+                                                                         "description":  "历史脚本、环境文件、日志等归档。",
+                                                                         "submodules":  [
+
+                                                                                        ],
+                                                                         "files":  [
+
+                                                                                   ],
+                                                                         "is_code_file":  false
+                                                                     }
+                                                                 ],
+                                                  "files":  [
+
+                                                            ],
+                                                  "is_code_file":  false
+                                              }
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "config.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/config.py",
+                                             "description":  "命令行参数定义模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "data_loader.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/data_loader.py",
+                                             "description":  "训练采样点构建模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "model.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/model.py",
+                                             "description":  "PINNsformer 模型结构定义。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "physics.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/physics.py",
+                                             "description":  "热-弹耦合物理损失定义。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "train.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/train.py",
+                                             "description":  "训练流程模块。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "evaluate.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/evaluate.py",
+                                             "description":  "快速评估与结果导出模块（含 GIF 生成）。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "utils.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/utils.py",
+                                             "description":  "通用工具函数。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "geometry_csg.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/geometry_csg.py",
+                                             "description":  "本地 CSG 几何采样后端。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "geometry_sym_backend.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/geometry_sym_backend.py",
+                                             "description":  "Sym 几何采样后端。",
+                                             "is_code_file":  true
+                                         },
+                                         {
+                                             "name":  "viz_sym_geom_from_data.py",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/src/viz_sym_geom_from_data.py",
+                                             "description":  "Sym 风格点云可视化模块。",
+                                             "is_code_file":  true
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "data",
+                           "path":  "PINN4Science/Thermodynamics/Multiphysics/data",
+                           "description":  "输入数据目录。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "data_7246.txt",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/data/data_7246.txt",
+                                             "description":  "评估数据文件，列为 x y z t T。",
+                                             "is_code_file":  false
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "model",
+                           "path":  "PINN4Science/Thermodynamics/Multiphysics/model",
+                           "description":  "模型权重目录。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "pinnsformer_withsun.pt",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/model/pinnsformer_withsun.pt",
+                                             "description":  "预训练模型权重。",
+                                             "is_code_file":  false
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       },
+                       {
+                           "name":  "results",
+                           "path":  "PINN4Science/Thermodynamics/Multiphysics/results",
+                           "description":  "结果输出目录。",
+                           "submodules":  [
+
+                                          ],
+                           "files":  [
+                                         {
+                                             "name":  "animation.gif",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/results/animation.gif",
+                                             "description":  "温度场时序 GIF。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "animation_stress.gif",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/results/animation_stress.gif",
+                                             "description":  "热应力时序 GIF。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "error_analysis.txt",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/results/error_analysis.txt",
+                                             "description":  "评估指标文本。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "prediction_vs_truth.png",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/results/prediction_vs_truth.png",
+                                             "description":  "预测与真值对比图。",
+                                             "is_code_file":  false
+                                         },
+                                         {
+                                             "name":  "temperature_vs_stress.png",
+                                             "path":  "PINN4Science/Thermodynamics/Multiphysics/results/temperature_vs_stress.png",
+                                             "description":  "温度-应力关系图。",
+                                             "is_code_file":  false
+                                         }
+                                     ],
+                           "is_code_file":  false
+                       }
+                   ],
+    "files":  [
+                  {
+                      "name":  "main.py",
+                      "path":  "PINN4Science/Thermodynamics/Multiphysics/main.py",
+                      "description":  "主入口，支持 train/quick。",
+                      "is_code_file":  true
+                  },
+                  {
+                      "name":  "README.md",
+                      "path":  "PINN4Science/Thermodynamics/Multiphysics/README.md",
+                      "description":  "项目说明文档。",
+                      "is_code_file":  false
+                  },
+                  {
+                      "name":  "file.json",
+                      "path":  "PINN4Science/Thermodynamics/Multiphysics/file.json",
+                      "description":  "项目结构描述文件。",
+                      "is_code_file":  false
+                  },
+                  {
+                      "name":  "requirements.txt",
+                      "path":  "PINN4Science/Thermodynamics/Multiphysics/requirements.txt",
+                      "description":  "项目依赖文件。",
+                      "is_code_file":  false
+                  }
+              ]
+}
