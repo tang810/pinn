@@ -1,0 +1,6 @@
+numpy>=1.21
+scipy>=1.7
+matplotlib>=3.5
+cantera>=2.6
+vtk>=9.0
+pillow>=9.0

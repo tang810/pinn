@@ -25,8 +25,8 @@ from torch.utils.data import Dataset, DataLoader
 # 1. Parameters to edit
 # =========================
 
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "4feacb93a22c4be0b69ef6055523fd50"
+MODEL_HASH = "4888f353c86643ef92186984255eec2c"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_solar_wind.pt")
@@ -115,6 +115,10 @@ def inverse_z_torch(x_norm,mu_t,sig_t):
 
 
 def physics_penalty(yhat_norm,alpha,mu_t,sig_t):
+    if not torch.is_tensor(yhat_norm):
+        yhat_norm=torch.as_tensor(yhat_norm,dtype=mu_t.dtype,device=mu_t.device)
+    else:
+        yhat_norm=yhat_norm.to(device=mu_t.device,dtype=mu_t.dtype)
     yhat_raw=inverse_z_torch(yhat_norm,mu_t,sig_t)
     E=yhat_raw[:,0].abs();V=yhat_raw[:,1:4];B=yhat_raw[:,4:7]
     cross=torch.cross(V,B,dim=1);cross_norm=torch.linalg.vector_norm(cross,ord=2,dim=1)
@@ -220,7 +224,8 @@ def evaluate(model_path=MODEL_PATH,data_path=DATA_PATH,
     y_test=np.concatenate(ys,0);yhat_test=np.concatenate(yhats,0)
     r2=compute_r2(y_test,yhat_test)
 
-    phy_v=float(physics_penalty(torch.tensor(yhat_test),alpha,mu_t,sig_t).cpu())
+    yhat_t=torch.as_tensor(yhat_test,dtype=torch.float32,device=device)
+    phy_v=float(physics_penalty(yhat_t,alpha,mu_t,sig_t).detach().cpu())
 
     print("Eval result")
     print(f"model_path: {model_path}")

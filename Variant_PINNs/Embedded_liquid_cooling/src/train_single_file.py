@@ -28,8 +28,8 @@ import torch.nn as nn
 # 1. Parameters to edit
 # =========================
 
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "9002344f015d41b584e23d68142554d5"
+MODEL_HASH = "9002344f015d41b584e23d68142554d5"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_embedded_liquid_cooling.pt")

@@ -30,7 +30,7 @@ DATA_HASH = "4724d61a9bd749aca8439277ccfc26cc"
 MODEL_HASH = "4724d61a9bd749aca8439277ccfc26cc"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
-MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_terrain_topozeko.pt")
+MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_terrain_topozeko.pt")
 
 PREFERRED_DATA_FILE = "example_data_Morteratsch_25m.mat"
 VERTICAL_SCALE = 4.0

@@ -25,8 +25,8 @@ import matplotlib.pyplot as plt
 # 1. Parameters to edit
 # =========================
 
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "72b9832f8b0f441f9c408dc5dad59ad2"
+MODEL_HASH = "72b9832f8b0f441f9c408dc5dad59ad2"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_inverse_resistance.pt")

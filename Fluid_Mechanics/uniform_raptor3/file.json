@@ -1,0 +1,91 @@
+{
+  "name": "Raptor 3 发动机反应流求解器",
+  "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3",
+  "description": "Raptor 3 发动机反应流求解器，适用于 Notebook 在线运行的 Raptor 3 喷管与羽流单文件仿真项目。",
+  "submodules": [
+    {
+      "name": "src",
+      "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/src",
+      "description": "单文件训练与评估脚本目录。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "train_single_file.py",
+          "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/src/train_single_file.py",
+          "description": "自包含的轻量级 Raptor 3 喷管与羽流仿真脚本，并生成评估所需的模型检查点。",
+          "is_code_file": true
+        },
+        {
+          "name": "eval_single_file.py",
+          "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/src/eval_single_file.py",
+          "description": "自包含的模型检查点加载、指标输出与结果可视化脚本。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "data",
+      "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/data",
+      "description": "历史参考资源目录。当前简化版训练和评估脚本不需要上传数据。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "Raptor3.jpeg",
+          "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/data/Raptor3.jpeg",
+          "description": "Raptor 3 发动机参考图片。",
+          "is_code_file": false
+        },
+        {
+          "name": "raptor_mech.yaml",
+          "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/data/raptor_mech.yaml",
+          "description": "历史反应机理文件，当前简化版脚本不再依赖该文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/model",
+      "description": "可选的本地模型与检查点目录。",
+      "submodules": [],
+      "files": [],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/results",
+      "description": "历史结果文件目录。",
+      "submodules": [],
+      "files": [],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/main.py",
+      "description": "历史多模块入口文件。在线运行版本使用 src/train_single_file.py 和 src/eval_single_file.py。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "requirements.txt",
+      "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/requirements.txt",
+      "description": "历史依赖列表。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Fluid_Mechanics/uniform_raptor3/file.json",
+      "description": "项目文件清单。",
+      "is_code_file": false
+    }
+  ]
+}

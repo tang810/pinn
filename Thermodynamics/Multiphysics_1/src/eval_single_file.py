@@ -1,164 +1,188 @@
 """
-Notebook-friendly eval file for Multiphysics_1 (PINNsformer).
+Notebook-friendly eval file for Multiphysics_1.
 
-Online Jupyter usage:
-1. Upload trained_model_multiphysics1.pt as a public asset.
-2. Upload data_7246.txt as a public asset.
-3. Fill MODEL_HASH and DATA_HASH, then run this whole file/cell.
-
-This file loads the PINNsformer model, evaluates temperature prediction,
-and shows figures with plt.show(). It does not save images.
-
-Self-contained PyTorch-only.
+Uses shared data_7246.txt format and loads trained_model_multiphysics1.pt.
+Self-contained: no imports from local src/ modules.
 """
 
 import os
 
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-
 import torch
 import torch.nn as nn
 
 
-# =========================
-# 1. Parameters to edit
-# =========================
-
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "1ffd9719549b48b89c21e364a9742b29"
+MODEL_HASH = "7fdaec223e4440a299e079e4a9705088"
+DATA_FILE_NAME = "data_7246.txt"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_multiphysics1.pt")
 
 
-# =========================
-# 2. PINNsformer Model (minimal)
-# =========================
+def get_device():
+    """Detect device in priority: GPU (cuda) -> NPU (npu/ascend) -> CPU"""
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    try:
+        import torch_npu
+        if torch_npu.npu.is_available():
+            return torch.device("npu")
+    except (ImportError, AttributeError):
+        pass
+    return torch.device("cpu")
 
-class WaveAct(nn.Module):
-    def __init__(self): super().__init__(); self.w1 = nn.Parameter(torch.ones(1)); self.w2 = nn.Parameter(torch.ones(1))
-    def forward(self, x): return self.w1 * torch.sin(x) + self.w2 * torch.cos(x)
 
-class FeedForward(nn.Module):
-    def __init__(self, d_model, d_ff=256):
+def load_torch(path, device):
+    try:
+        return torch.load(path, map_location=device, weights_only=False)
+    except TypeError:
+        return torch.load(path, map_location=device)
+
+
+def resolve_data_path(data_path):
+    candidates = []
+    candidates.append(os.path.join(os.getcwd(), "Thermodynamics", "Multiphysics", "data", DATA_FILE_NAME))
+    if data_path:
+        expanded = os.path.expanduser(data_path)
+        candidates += [expanded, os.path.join(expanded, DATA_FILE_NAME)]
+    if DATA_HASH:
+        candidates += [
+            os.path.expanduser(f"~/public/Resource/{DATA_HASH}"),
+            os.path.expanduser(f"~/public/Resource/{DATA_HASH}/{DATA_FILE_NAME}"),
+            os.path.expanduser(f"~/Resource/{DATA_HASH}"),
+            os.path.expanduser(f"~/Resource/{DATA_HASH}/{DATA_FILE_NAME}"),
+            f"/Resource/{DATA_HASH}",
+            f"/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+            f"/mnt/minio/userdk8e2v7l/Resource/{DATA_HASH}",
+            f"/mnt/minio/userdk8e2v7l/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+            f"/mnt/minio/userdk8e2v7l/public/Resource/{DATA_HASH}",
+            f"/mnt/minio/userdk8e2v7l/public/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+        ]
+    candidates += [
+        os.path.join(os.getcwd(), "Thermodynamics", "Multiphysics_1", "data", DATA_FILE_NAME),
+    ]
+    tried = []
+    for path in candidates:
+        if not path or path in tried:
+            continue
+        tried.append(path)
+        if os.path.isfile(path):
+            return path
+        if os.path.isdir(path):
+            preferred = os.path.join(path, DATA_FILE_NAME)
+            if os.path.isfile(preferred):
+                return preferred
+            txt_files = [os.path.join(path, name) for name in os.listdir(path) if name.lower().endswith(".txt")]
+            if txt_files:
+                return txt_files[0]
+    raise FileNotFoundError(f"Cannot find {DATA_FILE_NAME}. Tried: {tried}")
+
+
+def resolve_model_path(model_path):
+    candidates = []
+    if model_path:
+        expanded = os.path.expanduser(model_path)
+        candidates += [expanded, os.path.join(expanded, "trained_model_multiphysics1.pt")]
+    if MODEL_HASH:
+        candidates += [
+            os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_multiphysics1.pt"),
+            os.path.expanduser(f"~/Resource/{MODEL_HASH}/trained_model_multiphysics1.pt"),
+            f"/Resource/{MODEL_HASH}/trained_model_multiphysics1.pt",
+        ]
+    candidates.append(os.path.join(os.getcwd(), "Thermodynamics", "Multiphysics_1", "model", "pinnsformer_withsun.pt"))
+    tried = []
+    for path in candidates:
+        if not path or path in tried:
+            continue
+        tried.append(path)
+        if os.path.isfile(path):
+            return path
+        if os.path.isdir(path):
+            preferred = os.path.join(path, "trained_model_multiphysics1.pt")
+            if os.path.isfile(preferred):
+                return preferred
+            pt_files = [os.path.join(path, name) for name in os.listdir(path) if name.lower().endswith(".pt")]
+            if pt_files:
+                return pt_files[0]
+    raise FileNotFoundError(f"Model not found. Tried: {tried}")
+
+
+class SimpleMultiphysicsNet(nn.Module):
+    def __init__(self, hidden_dim=64):
         super().__init__()
-        self.linear = nn.Sequential(nn.Linear(d_model, d_ff), WaveAct(), nn.Linear(d_ff, d_ff), WaveAct(), nn.Linear(d_ff, d_model))
-    def forward(self, x): return self.linear(x)
+        self.net = nn.Sequential(
+            nn.Linear(4, hidden_dim),
+            nn.Tanh(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.Tanh(),
+            nn.Linear(hidden_dim, 1),
+        )
 
-class EncoderLayer(nn.Module):
-    def __init__(self, dm, h): super().__init__(); self.attn = nn.MultiheadAttention(dm, h, batch_first=True); self.ff = FeedForward(dm); self.act1 = WaveAct(); self.act2 = WaveAct()
-    def forward(self, x): x2 = self.act1(x); x = x + self.attn(x2, x2, x2)[0]; x2 = self.act2(x); x = x + self.ff(x2); return x
-
-class DecoderLayer(nn.Module):
-    def __init__(self, dm, h): super().__init__(); self.attn = nn.MultiheadAttention(dm, h, batch_first=True); self.ff = FeedForward(dm); self.act1 = WaveAct(); self.act2 = WaveAct()
-    def forward(self, x, e): x2 = self.act1(x); x = x + self.attn(x2, e, e)[0]; x2 = self.act2(x); x = x + self.ff(x2); return x
-
-class Encoder(nn.Module):
-    def __init__(self, d_model, N, heads):
-        super().__init__()
-        self.layers = nn.ModuleList([EncoderLayer(d_model, heads) for _ in range(N)])
-        self.act = WaveAct()
     def forward(self, x):
-        for l in self.layers: x = l(x); return self.act(x)
-
-class Decoder(nn.Module):
-    def __init__(self, d_model, N, heads):
-        super().__init__()
-        self.layers = nn.ModuleList([DecoderLayer(d_model, heads) for _ in range(N)])
-        self.act = WaveAct()
-    def forward(self, x, e):
-        for l in self.layers: x = l(x, e); return self.act(x)
-
-class PINNsformer(nn.Module):
-    def __init__(self, d_out=1, d_model=64, d_hidden=512, N=1, heads=2):
-        super().__init__()
-        self.linear_emb = nn.Linear(4, d_model)
-        self.encoder = Encoder(d_model, N, heads)
-        self.decoder = Decoder(d_model, N, heads)
-        self.linear_out = nn.Sequential(nn.Linear(d_model, d_hidden), WaveAct(), nn.Linear(d_hidden, d_hidden), WaveAct(), nn.Linear(d_hidden, d_out))
-    def forward(self, x, y, z, t):
-        src = self.linear_emb(torch.cat([x, y, z, t], dim=-1)); e = self.encoder(src); d = self.decoder(src, e)
-        return self.linear_out(d)
+        return self.net(x)
 
 
-# =========================
-# 3. Model loading
-# =========================
-
-def load_model_package(model_path, device):
-    model_path = os.path.expanduser(model_path)
-    if not os.path.isfile(model_path):
-        raise FileNotFoundError(f"Model not found: {model_path}")
-    ckpt = torch.load(model_path, map_location=device, weights_only=False)
-    if isinstance(ckpt, dict) and "state_dict" in ckpt:
-        state = ckpt["state_dict"]; dm = ckpt.get("d_model", 64); dh = ckpt.get("d_hidden", 512)
-        N = ckpt.get("N", 1); h = ckpt.get("heads", 2); hist = ckpt.get("history", [])
-    else:
-        state = ckpt; dm = state["linear_emb.weight"].shape[0]; dh = state["linear_out.0.weight"].shape[0]
-        N = 1; h = 2; hist = []
-    model = PINNsformer(d_out=1, d_model=dm, d_hidden=dh, N=N, heads=h).to(device)
-    model.load_state_dict(state); model.eval()
-    return model, hist
+def load_data(data_path):
+    path = resolve_data_path(data_path)
+    arr = np.loadtxt(path, dtype=np.float32)
+    if arr.ndim == 1:
+        arr = arr.reshape(1, -1)
+    if arr.shape[1] < 5:
+        raise ValueError(f"{DATA_FILE_NAME} must have columns x y z t T, got {arr.shape}")
+    print("data:", path)
+    return arr[:, :5]
 
 
-# =========================
-# 4. Visualization
-# =========================
+def load_model(model_path, device):
+    model_path = resolve_model_path(model_path)
+    ckpt = load_torch(model_path, device)
+    state = ckpt["state_dict"] if isinstance(ckpt, dict) and "state_dict" in ckpt else ckpt
+    hidden_dim = ckpt.get("hidden_dim", 64) if isinstance(ckpt, dict) else 64
+    model = SimpleMultiphysicsNet(hidden_dim).to(device)
+    model.load_state_dict(state)
+    model.eval()
+    return model, ckpt if isinstance(ckpt, dict) else {}, model_path
 
-def show_eval_result(model, device, data_path, history):
-    if history:
-        plt.figure(figsize=(7,4)); plt.plot(history); plt.yscale("log")
-        plt.xlabel("Epoch"); plt.ylabel("Total Loss"); plt.title("Training Loss")
-        plt.grid(alpha=0.3); plt.tight_layout(); plt.show()
-
-    data_path = os.path.expanduser(data_path) if data_path else "data/data_7246.txt"
-    if not os.path.isfile(data_path):
-        print("Data file not found, skipping eval plots.")
-        return
-    df = pd.read_csv(data_path, delimiter=' ', header=None).to_numpy()
-    idx = np.linspace(0, len(df)-1, min(8000, len(df))).astype(int)
-    x = torch.tensor(df[idx, 0:1], dtype=torch.float32, device=device)
-    y = torch.tensor(df[idx, 1:2], dtype=torch.float32, device=device)
-    z = torch.tensor(df[idx, 2:3], dtype=torch.float32, device=device)
-    t = torch.tensor(df[idx, 3:4], dtype=torch.float32, device=device)
-    T_true = df[idx, 4]
-
-    with torch.no_grad():
-        T_pred = model(x, y, z, t).cpu().numpy().reshape(-1)
-
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
-    sc = axes[0].scatter(T_true, T_pred, c=t.cpu().numpy().reshape(-1), s=3, alpha=0.4, cmap="plasma")
-    axes[0].plot([T_true.min(), T_true.max()], [T_true.min(), T_true.max()], "r--", lw=1)
-    axes[0].set_xlabel("True T (K)"); axes[0].set_ylabel("Pred T (K)"); axes[0].set_title("True vs Pred")
-    axes[0].grid(alpha=0.3); plt.colorbar(sc, ax=axes[0], label="t")
-    err = T_pred - T_true
-    axes[1].hist(err, bins=50); axes[1].set_xlabel("Error (K)"); axes[1].set_title("Error Distribution")
-    axes[2].scatter(T_true, err, s=2, alpha=0.4); axes[2].axhline(0, color='r', ls='--')
-    axes[2].set_xlabel("True T (K)"); axes[2].set_ylabel("Error (K)"); axes[2].set_title("Error vs True T")
-    axes[2].grid(alpha=0.3)
-    plt.suptitle("Multiphysics_1 PINNsformer Eval", fontsize=14); plt.tight_layout(); plt.show()
-
-    rl2 = np.linalg.norm(err) / (np.linalg.norm(T_true) + 1e-12)
-    mae = float(np.mean(np.abs(err))); rmse = float(np.sqrt(np.mean(err**2)))
-    print(f"Relative L2: {rl2:.4e}, MAE: {mae:.4f} K, RMSE: {rmse:.4f} K")
-    return rl2, mae, rmse
-
-
-# =========================
-# 5. Eval entry
-# =========================
 
 def evaluate(model_path=MODEL_PATH, data_path=DATA_PATH):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = get_device()
     print(f"device={device}")
+    model, ckpt, model_path = load_model(model_path, device)
+    arr = load_data(data_path)
 
-    model, history = load_model_package(model_path, device)
-    print("Eval result"); print(f"model_path: {model_path}")
+    x_raw = arr[:, :4]
+    y_true = arr[:, 4:5]
+    x_mean = ckpt.get("x_mean", x_raw.mean(axis=0, keepdims=True))
+    x_std = ckpt.get("x_std", x_raw.std(axis=0, keepdims=True) + 1e-6)
+    y_mean = ckpt.get("y_mean", y_true.mean(axis=0, keepdims=True))
+    y_std = ckpt.get("y_std", y_true.std(axis=0, keepdims=True) + 1e-6)
+    X = torch.tensor((x_raw - x_mean) / x_std, dtype=torch.float32, device=device)
+    with torch.no_grad():
+        y_pred = model(X).cpu().numpy() * y_std + y_mean
 
-    rl2, mae, rmse = show_eval_result(model, device, data_path, history)
-    return {"rl2": rl2, "mae": mae, "rmse": rmse}
+    err = np.abs(y_true - y_pred)
+    mae = float(np.mean(err))
+    rmse = float(np.sqrt(np.mean(err ** 2)))
+    print("Eval result")
+    print("model_path:", model_path)
+    print(f"MAE: {mae:.4f} K, RMSE: {rmse:.4f} K")
+
+    fig, axes = plt.subplots(1, 3, figsize=(14, 4.5))
+    history = ckpt.get("history", [])
+    if history:
+        axes[0].semilogy(np.maximum(history, 1e-12))
+    axes[0].set_title("Training Loss")
+    axes[0].grid(alpha=0.3)
+    axes[1].scatter(y_true, y_pred, s=8, alpha=0.5)
+    axes[1].plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], "r--", lw=1)
+    axes[1].set_title("True vs Pred")
+    axes[2].hist(err.reshape(-1), bins=40)
+    axes[2].set_title("Error Distribution")
+    plt.tight_layout()
+    plt.show()
+    return {"mae": mae, "rmse": rmse}
 
 
 eval_result = evaluate()

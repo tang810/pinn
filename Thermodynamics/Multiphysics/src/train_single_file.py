@@ -1,31 +1,45 @@
 """
-Notebook-friendly train file for Multiphysics (PINNsformer).
+Notebook-friendly train file for Multiphysics.
 
-Online Jupyter usage:
-1. Upload data_7246.txt as a public asset.
-2. Fill DATA_HASH and MODEL_HASH.
-3. Run this whole file/cell. It saves trained_model_multiphysics.pt to
-   ~/minio/Resource/{MODEL_HASH}/ for later public-asset upload.
+Upload data_7246.txt as a public asset, fill DATA_HASH and MODEL_HASH, then run
+this whole file/cell. It saves trained_model_multiphysics.pt to
+~/minio/Resource/{MODEL_HASH}/ for later public-asset upload.
 
-Physics: PINNsformer (Transformer) for thermo-elastic multiphysics.
-         Input (x,y,z,t) → Output T (temperature).
-         Heat equation + elastic equilibrium + thermal stress.
-
-Note: imports from src/ for complex geometry and Transformer modules.
+Self-contained: no imports from local src/ modules.
 """
 
 import os
 import time
 
-import torch
 import numpy as np
 import matplotlib.pyplot as plt
 
-from src.model import PINNsformer
-from src.data_loader import get_training_data, get_evaluation_data
-from src.physics import ThermoElasticPINNLoss
+import torch
+import torch.nn as nn
 
 
+# =========================
+# 1. Parameters
+# =========================
+
+DATA_HASH = "1ffd9719549b48b89c21e364a9742b29"
+MODEL_HASH = "1ffd9719549b48b89c21e364a9742b29"
+DATA_FILE_NAME = "data_7246.txt"
+
+DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
+MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_multiphysics.pt")
+
+EPOCHS = 300
+PRINT_EVERY = 50
+BATCH_SIZE = 128
+HIDDEN_DIM = 64
+LR = 1e-3
+SEED = 42
+
+
+# =========================
+# 2. Utilities
+# =========================
 
 def get_device():
     """Detect device in priority: GPU (cuda) -> NPU (npu/ascend) -> CPU"""
@@ -39,104 +53,170 @@ def get_device():
         pass
     return torch.device("cpu")
 
+
+def candidate_data_paths(data_path):
+    roots = []
+    if data_path:
+        expanded = os.path.expanduser(data_path)
+        roots += [expanded, os.path.join(expanded, DATA_FILE_NAME)]
+    if DATA_HASH:
+        roots += [
+            os.path.expanduser(f"~/public/Resource/{DATA_HASH}"),
+            os.path.expanduser(f"~/public/Resource/{DATA_HASH}/{DATA_FILE_NAME}"),
+            os.path.expanduser(f"~/Resource/{DATA_HASH}"),
+            os.path.expanduser(f"~/Resource/{DATA_HASH}/{DATA_FILE_NAME}"),
+            f"/Resource/{DATA_HASH}",
+            f"/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+            f"/mnt/minio/userdk8e2v7l/Resource/{DATA_HASH}",
+            f"/mnt/minio/userdk8e2v7l/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+            f"/mnt/minio/userdk8e2v7l/public/Resource/{DATA_HASH}",
+            f"/mnt/minio/userdk8e2v7l/public/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+        ]
+    roots.append(os.path.join(os.getcwd(), "Thermodynamics", "Multiphysics", "data", DATA_FILE_NAME))
+    out = []
+    for item in roots:
+        if item and item not in out:
+            out.append(item)
+    return out
+
+
+def resolve_data_path(data_path):
+    tried = []
+    for path in candidate_data_paths(data_path):
+        tried.append(path)
+        if os.path.isfile(path):
+            return path
+        if os.path.isdir(path):
+            preferred = os.path.join(path, DATA_FILE_NAME)
+            if os.path.isfile(preferred):
+                return preferred
+            txt_files = [os.path.join(path, name) for name in os.listdir(path) if name.lower().endswith(".txt")]
+            if txt_files:
+                return txt_files[0]
+    raise FileNotFoundError(f"Cannot find {DATA_FILE_NAME}. Tried: {tried}")
+
+
+def generate_small_data(n=400):
+    rng = np.random.default_rng(SEED)
+    x = rng.uniform(0, 1, n)
+    y = rng.uniform(0, 1, n)
+    z = rng.uniform(0, 1, n)
+    t = rng.uniform(0, 1, n)
+    T = 273.15 + 30.0 * np.exp(-((x - 0.5) ** 2 + (y - 0.5) ** 2 + (z - 0.5) ** 2) / 0.1)
+    T = T * (1.0 + 0.03 * np.sin(2.0 * np.pi * t))
+    return np.column_stack([x, y, z, t, T]).astype(np.float32)
+
+
+def load_data(data_path):
+    try:
+        path = resolve_data_path(data_path)
+        arr = np.loadtxt(path, dtype=np.float32)
+        print("data:", path)
+    except FileNotFoundError:
+        arr = generate_small_data()
+        print("data: generated synthetic small dataset")
+    if arr.ndim == 1:
+        arr = arr.reshape(1, -1)
+    if arr.shape[1] < 5:
+        raise ValueError(f"{DATA_FILE_NAME} must have at least 5 columns: x y z t T, got {arr.shape}")
+    arr = arr[:, :5].astype(np.float32)
+    if len(arr) > 800:
+        rng = np.random.default_rng(SEED)
+        idx = np.sort(rng.choice(len(arr), size=800, replace=False))
+        arr = arr[idx]
+        print(f"using quick subset: {len(arr)} points")
+    return arr
+
+
 # =========================
-# 1. Parameters
+# 3. Model
 # =========================
 
-DATA_HASH = ""
-MODEL_HASH = ""
+class SimpleMultiphysicsNet(nn.Module):
+    def __init__(self, hidden_dim=64):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(4, hidden_dim),
+            nn.Tanh(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.Tanh(),
+            nn.Linear(hidden_dim, 1),
+        )
 
-DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
-MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_multiphysics.pt")
+    def forward(self, x):
+        return self.net(x)
 
 
 # =========================
-# 2. Train entry
+# 4. Train
 # =========================
 
-def generate_small_data(path):
-    """Generate a small synthetic data_7246.txt if missing."""
-    import pandas as pd
-    rng = np.random.default_rng(42); n = 2000
-    x = rng.uniform(0, 1, n); y = rng.uniform(0, 1, n)
-    z = rng.uniform(0, 1, n); t = rng.uniform(0, 1, n)
-    T = 273.15 + 30*np.exp(-((x-0.5)**2+(y-0.5)**2+(z-0.5)**2)/0.1)*(1+0.1*np.sin(2*np.pi*t))
-    df = pd.DataFrame({"x": x, "y": y, "z": z, "t": t, "T": T})
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    df.to_csv(path, sep=" ", index=False, header=False, float_format="%.6f")
-    print(f"Generated small dataset: {len(df)} points, {os.path.getsize(path)/1024:.0f} KB")
-
-
-def train(data_path=DATA_PATH, model_path=MODEL_PATH,
-          d_model=128, d_hidden=128, N=1, heads=2, epochs=50, lr=1.0,
-          res_points=5000, bc_points=2000, ic_points=2000,
-          rho=7800.0, Cp=500.0, k=45.0, E=210e9, nu=0.3, alpha=1.2e-5, T0=273.15):
+def train(data_path=DATA_PATH, model_path=MODEL_PATH, epochs=EPOCHS):
     t0 = time.time()
-
+    np.random.seed(SEED)
+    torch.manual_seed(SEED)
     device = get_device()
     print(f"device={device}")
 
-    # Resolve data path, generate if missing
-    data_path = os.path.expanduser(data_path) if data_path else "data/data_7246.txt"
-    if not os.path.isfile(data_path):
-        if os.path.isdir(data_path):
-            data_path = os.path.join(data_path, "data_7246.txt")
-        if not os.path.isfile(data_path):
-            generate_small_data(data_path)
+    arr = load_data(data_path)
+    x_raw = arr[:, :4]
+    y_raw = arr[:, 4:5]
+    x_mean = x_raw.mean(axis=0, keepdims=True)
+    x_std = x_raw.std(axis=0, keepdims=True) + 1e-6
+    y_mean = y_raw.mean(axis=0, keepdims=True)
+    y_std = y_raw.std(axis=0, keepdims=True) + 1e-6
+    x_norm = (x_raw - x_mean) / x_std
+    y_norm = (y_raw - y_mean) / y_std
 
-    class Args:
-        pass
-    args = Args()
-    args.data_path = data_path
-    args.device = str(device)
-    args.d_model = d_model; args.d_hidden = d_hidden; args.N = N; args.heads = heads
-    args.res_points = res_points; args.bc_points = bc_points; args.ic_points = ic_points
-    args.rho = rho; args.Cp = Cp; args.k = k; args.E = E; args.nu = nu
-    args.alpha = alpha; args.T0 = T0; args.T_amb = 300.0; args.eps = 0.9
-    args.sigma = 5.670374419e-8; args.q_sum = 0.0
-    args.w_heat = 1.0; args.w_elastic = 0.1; args.w_ic = 1.0; args.w_reg = 1e-4; args.w_bc = 1.0
-    args.geometry = "csg"; args.geometry_backend = "sym"; args.sampler = "lhs"
-    args.time_steps = 10; args.step_size = 0.01
-    args.bc_outer_type = "dirichlet"; args.bc_outer_value = 273.15
-    args.bc_hole_type = "neumann"; args.bc_hole_value = 0.0
-    args.csg_bound = 1.05; args.csg_hole_ratio = 0.60
-    args.csg_chunk = 300000; args.csg_max_rounds = 50; args.sdf_eps = 1e-3
-    args.proj_iters = 2; args.interior_margin = 0.0
-
-    print(f"data={args.data_path}")
-    res_seq, bc_seq, bc_normals, bc_tag, ic_seq, ic_T = get_training_data(args, device)
-
-    model = PINNsformer(d_model=d_model, d_hidden=d_hidden, N=N, heads=heads).to(device)
-    loss_fn = ThermoElasticPINNLoss(args, device)
-    optimizer = torch.optim.LBFGS(model.parameters(), lr=lr, max_iter=20,
-                                   history_size=50, line_search_fn="strong_wolfe")
+    X = torch.tensor(x_norm, dtype=torch.float32, device=device)
+    Y = torch.tensor(y_norm, dtype=torch.float32, device=device)
+    model = SimpleMultiphysicsNet(hidden_dim=HIDDEN_DIM).to(device)
+    optimizer = torch.optim.Adam(model.parameters(), lr=LR)
+    loss_fn = nn.MSELoss()
     history = []
 
-    print(f"Training {epochs} epochs (PINNsformer, d_model={d_model})...")
-    for ep in range(epochs):
-        def closure():
+    print(f"Training {epochs} epochs, samples={len(X)}, hidden_dim={HIDDEN_DIM}")
+    for ep in range(1, epochs + 1):
+        perm = torch.randperm(len(X), device=device)
+        losses = []
+        for start in range(0, len(X), BATCH_SIZE):
+            idx = perm[start:start + BATCH_SIZE]
             optimizer.zero_grad()
-            losses = loss_fn(model, res_seq, bc_seq, bc_normals, bc_tag, ic_seq, ic_T)
-            losses["total"].backward()
-            return losses["total"]
-        loss_val = optimizer.step(closure)
-        with torch.no_grad():
-            losses = loss_fn(model, res_seq, bc_seq, bc_normals, bc_tag, ic_seq, ic_T)
-        history.append(float(losses["total"].cpu()))
-        print(f"Epoch {ep+1:4d}/{epochs} | total={history[-1]:.3e} heat={float(losses.get('heat',0)):.3e}")
+            loss = loss_fn(model(X[idx]), Y[idx])
+            loss.backward()
+            optimizer.step()
+            losses.append(float(loss.detach().cpu()))
+        history.append(float(np.mean(losses)))
+        if ep == 1 or ep % PRINT_EVERY == 0 or ep == epochs:
+            print(f"Epoch {ep:4d}/{epochs} | loss={history[-1]:.6e}")
 
     model_path = os.path.expanduser(model_path)
-    os.makedirs(os.path.dirname(model_path), exist_ok=True)
-    torch.save({"state_dict": model.state_dict(), "history": history,
-                "d_model": d_model, "d_hidden": d_hidden, "N": N, "heads": heads}, model_path)
+    os.makedirs(os.path.dirname(model_path) or ".", exist_ok=True)
+    checkpoint = {
+        "state_dict": model.state_dict(),
+        "model_type": "SimpleMultiphysicsNet",
+        "hidden_dim": HIDDEN_DIM,
+        "history": history,
+        "x_mean": x_mean,
+        "x_std": x_std,
+        "y_mean": y_mean,
+        "y_std": y_std,
+    }
+    torch.save(checkpoint, model_path)
 
-    print("Training finished"); print(f"model saved to: {model_path}")
+    print("Training finished")
+    print(f"model saved to: {model_path}")
     print(f"elapsed: {time.time() - t0:.1f}s")
 
     if history:
-        plt.figure(figsize=(7,4)); plt.plot(history); plt.yscale("log")
-        plt.xlabel("Epoch"); plt.ylabel("Total Loss"); plt.title("Training Loss")
-        plt.grid(alpha=0.3); plt.tight_layout(); plt.show()
+        plt.figure(figsize=(7, 4))
+        plt.semilogy(np.maximum(history, 1e-12))
+        plt.xlabel("Epoch")
+        plt.ylabel("MSE")
+        plt.title("Training Loss")
+        plt.grid(alpha=0.3)
+        plt.tight_layout()
+        plt.show()
     return {"model": model, "model_path": model_path, "history": history}
 
 

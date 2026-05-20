@@ -22,6 +22,35 @@ import torch.nn as nn
 
 
 PROJECT_NAME = "HeatTrans"
+DATA_FILE_NAME = "data_7246.txt"
+
+
+def here():
+    try:
+        return Path(__file__).resolve()
+    except NameError:
+        return Path.cwd()
+
+
+def default_data_path():
+    base = here()
+    candidates = [
+        Path.cwd() / "Thermodynamics" / "Multiphysics" / "data" / DATA_FILE_NAME,
+        base.parents[2] / "Multiphysics" / "data" / DATA_FILE_NAME if len(base.parents) > 2 else Path(),
+        Path("/mnt/minio/userdk8e2v7l/Thermodynamics/Multiphysics/data") / DATA_FILE_NAME,
+        Path("/mnt/minio/userdk8e2v7l/public/Resource") / DATA_FILE_NAME,
+    ]
+    for path in candidates:
+        if path.exists():
+            return str(path)
+    return str(candidates[0])
+
+
+def default_model_path():
+    base = here()
+    if len(base.parents) > 1:
+        return str(base.parents[1] / "model" / "trained_model_heattrans.pt")
+    return str(Path("model") / "trained_model_heattrans.pt")
 
 
 def set_seed(seed=42):
@@ -45,6 +74,9 @@ def get_device():
 
 
 def find_dataset(search_root="/mnt/minio", extensions=(".npz", ".npy", ".csv", ".txt", ".mat")):
+    shared = default_data_path()
+    if os.path.exists(shared):
+        return shared
     local_data = Path("data")
     roots = [local_data, Path(search_root)]
     for base in roots:
@@ -144,22 +176,22 @@ class MLP(nn.Module):
 
 
 def run_train(
-    data_path="",
-    model_path="",
+    data_path=None,
+    model_path=None,
     search_root="/mnt/minio",
-    n_iters=1000,
-    print_every=100,
-    batch_size=4096,
-    hidden_dim=64,
-    n_layers=4,
+    n_iters=200,
+    print_every=25,
+    batch_size=512,
+    hidden_dim=32,
+    n_layers=2,
     lr=1e-3,
     seed=42,
 ):
     set_seed(seed)
     if not data_path:
-        data_path = find_dataset(search_root=search_root)
+        data_path = default_data_path()
     if not model_path:
-        model_path = "trained_model.pth"
+        model_path = default_model_path()
 
     X, Y = load_dataset(data_path)
     x_mean, x_std = X.mean(axis=0, keepdims=True), X.std(axis=0, keepdims=True) + 1e-8
@@ -221,13 +253,13 @@ def parse_args():
     parser.add_argument("--data-path", default="")
     parser.add_argument("--model-path", default="")
     parser.add_argument("--search-root", default="/mnt/minio")
-    parser.add_argument("--n-iters", type=int, default=1000)
-    parser.add_argument("--print-every", type=int, default=100)
-    parser.add_argument("--batch-size", type=int, default=4096)
-    parser.add_argument("--hidden-dim", type=int, default=64)
-    parser.add_argument("--n-layers", type=int, default=4)
+    parser.add_argument("--n-iters", type=int, default=200)
+    parser.add_argument("--print-every", type=int, default=25)
+    parser.add_argument("--batch-size", type=int, default=512)
+    parser.add_argument("--hidden-dim", type=int, default=32)
+    parser.add_argument("--n-layers", type=int, default=2)
     parser.add_argument("--lr", type=float, default=1e-3)
-    return parser.parse_args()
+    return parser.parse_known_args()[0]
 
 
 if __name__ == "__main__":

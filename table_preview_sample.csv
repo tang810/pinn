@@ -1,0 +1,11 @@
+﻿case_id,material,temperature_c,pressure_kpa,velocity_m_s,residual,status
+A001,air,25.0,101.3,12.5,0.0032,converged
+A002,water,18.5,120.0,2.1,0.0011,converged
+A003,oil,42.0,180.5,0.8,0.0085,running
+A004,air,30.2,98.7,18.2,0.0040,converged
+A005,water,21.3,135.4,3.6,0.0024,converged
+A006,steam,105.0,210.2,25.1,0.0121,warning
+A007,air,27.6,100.9,14.7,0.0037,converged
+A008,oil,38.4,160.1,1.2,0.0063,running
+A009,water,16.9,118.6,2.8,0.0018,converged
+A010,steam,112.5,230.4,30.3,0.0157,warning

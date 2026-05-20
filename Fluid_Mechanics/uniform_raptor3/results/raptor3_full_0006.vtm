@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<VTKFile type="vtkMultiBlockDataSet" version="1.0" byte_order="LittleEndian" header_type="UInt32" compressor="vtkZLibDataCompressor">
+  <vtkMultiBlockDataSet>
+    <DataSet index="0" file="raptor3_full_0006/raptor3_full_0006_0.vts"/>
+    <DataSet index="1" file="raptor3_full_0006/raptor3_full_0006_1.vts"/>
+    <DataSet index="2" file="raptor3_full_0006/raptor3_full_0006_2.vts"/>
+  </vtkMultiBlockDataSet>
+</VTKFile>

@@ -26,13 +26,16 @@ import torch.nn as nn
 # 1. Parameters to edit
 # =========================
 
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "8b12566940a44ff6be794d77dc9e73b5"
+MODEL_HASH = "96743dc6d4a0434fa07a7390eec18b9b"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_3d_liquid_cooling.pt")
 
 SEED = 42; T_IN = 298.0
+DATA_FILE_NAME = "data_3d_liquid_cooling_small.csv"
+HIDDEN_DIM = 32
+MAX_POINTS_PER_LABEL = 80
 
 
 # =========================
@@ -40,12 +43,12 @@ SEED = 42; T_IN = 298.0
 # =========================
 
 class PINN3D(nn.Module):
-    def __init__(self):
+    def __init__(self, hidden_dim=HIDDEN_DIM):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(3, 64), nn.Tanh(),
-            nn.Linear(64, 64), nn.Tanh(),
-            nn.Linear(64, 1),
+            nn.Linear(3, hidden_dim), nn.Tanh(),
+            nn.Linear(hidden_dim, hidden_dim), nn.Tanh(),
+            nn.Linear(hidden_dim, 1),
         )
     def forward(self, x, y, z):
         return self.net(torch.cat([x, y, z], dim=1))
@@ -60,21 +63,32 @@ def load_data(data_path=None, device=None):
     if data_path and os.path.isfile(data_path):
         df = pd.read_csv(data_path)
     elif data_path and os.path.isdir(data_path):
-        for f in sorted(os.listdir(data_path)):
-            if f.endswith('.csv'): df = pd.read_csv(os.path.join(data_path, f)); break
+        preferred = os.path.join(data_path, DATA_FILE_NAME)
+        if os.path.isfile(preferred):
+            df = pd.read_csv(preferred)
         else:
-            rng = np.random.default_rng(SEED)
-            n = 2000
-            def s(n_s, l, yr):
-                x=rng.random(n_s); y=rng.uniform(*yr,n_s); z=rng.random(n_s)
-                return pd.DataFrame({"x":x,"y":y,"z":z,"T":T_IN+20*np.exp(-((y-0.2)**2)*10),"label":l})
-            df = pd.concat([s(n,0,(0.5,1)),s(n,1,(0,.5)),s(n//5,2,(.45,.55)),s(n//5,3,(0,.05)),s(n//5,4,(.9,1))])
+            for f in sorted(os.listdir(data_path)):
+                if f.endswith('.csv'): df = pd.read_csv(os.path.join(data_path, f)); break
+            else:
+                rng = np.random.default_rng(SEED)
+                n = 80
+                def s(n_s, l, yr):
+                    x=rng.random(n_s); y=rng.uniform(*yr,n_s); z=rng.random(n_s)
+                    return pd.DataFrame({"x":x,"y":y,"z":z,"T":T_IN+20*np.exp(-((y-0.2)**2)*10),"label":l})
+                df = pd.concat([s(n,0,(0.5,1)),s(n,1,(0,.5)),s(n//4,2,(.45,.55)),s(n//4,3,(0,.05)),s(n//4,4,(.9,1))])
     else:
-        rng = np.random.default_rng(SEED); n=300
+        rng = np.random.default_rng(SEED); n=80
         def s(n_s,l,yr):
             x=rng.random(n_s); y=rng.uniform(*yr,n_s); z=rng.random(n_s)
             return pd.DataFrame({"x":x,"y":y,"z":z,"T":T_IN+20*np.exp(-((y-0.2)**2)*10),"label":l})
-        df = pd.concat([s(n,0,(0.5,1)),s(n,1,(0,.5)),s(n//5,2,(.45,.55)),s(n//5,3,(0,.05)),s(n//5,4,(.9,1))])
+        df = pd.concat([s(n,0,(0.5,1)),s(n,1,(0,.5)),s(n//4,2,(.45,.55)),s(n//4,3,(0,.05)),s(n//4,4,(.9,1))])
+    df = pd.concat(
+        [
+            group.sample(n=min(MAX_POINTS_PER_LABEL, len(group)), random_state=SEED)
+            for _, group in df.groupby("label")
+        ],
+        ignore_index=True,
+    )
     data = {}
     for lbl in sorted(df["label"].unique()):
         sub = df[df["label"] == lbl]
@@ -90,15 +104,66 @@ def load_data(data_path=None, device=None):
 # 4. Model loading
 # =========================
 
+def get_device():
+    """Detect device in priority: GPU (cuda) -> NPU (npu/ascend) -> CPU"""
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    try:
+        import torch_npu
+        if torch_npu.npu.is_available():
+            return torch.device("npu")
+    except (ImportError, AttributeError):
+        pass
+    return torch.device("cpu")
+
+
+def resolve_model_path(model_path):
+    candidates = []
+    if model_path:
+        model_path = os.path.expanduser(model_path)
+        candidates.append(model_path)
+        candidates.append(os.path.join(model_path, "trained_model_3d_liquid_cooling.pt"))
+    if MODEL_HASH:
+        candidates += [
+            os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_3d_liquid_cooling.pt"),
+            os.path.expanduser(f"~/Resource/{MODEL_HASH}/trained_model_3d_liquid_cooling.pt"),
+            f"/Resource/{MODEL_HASH}/trained_model_3d_liquid_cooling.pt",
+        ]
+    local_model = os.path.abspath(
+        os.path.join(os.getcwd(), "Variant_PINNs", "3D_packaging_liquid_cooling", "model", "packaging_liquid_cooling_simul.pt")
+    )
+    candidates.append(local_model)
+    tried = []
+    for path in candidates:
+        if not path or path in tried:
+            continue
+        tried.append(path)
+        if os.path.isfile(path):
+            return path
+        if os.path.isdir(path):
+            preferred = os.path.join(path, "trained_model_3d_liquid_cooling.pt")
+            if os.path.isfile(preferred):
+                return preferred
+            pt_files = [os.path.join(path, name) for name in os.listdir(path) if name.lower().endswith(".pt")]
+            if pt_files:
+                return pt_files[0]
+    raise FileNotFoundError(f"Model not found. Tried: {tried}")
+
+
+def infer_hidden_dim(state_dict):
+    weight = state_dict.get("net.0.weight")
+    return int(weight.shape[0]) if weight is not None else HIDDEN_DIM
+
+
 def load_checkpoint(model_path, device):
-    model_path = os.path.expanduser(model_path)
-    if not os.path.isfile(model_path):
-        raise FileNotFoundError(f"Model not found: {model_path}")
+    model_path = resolve_model_path(model_path)
     ckpt = torch.load(model_path, map_location=device, weights_only=False)
-    ms = PINN3D().to(device); mf = PINN3D().to(device)
+    hidden_dim = ckpt.get("hidden_dim", infer_hidden_dim(ckpt["solid"]))
+    ms = PINN3D(hidden_dim=hidden_dim).to(device)
+    mf = PINN3D(hidden_dim=hidden_dim).to(device)
     ms.load_state_dict(ckpt["solid"]); mf.load_state_dict(ckpt["fluid"])
     ms.eval(); mf.eval()
-    return ms, mf, ckpt
+    return ms, mf, ckpt, model_path
 
 
 # =========================
@@ -133,11 +198,11 @@ def show_eval_result(ms, data, history):
 # =========================
 
 def evaluate(model_path=MODEL_PATH, data_path=DATA_PATH):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = get_device()
     print(f"device={device}")
 
     data = load_data(data_path, device=device)
-    ms, mf, ckpt = load_checkpoint(model_path, device)
+    ms, mf, ckpt, model_path = load_checkpoint(model_path, device)
     history = ckpt.get("history", [])
 
     print("Eval result"); print(f"model_path: {model_path}")

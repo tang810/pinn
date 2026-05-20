@@ -21,9 +21,41 @@ import matplotlib.pyplot as plt
 
 
 PROJECT_NAME = "HeatTrans"
+DATA_FILE_NAME = "data_7246.txt"
+
+
+def here():
+    try:
+        return Path(__file__).resolve()
+    except NameError:
+        return Path.cwd()
+
+
+def default_data_path():
+    base = here()
+    candidates = [
+        Path.cwd() / "Thermodynamics" / "Multiphysics" / "data" / DATA_FILE_NAME,
+        base.parents[2] / "Multiphysics" / "data" / DATA_FILE_NAME if len(base.parents) > 2 else Path(),
+        Path("/mnt/minio/userdk8e2v7l/Thermodynamics/Multiphysics/data") / DATA_FILE_NAME,
+        Path("/mnt/minio/userdk8e2v7l/public/Resource") / DATA_FILE_NAME,
+    ]
+    for path in candidates:
+        if path.exists():
+            return str(path)
+    return str(candidates[0])
+
+
+def default_model_path():
+    base = here()
+    if len(base.parents) > 1:
+        return str(base.parents[1] / "model" / "trained_model_heattrans.pt")
+    return str(Path("model") / "trained_model_heattrans.pt")
 
 
 def find_file(search_root="/mnt/minio", extensions=(".pth", ".pt")):
+    model_path = default_model_path()
+    if os.path.exists(model_path):
+        return model_path
     for root, _, files in os.walk(search_root):
         for f in files:
             if f.lower().endswith(extensions):
@@ -32,6 +64,9 @@ def find_file(search_root="/mnt/minio", extensions=(".pth", ".pt")):
 
 
 def find_dataset(search_root="/mnt/minio", extensions=(".npz", ".npy", ".csv", ".txt", ".mat")):
+    shared = default_data_path()
+    if os.path.exists(shared):
+        return shared
     local_data = Path("data")
     roots = [local_data, Path(search_root)]
     for base in roots:
@@ -126,7 +161,7 @@ class MLP(nn.Module):
 
 
 def load_checkpoint(model_path, device):
-    checkpoint = torch.load(model_path, map_location=device)
+    checkpoint = torch.load(model_path, map_location=device, weights_only=False)
     if isinstance(checkpoint, dict) and "state_dict" in checkpoint:
         model = MLP(
             checkpoint["in_dim"],
@@ -141,9 +176,9 @@ def load_checkpoint(model_path, device):
 
 def run_eval(model_path="", data_path="", search_root="/mnt/minio", max_points=5000, show=True):
     if not model_path:
-        model_path = find_file(search_root=search_root, extensions=(".pth", ".pt"))
+        model_path = default_model_path()
     if not data_path:
-        data_path = find_dataset(search_root=search_root)
+        data_path = default_data_path()
     if not model_path or not os.path.exists(model_path):
         raise FileNotFoundError(f"Model not found: {model_path!r}")
     if not data_path or not os.path.exists(data_path):
@@ -238,9 +273,9 @@ def parse_args():
     parser.add_argument("--model-path", default="")
     parser.add_argument("--data-path", default="")
     parser.add_argument("--search-root", default="/mnt/minio")
-    parser.add_argument("--max-points", type=int, default=5000)
+    parser.add_argument("--max-points", type=int, default=1000)
     parser.add_argument("--no-show", action="store_true")
-    return parser.parse_args()
+    return parser.parse_known_args()[0]
 
 
 if __name__ == "__main__":

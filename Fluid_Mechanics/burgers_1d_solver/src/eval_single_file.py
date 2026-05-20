@@ -12,8 +12,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-DATA_HASH = "这里填数据资产哈希"
-MODEL_HASH = "这里填模型资产哈希"
+DATA_HASH = "5fa105d8553d4099a799a44c475ddc68"
+MODEL_HASH = "57466d7b915d471aaf3d60503a518558"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_burgers_1d.pt")

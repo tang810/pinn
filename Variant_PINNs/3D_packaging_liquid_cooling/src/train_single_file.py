@@ -30,18 +30,21 @@ import torch.nn as nn
 # 1. Parameters to edit
 # =========================
 
-DATA_HASH = "97efdb436dc14d8da69b83ed38938775"
-MODEL_HASH = "97efdb436dc14d8da69b83ed38938775"
+DATA_HASH = "8b12566940a44ff6be794d77dc9e73b5"
+MODEL_HASH = "8b12566940a44ff6be794d77dc9e73b5"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_3d_liquid_cooling.pt")
+DATA_FILE_NAME = "data_3d_liquid_cooling_small.csv"
 
 K_SOLID = 150.0; K_FLUID = 0.61
 RHO_FLUID = 1000.0; CP_FLUID = 4186.0
 T_IN = 298.0; Q_CHIP = 1.0e6
 
 W_PHY = 1.0; W_INT = 50.0; W_BC = 20.0; W_DATA = 10.0
-TRAIN_EPOCHS = 100; LR = 1e-3; SEED = 42
+TRAIN_EPOCHS = 60; LR = 1e-3; SEED = 42
+HIDDEN_DIM = 32
+MAX_POINTS_PER_LABEL = 80
 
 
 # =========================
@@ -65,12 +68,12 @@ def get_device():
 # =========================
 
 class PINN3D(nn.Module):
-    def __init__(self):
+    def __init__(self, hidden_dim=HIDDEN_DIM):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(3, 64), nn.Tanh(),
-            nn.Linear(64, 64), nn.Tanh(),
-            nn.Linear(64, 1),
+            nn.Linear(3, hidden_dim), nn.Tanh(),
+            nn.Linear(hidden_dim, hidden_dim), nn.Tanh(),
+            nn.Linear(hidden_dim, 1),
         )
     def forward(self, x, y, z):
         return self.net(torch.cat([x, y, z], dim=1))
@@ -89,7 +92,7 @@ def laplace(u, x, y, z):
 # 4. Data generation / loading
 # =========================
 
-def generate_simul_data(path=None, n=300):
+def generate_simul_data(path=None, n=80):
     rng = np.random.default_rng(SEED)
     def sample(n_s, label, y_range):
         x = rng.random(n_s); y = rng.uniform(*y_range, n_s); z = rng.random(n_s)
@@ -112,14 +115,25 @@ def load_data(data_path=None, device=None):
     if data_path and os.path.isfile(data_path):
         df = pd.read_csv(data_path)
     elif data_path and os.path.isdir(data_path):
-        for f in sorted(os.listdir(data_path)):
-            if f.endswith('.csv'):
-                df = pd.read_csv(os.path.join(data_path, f)); break
+        preferred = os.path.join(data_path, DATA_FILE_NAME)
+        if os.path.isfile(preferred):
+            df = pd.read_csv(preferred)
         else:
-            df = generate_simul_data()
+            for f in sorted(os.listdir(data_path)):
+                if f.endswith('.csv'):
+                    df = pd.read_csv(os.path.join(data_path, f)); break
+            else:
+                df = generate_simul_data()
     else:
         print("Generating simulated data...")
         df = generate_simul_data()
+    df = pd.concat(
+        [
+            group.sample(n=min(MAX_POINTS_PER_LABEL, len(group)), random_state=SEED)
+            for _, group in df.groupby("label")
+        ],
+        ignore_index=True,
+    )
     data = {}
     for lbl in sorted(df["label"].unique()):
         sub = df[df["label"] == lbl]
@@ -196,7 +210,8 @@ def train(data_path=DATA_PATH, model_path=MODEL_PATH, epochs=TRAIN_EPOCHS, lr=LR
     print(f"device={device}")
 
     data = load_data(data_path, device=device)
-    model_s = PINN3D().to(device); model_f = PINN3D().to(device)
+    model_s = PINN3D(hidden_dim=HIDDEN_DIM).to(device)
+    model_f = PINN3D(hidden_dim=HIDDEN_DIM).to(device)
     optim = torch.optim.Adam(list(model_s.parameters()) + list(model_f.parameters()), lr=lr)
     history = []
 
@@ -207,11 +222,15 @@ def train(data_path=DATA_PATH, model_path=MODEL_PATH, epochs=TRAIN_EPOCHS, lr=LR
         xi, yi, zi, _ = data[2]; xin, yin, zin, _ = data[3]
         xh, yh, zh, _ = data[4]
 
-        loss_phy = torch.mean(physics_solid(model_s, xs, ys, zs)**2) \
-                 + torch.mean(physics_fluid(model_f, xf, yf, zf)**2)
+        loss_phy = (
+            torch.mean(physics_solid(model_s, xs, ys, zs) ** 2)
+            + torch.mean(physics_fluid(model_f, xf, yf, zf) ** 2)
+        )
         loss_int = interface_loss(model_s, model_f, xi, yi, zi)
-        loss_bc = boundary_loss(model_f, xin, yin, zin, "inlet") \
-                + boundary_loss(model_s, xh, yh, zh, "heat")
+        loss_bc = (
+            boundary_loss(model_f, xin, yin, zin, "inlet")
+            + boundary_loss(model_s, xh, yh, zh, "heat")
+        )
         loss_data = nn.MSELoss()(model_s(xs, ys, zs), ts)
         loss = W_PHY * loss_phy + W_INT * loss_int + W_BC * loss_bc + W_DATA * loss_data
 
@@ -222,7 +241,13 @@ def train(data_path=DATA_PATH, model_path=MODEL_PATH, epochs=TRAIN_EPOCHS, lr=LR
 
     model_path = os.path.expanduser(model_path)
     os.makedirs(os.path.dirname(model_path), exist_ok=True)
-    torch.save({"solid": model_s.state_dict(), "fluid": model_f.state_dict(), "history": history}, model_path)
+    torch.save({
+        "solid": model_s.state_dict(),
+        "fluid": model_f.state_dict(),
+        "history": history,
+        "hidden_dim": HIDDEN_DIM,
+        "epochs": epochs,
+    }, model_path)
 
     print("Training finished"); print(f"model saved to: {model_path}")
     print(f"elapsed: {time.time() - t0:.1f}s")

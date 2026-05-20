@@ -25,8 +25,8 @@ def get_device():
     except (ImportError, AttributeError):
         pass
     return torch.device("cpu")
-DATA_HASH = "这里填数据资产哈希"
-MODEL_HASH = "这里填模型保存哈希"
+DATA_HASH = "4ad27dfefd9b4a7793bc59741cc42f33"
+MODEL_HASH = "4ad27dfefd9b4a7793bc59741cc42f33"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_pinnrever.pt")

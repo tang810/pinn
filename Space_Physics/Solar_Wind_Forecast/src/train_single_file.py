@@ -28,8 +28,8 @@ from torch.utils.data import Dataset, DataLoader
 # 1. Parameters to edit
 # =========================
 
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "4feacb93a22c4be0b69ef6055523fd50"
+MODEL_HASH = "4feacb93a22c4be0b69ef6055523fd50"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_solar_wind.pt")
@@ -125,6 +125,10 @@ def inverse_z_torch(x_norm, mu_t, sig_t):
 
 
 def physics_penalty(yhat_norm, alpha, mu_t, sig_t):
+    if not torch.is_tensor(yhat_norm):
+        yhat_norm=torch.as_tensor(yhat_norm,dtype=mu_t.dtype,device=mu_t.device)
+    else:
+        yhat_norm=yhat_norm.to(device=mu_t.device,dtype=mu_t.dtype)
     yhat_raw=inverse_z_torch(yhat_norm,mu_t,sig_t)
     E=yhat_raw[:,0].abs(); V=yhat_raw[:,1:4]; B=yhat_raw[:,4:7]
     cross=torch.cross(V,B,dim=1)
@@ -228,7 +232,8 @@ def train(data_path=DATA_PATH, model_path=MODEL_PATH,
                 ys.append(y.numpy()); yhats.append(yh.cpu().numpy())
             yv=np.concatenate(ys,0); yhv=np.concatenate(yhats,0)
             r2v=float(np.mean(compute_r2(yv,yhv)))
-            phy_v=float(physics_penalty(torch.tensor(yhv),alpha,mu_t,sig_t).cpu())
+            yhv_t=torch.as_tensor(yhv,dtype=torch.float32,device=device)
+            phy_v=float(physics_penalty(yhv_t,alpha,mu_t,sig_t).detach().cpu())
         history["val_phys"].append(phy_v)
         if r2v>best_val: best_val=r2v; best_state={k:v.detach().cpu().clone() for k,v in model.state_dict().items()}
         if ep==1 or ep%verbose_every==0 or ep==epochs:

@@ -1,100 +1,188 @@
 """
-Notebook-friendly eval file for Multiphysics_3 (PINNsformer inverse).
+Notebook-friendly eval file for Multiphysics_3.
 
-Online Jupyter usage:
-1. Upload trained_model_multiphysics3.pt as a public asset.
-2. Upload data_7246.txt as a public asset.
-3. Fill MODEL_HASH and DATA_HASH, then run this whole file/cell.
-
-This file loads the PINNsformer model, evaluates temperature + displacement
-prediction, and shows figures with plt.show(). It does not save images.
-
-Note: imports from src/ for complex model architecture and physics.
+Uses shared data_7246.txt format and loads trained_model_multiphysics3.pt.
+Self-contained: no imports from local src/ modules.
 """
 
 import os
 
-import torch
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
+import torch
+import torch.nn as nn
 
-from src.model import PINNsformer
-from src import config
 
-
-# =========================
-# 1. Parameters to edit
-# =========================
-
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "1ffd9719549b48b89c21e364a9742b29"
+MODEL_HASH = "fdc70f68a4e14945877c3ae718672834"
+DATA_FILE_NAME = "data_7246.txt"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_multiphysics3.pt")
 
 
-# =========================
-# 2. Model loading
-# =========================
-
-def load_model_package(model_path, device):
-    model_path = os.path.expanduser(model_path)
-    if not os.path.isfile(model_path):
-        raise FileNotFoundError(f"Model not found: {model_path}")
-    ckpt = torch.load(model_path, map_location=device, weights_only=False)
-    state = ckpt.get("state_dict") or ckpt.get("model_state_dict")
-    if state is None: raise KeyError("Checkpoint must contain state_dict or model_state_dict.")
-    model = PINNsformer(d_model=config.d_model, d_hidden=config.d_hidden,
-                        N=config.n_layers, heads=config.n_heads, T0=config.t_0).to(device)
-    model.load_state_dict(state); model.eval()
-    return model
+def get_device():
+    """Detect device in priority: GPU (cuda) -> NPU (npu/ascend) -> CPU"""
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    try:
+        import torch_npu
+        if torch_npu.npu.is_available():
+            return torch.device("npu")
+    except (ImportError, AttributeError):
+        pass
+    return torch.device("cpu")
 
 
-# =========================
-# 3. Evaluation
-# =========================
+def load_torch(path, device):
+    try:
+        return torch.load(path, map_location=device, weights_only=False)
+    except TypeError:
+        return torch.load(path, map_location=device)
+
+
+def resolve_data_path(data_path):
+    candidates = []
+    candidates.append(os.path.join(os.getcwd(), "Thermodynamics", "Multiphysics", "data", DATA_FILE_NAME))
+    if data_path:
+        expanded = os.path.expanduser(data_path)
+        candidates += [expanded, os.path.join(expanded, DATA_FILE_NAME)]
+    if DATA_HASH:
+        candidates += [
+            os.path.expanduser(f"~/public/Resource/{DATA_HASH}"),
+            os.path.expanduser(f"~/public/Resource/{DATA_HASH}/{DATA_FILE_NAME}"),
+            os.path.expanduser(f"~/Resource/{DATA_HASH}"),
+            os.path.expanduser(f"~/Resource/{DATA_HASH}/{DATA_FILE_NAME}"),
+            f"/Resource/{DATA_HASH}",
+            f"/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+            f"/mnt/minio/userdk8e2v7l/Resource/{DATA_HASH}",
+            f"/mnt/minio/userdk8e2v7l/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+            f"/mnt/minio/userdk8e2v7l/public/Resource/{DATA_HASH}",
+            f"/mnt/minio/userdk8e2v7l/public/Resource/{DATA_HASH}/{DATA_FILE_NAME}",
+        ]
+    candidates += [
+        os.path.join(os.getcwd(), "Thermodynamics", "Multiphysics_3", "data", DATA_FILE_NAME),
+    ]
+    tried = []
+    for path in candidates:
+        if not path or path in tried:
+            continue
+        tried.append(path)
+        if os.path.isfile(path):
+            return path
+        if os.path.isdir(path):
+            preferred = os.path.join(path, DATA_FILE_NAME)
+            if os.path.isfile(preferred):
+                return preferred
+            txt_files = [os.path.join(path, name) for name in os.listdir(path) if name.lower().endswith(".txt")]
+            if txt_files:
+                return txt_files[0]
+    raise FileNotFoundError(f"Cannot find {DATA_FILE_NAME}. Tried: {tried}")
+
+
+def resolve_model_path(model_path):
+    candidates = []
+    if model_path:
+        expanded = os.path.expanduser(model_path)
+        candidates += [expanded, os.path.join(expanded, "trained_model_multiphysics3.pt")]
+    if MODEL_HASH:
+        candidates += [
+            os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_multiphysics3.pt"),
+            os.path.expanduser(f"~/Resource/{MODEL_HASH}/trained_model_multiphysics3.pt"),
+            f"/Resource/{MODEL_HASH}/trained_model_multiphysics3.pt",
+        ]
+    candidates.append(os.path.join(os.getcwd(), "Thermodynamics", "Multiphysics_3", "model", "pinnsformer_inverse.pt"))
+    tried = []
+    for path in candidates:
+        if not path or path in tried:
+            continue
+        tried.append(path)
+        if os.path.isfile(path):
+            return path
+        if os.path.isdir(path):
+            preferred = os.path.join(path, "trained_model_multiphysics3.pt")
+            if os.path.isfile(preferred):
+                return preferred
+            pt_files = [os.path.join(path, name) for name in os.listdir(path) if name.lower().endswith(".pt")]
+            if pt_files:
+                return pt_files[0]
+    raise FileNotFoundError(f"Model not found. Tried: {tried}")
+
+
+class SimpleMultiphysicsNet(nn.Module):
+    def __init__(self, hidden_dim=64):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(4, hidden_dim),
+            nn.Tanh(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.Tanh(),
+            nn.Linear(hidden_dim, 1),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+
+def load_data(data_path):
+    path = resolve_data_path(data_path)
+    arr = np.loadtxt(path, dtype=np.float32)
+    if arr.ndim == 1:
+        arr = arr.reshape(1, -1)
+    if arr.shape[1] < 5:
+        raise ValueError(f"{DATA_FILE_NAME} must have columns x y z t T, got {arr.shape}")
+    print("data:", path)
+    return arr[:, :5]
+
+
+def load_model(model_path, device):
+    model_path = resolve_model_path(model_path)
+    ckpt = load_torch(model_path, device)
+    state = ckpt["state_dict"] if isinstance(ckpt, dict) and "state_dict" in ckpt else ckpt
+    hidden_dim = ckpt.get("hidden_dim", 64) if isinstance(ckpt, dict) else 64
+    model = SimpleMultiphysicsNet(hidden_dim).to(device)
+    model.load_state_dict(state)
+    model.eval()
+    return model, ckpt if isinstance(ckpt, dict) else {}, model_path
+
 
 def evaluate(model_path=MODEL_PATH, data_path=DATA_PATH):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = get_device()
     print(f"device={device}")
+    model, ckpt, model_path = load_model(model_path, device)
+    arr = load_data(data_path)
 
-    data_path = os.path.expanduser(data_path) if data_path else config.data_path
-    model = load_model_package(model_path, device)
-
-    df = pd.read_csv(data_path, delimiter=' ', header=None).to_numpy()
-    n_eval = min(5000, len(df))
-    idx = np.linspace(0, len(df) - 1, n_eval).astype(int)
-    x = torch.tensor(df[idx, 0:1], dtype=torch.float32, device=device)
-    y = torch.tensor(df[idx, 1:2], dtype=torch.float32, device=device)
-    z = torch.tensor(df[idx, 2:3], dtype=torch.float32, device=device)
-    t = torch.tensor(df[idx, 3:4], dtype=torch.float32, device=device)
-    T_true = df[idx, 4]
-
+    x_raw = arr[:, :4]
+    y_true = arr[:, 4:5]
+    x_mean = ckpt.get("x_mean", x_raw.mean(axis=0, keepdims=True))
+    x_std = ckpt.get("x_std", x_raw.std(axis=0, keepdims=True) + 1e-6)
+    y_mean = ckpt.get("y_mean", y_true.mean(axis=0, keepdims=True))
+    y_std = ckpt.get("y_std", y_true.std(axis=0, keepdims=True) + 1e-6)
+    X = torch.tensor((x_raw - x_mean) / x_std, dtype=torch.float32, device=device)
     with torch.no_grad():
-        out = model(x, y, z, t).cpu().numpy()
-    T_pred = out[:, 0]
+        y_pred = model(X).cpu().numpy() * y_std + y_mean
 
-    print("Eval result"); print(f"model_path: {model_path}")
-    print(f"eval points: {n_eval}, T range: [{T_true.min():.1f}, {T_true.max():.1f}]")
+    err = np.abs(y_true - y_pred)
+    mae = float(np.mean(err))
+    rmse = float(np.sqrt(np.mean(err ** 2)))
+    print("Eval result")
+    print("model_path:", model_path)
+    print(f"MAE: {mae:.4f} K, RMSE: {rmse:.4f} K")
 
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
-    sc = axes[0].scatter(T_true, T_pred, c=t.cpu().numpy().reshape(-1), s=3, alpha=0.4, cmap="plasma")
-    axes[0].plot([T_true.min(), T_true.max()], [T_true.min(), T_true.max()], "r--", lw=1)
-    axes[0].set_xlabel("True T (K)"); axes[0].set_ylabel("Pred T (K)"); axes[0].set_title("True vs Pred")
-    axes[0].grid(alpha=0.3); plt.colorbar(sc, ax=axes[0], label="t")
-    err = T_pred - T_true
-    axes[1].hist(err, bins=50); axes[1].set_xlabel("Error (K)"); axes[1].set_title("Error Distribution")
-    axes[2].scatter(T_true, err, s=2, alpha=0.4); axes[2].axhline(0, color='r', ls='--')
-    axes[2].set_xlabel("True T (K)"); axes[2].set_ylabel("Error (K)"); axes[2].set_title("Error vs True T")
-    axes[2].grid(alpha=0.3)
-    plt.suptitle("Multiphysics_3 — PINNsformer Inverse Eval", fontsize=14)
-    plt.tight_layout(); plt.show()
-
-    rl2 = np.linalg.norm(err) / (np.linalg.norm(T_true) + 1e-12)
-    mae = float(np.mean(np.abs(err))); rmse = float(np.sqrt(np.mean(err**2)))
-    print(f"Relative L2: {rl2:.4e}, MAE: {mae:.4f} K, RMSE: {rmse:.4f} K")
-    return {"rl2": rl2, "mae": mae, "rmse": rmse}
+    fig, axes = plt.subplots(1, 3, figsize=(14, 4.5))
+    history = ckpt.get("history", [])
+    if history:
+        axes[0].semilogy(np.maximum(history, 1e-12))
+    axes[0].set_title("Training Loss")
+    axes[0].grid(alpha=0.3)
+    axes[1].scatter(y_true, y_pred, s=8, alpha=0.5)
+    axes[1].plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], "r--", lw=1)
+    axes[1].set_title("True vs Pred")
+    axes[2].hist(err.reshape(-1), bins=40)
+    axes[2].set_title("Error Distribution")
+    plt.tight_layout()
+    plt.show()
+    return {"mae": mae, "rmse": rmse}
 
 
 eval_result = evaluate()

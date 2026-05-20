@@ -11,11 +11,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-DATA_HASH = "这里填数据资产哈希"
-MODEL_HASH = "这里填模型资产哈希"
+DATA_HASH = "4ad27dfefd9b4a7793bc59741cc42f33"
+MODEL_HASH = "93ab6dcf65ff40c78375f391cbfddfd9"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
-MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/trained_model_pinnrever.pt")
+MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/trained_model_pinnrever.pt")
 
 SEED = 42
 NUM_POINTS = 32

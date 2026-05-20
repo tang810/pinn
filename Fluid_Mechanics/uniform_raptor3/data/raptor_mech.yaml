@@ -1,0 +1,18 @@
+# Raptor 3 minimal CH4/O2 reaction mechanism
+# References thermo data from Cantera's built-in gri30.yaml
+# 1-step global reaction: CH4 + 2 O2 => CO2 + 2 H2O
+# Rate from Westbrook & Dryer (1981), calibrated for high-P methalox
+
+phases:
+- name: gas
+  thermo: ideal-gas
+  species:
+  - gri30.yaml:CH4
+  - gri30.yaml:O2
+  - gri30.yaml:CO2
+  - gri30.yaml:H2O
+  kinetics: gas
+  reactions:
+  - equation: CH4 + 2 O2 => CO2 + 2 H2O
+    rate-constant: {A: 2.0e11, b: 0.0, Ea: 2.027e5}
+    default: true

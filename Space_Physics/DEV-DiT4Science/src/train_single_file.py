@@ -43,7 +43,7 @@ DATA_HASH = "811530c549444a5f9c77de677bfe085c"
 MODEL_HASH = "811530c549444a5f9c77de677bfe085c"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
-MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/dev_dit4science_surrogate.pt")
+MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/dev_dit4science_surrogate.pt")
 
 
 # =========================

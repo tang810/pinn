@@ -22,8 +22,8 @@ import matplotlib.pyplot as plt
 # 1. Parameters to edit
 # =========================
 
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "e1c172e722be4d778e0f9c9db3d3b158"
+MODEL_HASH = "1bb6a6f63a934e669d94be789383428a"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/public/Resource/{MODEL_HASH}/train_model_surrogate.npz")

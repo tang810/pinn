@@ -36,8 +36,8 @@ def get_device():
 # 1. Parameters to edit
 # =========================
 
-DATA_HASH = ""
-MODEL_HASH = ""
+DATA_HASH = "e1c172e722be4d778e0f9c9db3d3b158"
+MODEL_HASH = "e1c172e722be4d778e0f9c9db3d3b158"
 
 DATA_PATH = os.path.expanduser(f"~/public/Resource/{DATA_HASH}")
 MODEL_PATH = os.path.expanduser(f"~/minio/Resource/{MODEL_HASH}/train_model_surrogate.npz")
