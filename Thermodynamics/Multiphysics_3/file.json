@@ -1,0 +1,142 @@
+{
+  "name": "PINNsformer：三维瞬态热弹耦合未知参数反演（热导率/热源）",
+  "path": "PINN4Science/Thermodynamics/Multiphysics_3",
+  "description": "PINNsformer：三维瞬态热弹耦合未知参数反演（热导率/热源）",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_3/data",
+      "description": "数据模块：用于存放原始数据与训练数据集。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data_7246.txt",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/data/data_7246.txt",
+          "description": "原始数据文件：用于模型训练与数据分析。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_3/model",
+      "description": "模型模块：用于存放训练好的模型参数。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "pinnsformer_inverse.pt",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/model/pinnsformer_inverse.pt",
+          "description": "训练好的 PINN 模型参数文件。",
+          "is_code_file": false
+        }
+       
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_3/src",
+      "description": "源码模块：用于存放训练、评估与推理相关代码文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/src/config.py",
+          "description": "项目配置文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_loader.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/src/data_loader.py",
+          "description": "数据加载与预处理模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "evaluate.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/src/evaluate.py",
+          "description": "模型评估模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/src/model.py",
+          "description": "PINN 模型结构定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "physics.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/src/physics.py",
+          "description": "物理约束与方程定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/src/train.py",
+          "description": "模型训练流程模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "utils.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/src/utils.py",
+          "description": "工具函数与通用辅助模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_3/results",
+      "description": "结果模块：用于存放训练与分析的可视化结果。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "animation.gif",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/results/animation.gif",
+          "description": "训练或预测过程动画结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "error_analysis.txt",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/results/error_analysis.txt",
+          "description": "误差分析结果文档。",
+          "is_code_file": false
+        },
+        {
+          "name": "error_distribution.png",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/results/error_distribution.png",
+          "description": "误差分布可视化图。",
+          "is_code_file": false
+        },
+        {
+          "name": "loss_curve_final.png",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/results/loss_curve_final.png",
+          "description": "最终损失曲线可视化。",
+          "is_code_file": false
+        },
+        {
+          "name": "prediction_vs_truth.png",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_3/results/prediction_vs_truth.png",
+          "description": "预测结果与真实值对比图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_3/main.py",
+      "description": "主程序入口。",
+      "is_code_file": true
+    },
+    {
+      "name": "readme.md",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_3/readme.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    }
+  ]
+}

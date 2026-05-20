@@ -1,0 +1,16 @@
+parameter,value,description
+x_min,0.0,spatial domain min (normalized)
+x_max,1.0,spatial domain max (normalized)
+y_min,0.0,spatial domain min (normalized)
+y_max,1.0,spatial domain max (normalized)
+k_s,401.0,solid thermal conductivity
+rho_s,8960.0,solid density
+cp_s,385.0,solid specific heat
+k_f,0.613,fluid thermal conductivity
+rho_f,1000.0,fluid density
+cp_f,4186.0,fluid specific heat
+T_in,298.0,inlet temperature
+q_heat,100000.0,heat source flux
+h_env,10.0,environment heat transfer coefficient
+T_env,298.0,environment temperature
+n_train_points,500,collocation points per domain

@@ -1,0 +1,135 @@
+﻿{
+  "name": "PINNsformer：三维瞬态单一温度场无网格建模求解",
+  "path": "PINN4Science/Thermodynamics/Multiphysics_1",
+  "description": "PINNsformer：三维瞬态单一温度场无网格建模求解 PINN 项目：在该项目中，作为根目录，用于组织该案例的全部数据、模型、源码与可视化结果。",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_1/data",
+      "description": "热力学数据模块：在该项目中，作为数据准备环节，用于存放原始数据与训练数据集。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data_7246.txt",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/data/data_7246.txt",
+          "description": "热力学任务原始数据文件，用于模型训练与验证。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_1/model",
+      "description": "模型参数模块：在该项目中，作为模型存储环节，用于存放训练后的模型参数。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "pinnsformer_withsun.pt",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/model/pinnsformer_withsun.pt",
+          "description": "PINN 模型权重参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_1/src",
+      "description": "源码模块：在该项目中，作为源码存储环节，用于存放训练、评估与物理约束相关代码。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/src/config.py",
+          "description": "项目配置文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_loader.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/src/data_loader.py",
+          "description": "数据加载与预处理模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "evaluate.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/src/evaluate.py",
+          "description": "模型评估模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/src/model.py",
+          "description": "PINN 神经网络结构定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "physics.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/src/physics.py",
+          "description": "物理约束与方程模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/src/train.py",
+          "description": "模型训练流程模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "utils.py",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/src/utils.py",
+          "description": "通用工具函数模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_1/results",
+      "description": "可视化结果模块：在该项目中，作为结果输出环节，用于存放预测结果与误差分析图。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "animation.gif",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/results/animation.gif",
+          "description": "预测过程动画可视化结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "animation_error.gif",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/results/animation_error.gif",
+          "description": "误差演化动画可视化结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "error_histogram.png",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/results/error_histogram.png",
+          "description": "误差分布直方图。",
+          "is_code_file": false
+        },
+        {
+          "name": "prediction_vs_true.png",
+          "path": "PINN4Science/Thermodynamics/Multiphysics_1/results/prediction_vs_true.png",
+          "description": "预测值与真实值对比图。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_1/main.py",
+      "description": "项目主程序入口。",
+      "is_code_file": true
+    },
+    {
+      "name": "readme.md",
+      "path": "PINN4Science/Thermodynamics/Multiphysics_1/readme.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "name": "3D 封装液冷散热 PINN",
+  "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling",
+  "description": "3D 封装液冷散热 PINN：用于三维芯片封装液冷场景中的固体导热、流体对流扩散与固液界面热耦合建模及可视化。",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/data",
+      "description": "数据目录：用于存放三维液冷散热模拟点云数据文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data_3d_liquid_cooling_simul.csv",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/data/data_3d_liquid_cooling_simul.csv",
+          "description": "三维封装液冷散热模拟点云数据文件，包含坐标、温度与区域标签。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/model",
+      "description": "模型目录：存放训练得到或 quick 模式加载的 PINN 模型权重文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "packaging_liquid_cooling_simul.pt",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/model/packaging_liquid_cooling_simul.pt",
+          "description": "三维封装液冷散热 PINN 模型参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/src",
+      "description": "源码目录：存放配置、数据生成与加载、PINN 模型、训练流程、绘图与运行调度模块。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/src/__init__.py",
+          "description": "源码包初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/src/config.py",
+          "description": "路径、物理参数、训练参数与输出文件配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_utils.py",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/src/data_utils.py",
+          "description": "三维液冷模拟数据生成与张量化加载模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/src/model.py",
+          "description": "PINN 网络结构、自动微分、固体/流体物理残差与边界损失定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "plotting.py",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/src/plotting.py",
+          "description": "三维温度场可视化与训练损失曲线输出模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/src/runner.py",
+          "description": "quick/train 模式运行调度模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "trainer.py",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/src/trainer.py",
+          "description": "模型训练、模型保存与模型加载模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/results",
+      "description": "结果目录：存放 quick 结果图、训练损失图与历史可视化结果。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "quick_result.png",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/results/quick_result.png",
+          "description": "quick 模式输出的三维液冷温度场散点图。",
+          "is_code_file": false
+        },
+        {
+          "name": "Solid_thermal_field.gif",
+          "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/results/Solid_thermal_field.gif",
+          "description": "历史输出的固体温度场动画结果。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/main.py",
+      "description": "主入口脚本，支持 train/quick 两种模式与 simul 数据参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Variant_PINNs/3D_packaging_liquid_cooling/file.json",
+      "description": "项目结构描述文件。",
+      "is_code_file": false
+    }
+  ],
+  "is_code_file": false
+}

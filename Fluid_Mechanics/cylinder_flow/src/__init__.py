@@ -1,2 +1,0 @@
-"""Cylinder flow PINN package."""
-

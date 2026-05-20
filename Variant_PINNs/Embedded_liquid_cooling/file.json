@@ -1,0 +1,136 @@
+{
+  "name": "嵌入式液冷芯片流固热耦合求解",
+  "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling",
+  "description": "嵌入式液冷芯片流固热耦合求解：用于嵌入式微流道芯片场景中的固体导热、流体对流扩散与固液界面热耦合建模及可视化。",
+  "submodules": [
+    {
+      "name": "data",
+      "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/data",
+      "description": "数据目录：用于存放嵌入式液冷模拟参数与域配置数据文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "data_embedded_liquid_cooling_simul.csv",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/data/data_embedded_liquid_cooling_simul.csv",
+          "description": "嵌入式液冷模拟参数配置文件，包含物理常数、空间域范围和训练超参数。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "model",
+      "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/model",
+      "description": "模型目录：存放训练得到或 quick 模式加载的 PINN 模型权重文件。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "embedded_liquid_cooling_simul.pt",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/model/embedded_liquid_cooling_simul.pt",
+          "description": "嵌入式液冷芯片流固热耦合 PINN 模型参数文件。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "src",
+      "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/src",
+      "description": "源码目录：存放配置、数据采样、PINN 模型、训练流程、绘图与运行调度模块。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "__init__.py",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/src/__init__.py",
+          "description": "源码包初始化文件。",
+          "is_code_file": true
+        },
+        {
+          "name": "config.py",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/src/config.py",
+          "description": "路径、物理参数、训练参数与输出文件配置模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "data_utils.py",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/src/data_utils.py",
+          "description": "域内随机配点采样与数据加载模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "model.py",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/src/model.py",
+          "description": "PINN 网络结构、自动微分、固体/流体物理残差与边界/界面损失定义模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "plotting.py",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/src/plotting.py",
+          "description": "固-流热场可视化与结果图像输出模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "runner.py",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/src/runner.py",
+          "description": "quick/train 模式运行调度模块。",
+          "is_code_file": true
+        },
+        {
+          "name": "trainer.py",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/src/trainer.py",
+          "description": "模型训练、模型保存与模型加载模块。",
+          "is_code_file": true
+        }
+      ],
+      "is_code_file": false
+    },
+    {
+      "name": "results",
+      "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/results",
+      "description": "结果目录：存放 quick 结果图与固-流热场动态演化结果。",
+      "submodules": [],
+      "files": [
+        {
+          "name": "quick_result.png",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/results/quick_result.png",
+          "description": "quick 模式输出的固-流双域热场对比图。",
+          "is_code_file": false
+        },
+        {
+          "name": "Fluid_thermal_field.gif",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/results/Fluid_thermal_field.gif",
+          "description": "历史输出的流体域温度场动画结果。",
+          "is_code_file": false
+        },
+        {
+          "name": "Solid_thermal_field.gif",
+          "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/results/Solid_thermal_field.gif",
+          "description": "历史输出的固体域温度场动画结果。",
+          "is_code_file": false
+        }
+      ],
+      "is_code_file": false
+    }
+  ],
+  "files": [
+    {
+      "name": "main.py",
+      "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/main.py",
+      "description": "主入口脚本，支持 train/quick 两种模式与 simul 数据参数。",
+      "is_code_file": true
+    },
+    {
+      "name": "README.md",
+      "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/README.md",
+      "description": "项目说明文档。",
+      "is_code_file": false
+    },
+    {
+      "name": "file.json",
+      "path": "PINN4Science/Variant_PINNs/Embedded_liquid_cooling/file.json",
+      "description": "项目结构描述文件。",
+      "is_code_file": false
+    }
+  ],
+  "is_code_file": false
+}

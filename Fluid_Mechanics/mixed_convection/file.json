@@ -1,7 +1,7 @@
 ﻿{
-  "name": "人工粘性项对混合对流传热问题的准确性影响",
+  "name": "人工粘性项增强的混合对流传热求解",
   "path": "PINN4Science/Fluid_Mechanics/mixed_convection",
-  "description": "人工粘性项对混合对流传热问题的准确性影响：标准化入口支持 quick/train 两种模式，兼容历史 MCFNets 实现。",
+  "description": "人工粘性项增强的混合对流传热求解 quick/train 两种模式，兼容历史 MCFNets 实现。",
   "submodules": [
     {
       "name": "data",
@@ -14,6 +14,12 @@
           "path": "PINN4Science/Fluid_Mechanics/mixed_convection/data/simul_placeholder.txt",
           "description": "模拟数据占位文件。",
           "is_code_file": false
+        },
+        {
+          "name": "cavity_Re2000Pr0.71Ri0.1_256.mat",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/data/cavity_Re2000Pr0.71Ri0.1_256.mat",
+          "description": "验证数据文件。",
+          "is_code_file": false
         }
       ],
       "is_code_file": false
@@ -23,7 +29,14 @@
       "path": "PINN4Science/Fluid_Mechanics/mixed_convection/model",
       "description": "模型目录，存放标准化训练产生的模型权重。",
       "submodules": [],
-      "files": [],
+      "files": [
+        {
+          "name": "model_cavity_loop290000.pth",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/model/model_cavity_loop290000.pth",
+          "description": "模型预训练参数文件。",
+          "is_code_file": false
+        }
+      ],
       "is_code_file": false
     },
     {
@@ -85,7 +98,9 @@
               "is_code_file": false
             }
           ],
-          "files": [],
+          "files": [
+            
+          ],
           "is_code_file": false
         }
       ],
@@ -113,6 +128,38 @@
           "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/runner.py",
           "description": "train/quick 运行流程模块。",
           "is_code_file": true
+        },
+        {
+          "name": "cavity_data.py",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/cavity_data.py",
+          "description": "训练数据与验证数据提供程序。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        },
+        {
+          "name": "pinn_solver.py",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/pinn_solver.py",
+          "description": "损失类型与模型架构程序。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        },
+        {
+          "name": "tools.py",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/tools.py",
+          "description": "拉丁超立方体采样程序。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
+        },
+        {
+          "name": "train.py",
+          "path": "PINN4Science/Fluid_Mechanics/mixed_convection/src/train.py",
+          "description": "模型训练主程序。",
+          "submodules": [],
+          "files": [],
+          "is_code_file": false
         }
       ],
       "is_code_file": false
